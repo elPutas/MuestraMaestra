@@ -1,0 +1,796 @@
+<!-- Generated template for the ReceptorMoment2Component component -->
+<div #container class="emisorMoment1">
+  <ion-list>
+    <ion-item>
+      <ion-label>
+       Esta información servirá para construir estadísticas del turismo en el Cauca y realizar la comparación con otras regiones nacionales e internacionales,
+       además será base para el diseño de planes de desarrollo del Sector. 
+     </ion-label>
+   </ion-item>
+
+   <ion-item>
+     <ion-label>
+       El Ministerio de Comercio, Industria y Turismo y el Sistema de Información Turística del Cauca, agradece su aporte al conocimiento de los viajeros que
+       llegan al departamento.
+     </ion-label>
+   </ion-item>
+   <ion-item>
+    <ion-label class="titulo" stacked>PARTE A: CARACTERISTICAS DEL VISITANTE</ion-label>
+  </ion-item> 
+
+  <ion-item>
+    <ion-label class="titulo" stacked>Fecha de llegada a {{mainNameApp}}:</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="momento2.arrivaldate" name="A1"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="titulo" stacked>Fecha de salida de {{mainNameApp}}:</ion-label>
+    <ion-datetime  displayFormat="DD/MM/YYYY" [(ngModel)]="momento2.departuredate" name="A2"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="titulo" stacked>CG</ion-label>
+    <ion-input type="text" name="CG" [(ngModel)]="momento2.cg" class="requiredInput"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="titulo" stacked>CE</ion-label>
+    <ion-input type="text" name="CE" [(ngModel)]="momento2.ce" class="requiredInput"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="titulo" stacked>IDE</ion-label>
+    <ion-input type="text" name="CE" [(ngModel)]="momento2.ide" class="requiredInput"></ion-input>
+  </ion-item>
+
+ 
+ <ion-item> 
+    <ion-label class="titulo" stacked>Pais</ion-label>
+    <select-searchable title="Pais" [(ngModel)]="momento2.country_id" [items]="data.countries" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="onChangeCountry($event)"></select-searchable>
+    <ion-select placeholder="Seleccionar" name="A3_2" [(ngModel)]="momento2.country_id" (ionChange)="onChangeCountry($event)" class="requiredSelect">
+      <ion-label>Seleccionar</ion-label>
+      <ion-option *ngFor="let country of data.countries" value="{{country.id}}">{{country.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+ 
+  <ion-item> 
+    <ion-label class="titulo" stacked>Departamento</ion-label>
+    <select-searchable title="Departamento" [(ngModel)]="momento2.realdepartament_id" [items]="depts" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="onChangeDept($event)"></select-searchable>
+    <ion-select placeholder="Seleccionar" name="A3_1" [(ngModel)]="momento2.realdepartament_id" (ionChange)="onChangeDept($event)" class="requiredSelect">
+      <ion-label>Seleccionar</ion-label>
+      <ion-option *ngFor="let dept of depts" value="{{dept.id}}">{{dept.name}}</ion-option>
+    </ion-select>
+  </ion-item>        
+
+  <ion-item> 
+    <ion-label class="titulo" stacked>Ciudad</ion-label>
+    <select-searchable title="Ciudad/Municipio de residencia" [(ngModel)]="momento2.city_id" [items]="cities" itemValueField="id" itemTextField="name" [canSearch]="true" (onChange)="getNameCity($event)"></select-searchable>
+    <ion-select placeholder="Seleccionar" name="A3" [(ngModel)]="momento2.city_id"   class="requiredSelect">                         
+     <ion-option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>¿ En donde nació ? </ion-label>
+      <ion-select [(ngModel)]="momento2.donde-nacio" name="A5">
+        <ion-label> Seleccione </ion-label>
+        <ion-option value="si">En el extrajero</ion-option>
+        <ion-option value="no">En el Cauca</ion-option>
+        <ion-option value="no">En otr departamento de Colombia</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Género </ion-label>
+      <ion-select [(ngModel)]="momento2.genero" name="A5">
+        <ion-label> Seleccione </ion-label>
+        <ion-option value="9412">Femenino</ion-option>
+        <ion-option value="9413">Masculino</ion-option>
+      </ion-select>
+    </ion-item>   
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Edad</ion-label>
+      <ion-input  type="number" placeholder="AÑOS" name="A7" min="15" [(ngModel)]="momento2.edad" class="requiredInput"></ion-input>
+    </ion-item>
+
+     <ion-item>
+      <ion-label class="titulo" stacked> ¿Cuál fue el motivo principal para venir a  {{mainNameApp}}? (Marque un solo motivo)</ion-label>
+      <ion-select [(ngModel)]="momento2.motivo" (ionChange)="show_otro_motivo($event)" name="A4" placeholder="MOTIVOS" class="requiredSelect">
+        <ion-label> Seleccione </ion-label>
+        <ion-option value="82">Vacaciones, recreo y ocio</ion-option>
+        <ion-option value="83">Visitar a familiares y/o amigos</ion-option>
+        <ion-option value="84">En tránsito a otro destino</ion-option>
+        <ion-option value="85">Educación/Formación</ion-option>
+        <ion-option value="86">Salud y atención médica (incluye la cirugía estética)</ion-option>
+        <ion-option value="87">Asistir a eventos religiosos/peregrinaciones</ion-option>
+        <ion-option value="88">Compras para uso personal o para regalo</ion-option>
+        <ion-option value="89">Realizar inversión y/o asistir a reunión de negocios</ion-option>
+        <ion-option value="90">Asistir a conferencia, congreso, feria comercial o exposición</ion-option>
+        <ion-option value="91"> Dictar conferencia, ponente en congreso, feria comercial o exposición</ion-option>
+        <ion-option value="92">Artista de espectáculo (concierto, obra de teatro, danza, etc.)</ion-option>
+        <ion-option value="93">Competir en actividad deportiva</ion-option>
+        <ion-option value="94">Investigación académica o científica</ion-option>
+        <ion-option value="95">Comprar bienes o servicios para empresa que no es de {{mainNameApp}} o como independiente</ion-option>
+        <ion-option value="96">Vender bienes o prestar servicios como representante de empresa que no es de {{mainNameApp}} o como independiente</ion-option>
+        <ion-option value="97">Trabajar en una empresa ubicada en {{mainNameApp}}</ion-option>
+        <ion-option value="793">Realizar funciones propias de personal de embajada, consulado y militares en el departamento.</ion-option>
+        <ion-option value="40">Otros</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item  *ngIf="otro_motivo">
+      <ion-label class="titulo" stacked>Otro Motivo</ion-label>
+      <ion-input type="text" placeholder="" name="A8" required="true" [(ngModel)]="momento2.otro_motivo" class="requiredInput"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Nombre completo:</ion-label>
+      <ion-input type="text" placeholder="" name="A8" required="true" [(ngModel)]="momento2.name" class="requiredInput"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Correo electrónico</ion-label>
+      <ion-input class="requiredInput requiredEmail" type="email" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})" placeholder="" name="A9" required="true" [(ngModel)]="momento2.email"></ion-input>      
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Celular</ion-label>
+      <ion-input type="number" placeholder="" name="A10" [(ngModel)]="momento2.celular" class="requiredInput"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Telefono fijo</ion-label>
+      <ion-input type="number" placeholder="" name="A11" [(ngModel)]="momento2.fijo" class="requiredInput"></ion-input>
+    </ion-item> 
+    <!-- FINALIZA MOMENTO2  PARTE A--> 
+
+    <!-- INICIO MOMENTO PARTE B  --> 
+
+    <ion-item>
+      <ion-label class="titulo" stacked>PARTE B: DURACIÓN DE LA ESTANCIA Y LUGARES VISITADOS</ion-label>
+    </ion-item> 
+    <ion-item>
+      <ion-label class="titulo" stacked>¿ Cuantas noches pasó en cauca ?</ion-label>
+      <ion-input type="number" placeholder="" name="A11" [(ngModel)]="momento2.how_many_nights" class="requiredInput"></ion-input>
+    </ion-item> 
+    <ion-item>
+      <ion-label class="titulo" stacked>¿ Cuántos municipios visitó desde el momento que llegó a Cauca hasta su partida ?</ion-label>
+      <ion-input type="number" placeholder="" name="A11" [(ngModel)]="momento2.how_many_cities" class="requiredInput" (ionChange)="municipiosvisitados_event($event)"></ion-input>
+    </ion-item> 
+
+
+    <div *ngFor="let m of municipiosvisitados; let i = index">
+      <ion-list>
+    <ion-item>
+      <ion-label class="titulo municipio-generados" stacked>Municipio {{i +1}}</ion-label>
+    </ion-item> 
+
+
+    <ion-item> 
+      <ion-label class="titulo" stacked>Municipio</ion-label>
+      <select-searchable title="Ciudad/Municipio de residencia" [(ngModel)]="momento2.city_id" [items]="cities" itemValueField="id" itemTextField="name" [canSearch]="true" ></select-searchable>
+      <ion-select placeholder="Seleccionar" name="A3" [(ngModel)]="momento2.city_id"  class="requiredSelect municipio_visitados">                            <ion-option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>¿Cuántas noches pasó? [si es 0 noches ingresar]</ion-label>
+      <ion-input type="number" placeholder="" name="A11" [(ngModel)]="momento2.noches_paso" class="requiredInput"></ion-input>
+    </ion-item> 
+
+     <ion-item>
+      <ion-label class="titulo" stacked>Tipo de alojamiento utilizado</ion-label>
+      <ion-select [(ngModel)]="momento2.accomodation_id"  name="A4" placeholder="SELECCIONE" class="requiredSelect">
+       <ion-option value="115">Casa de familiares o amigos</ion-option>
+       <ion-option value="117">Hotel</ion-option>
+       <ion-option value="118">Posada</ion-option>
+       <ion-option value="119">Posada turística</ion-option>
+       <ion-option value="120">Hostal/Albergue/Refugio</ion-option>
+       <ion-option value="121">Finca agroturística/Alojamiento rural</ion-option>
+       <ion-option value="122">Centro vacacional/Resort</ion-option>
+       <ion-option value="124">Casa/cabaña de vacaciones propia</ion-option>
+       <ion-option value="125">Casa/cabaña de vacaciones arrendada</ion-option>
+       <ion-option value="127">Apartahotel</ion-option>
+       <ion-option value="128">Apartamento arrendado </ion-option>
+       <ion-option value="129">Casa/apartamento propio</ion-option>
+       <ion-option value="130">Habitación rentada en vivienda familiar</ion-option>
+       <ion-option value="131">Habitación sin pagar en vivienda de familia que no es allegada mía </ion-option>
+       <ion-option value="146">Camping </ion-option>
+       <ion-option value="9424">Ningún tipo de alojamiento </ion-option>
+       <ion-option value="40">Otro</ion-option>
+      </ion-select>
+    </ion-item>
+
+      </ion-list>
+    </div>
+
+     <ion-item>
+      <ion-label class="titulo" stacked>¿De los municipios visitados, ¿Cuál fue el destino principal del viaje al Cauca?</ion-label>
+      <ion-select [(ngModel)]="momento2.principal_city" (ionChange)="showA4($event)" name="A4" placeholder="SELECCIONE" class="requiredSelect">
+
+        <ion-option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</ion-option> 
+
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>¿Qué actividades realizó en Cauca?</ion-label>
+      <ion-select [(ngModel)]="momento2.activitiesbolivar-id" (ionChange)="showA4($event)" name="A4" placeholder="SELECCIONE" class="requiredSelect">
+         <ion-option value="134">Asistencia a espectáculos artísticos que no hacen parte de festivales.</ion-option>
+       <ion-option value="135">Asistencia a festivales artísticos (Música, cine, danzas)</ion-option>
+       <ion-option value="136">Asistencia a fiestas y ferias de los pueblos o municipios</ion-option>
+       <ion-option value="137">Visita a museos, casas de la cultura, iglesias, santuarios, monumentos</ion-option>
+       <ion-option value="148">Visita a parques temáticos/parque de atracciones</ion-option>
+       <ion-option value="149">Visita a parques naturales/arqueologicos, Cascadas, ríos, lagos, pozos, balnearios y termales.</ion-option><ion-option value="151">Recorrer las calles y parques del casco urbano</ion-option>
+       <ion-option value="152">Visita a haciendas o fábricas donde enseñan el proceso del café, la panela, los dulces etc</ion-option>
+       <ion-option value="154">Visita a casinos y otros sitios de juegos de azar</ion-option>
+       <ion-option value="155">Práctica de deportes</ion-option>
+       <ion-option value="156">Asistencia a competencias o muestras deportivas.</ion-option>
+       <ion-option value="158">Visita a discotecas, bares, karaoke y pistas de baile</ion-option>
+       <ion-option value="9283">Visita a centros comerciales</ion-option>
+       <ion-option value="9284">Compras en almacenes no ubicados en centros comerciales</ion-option>
+       <ion-option value="9285">Actividades religiosas (Procesión, misa, asistencia a representaciones de Semana Santa)</ion-option>
+       <ion-option value="9286">Realizar inversiones/Reuniones de negocios</ion-option>
+       <ion-option value="9287">Asistir a conferencias/Congresos/ferias comerciales</ion-option>
+       <ion-option value="9423">Ninguna</ion-option><ion-option value="40">Otro</ion-option>
+     </ion-select>
+   </ion-item> 
+
+    <!-- FINALIZA MOMENTO2  PARTE B--> 
+
+    <!-- INICIO MOMENTO PARTE C -->
+    <ion-item>
+      <ion-label class="titulo" stacked>Transporte utitilizado</ion-label>
+    </ion-item> 
+
+    <ion-item>
+      <ion-label class="titulo" stacked> ¿Qué tipo de transporte utilizó para llegar a Cauca (Seleccione únicamente en el que recorrió la mayor distancia)?</ion-label>
+      <ion-select [(ngModel)]="momento2.typetransportationused_id" (ionChange)="showA4($event)" name="A4" placeholder="SELECCIONE" class="requiredSelect">
+        <ion-option value="476">Vehículo propio</ion-option>
+        <ion-option value="477">Vehículo de amigos o familiares</ion-option>
+        <ion-option value="478">Transporte terrestre de excursiones y/o planes turísticos</ion-option>
+        <ion-option value="479">Transporte aéreo</ion-option>
+        <ion-option value="480">Alquiler de vehículo</ion-option>
+        <ion-option value="9304">Transporte terrestre de pasajeros (bus, buseta, taxi, automóvil)</ion-option>
+        <ion-option value="40">Otro</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Otro, ¿Cuál?</ion-label>
+      <ion-input type="text" placeholder="" name="A11" [(ngModel)]="momento2.typetransportationused_other" class="requiredInput"></ion-input>
+    </ion-item> 
+
+    <ion-item>
+      <ion-label class="titulo" stacked>¿Cuál fue el transporte utilizado la mayor parte del tiempo para desplazarse por Cauca?</ion-label>
+      <ion-select [(ngModel)]="momento2.transportationusedmost_id" (ionChange)="showA4($event)" name="A4" placeholder="SELECCIONE" class="requiredSelect">
+      <ion-option value="482">Vehículo propio</ion-option>
+      <ion-option value="483">Vehículo de amigos o familiares</ion-option>
+      <ion-option value="484">Transporte terrestre de excursiones y/o planes turísticos</ion-option>
+      <ion-option value="485">Transporte terrestre intermunicipal</ion-option>
+      <ion-option value="486">Alquiler de vehículo</ion-option>
+      <ion-option value="9227">Transporte terrestre de pasajeros (bus, buseta, taxi, automóvil)</ion-option>
+      <ion-option value="40">Otro</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="titulo" stacked>Otro, ¿Cuál?</ion-label>
+      <ion-input type="text" placeholder="" name="A11" [(ngModel)]="momento2.transportationusedmost_other" class="requiredInput"></ion-input>
+    </ion-item> 
+
+    <!-- FINALIZA MOMENTO2  PARTE C-->
+
+
+
+      <!-- INICIO MOMENTO PARTE D -->
+      <ion-item>
+          <ion-label class="titulo" stacked>Viaje en grupo</ion-label>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Cuántas personas incluyéndose usted, realizaron juntos el viaje desde la llegada hasta la salida de Cauca?</ion-label>
+          <ion-input type="number" placeholder="" name="A11" [(ngModel)]="momento2.typetransportationused_other" class="requiredInput"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Las personas anteriormente mencionadas son:</ion-label>
+          <ion-select  placeholder="SELECCIONE" class="requiredSelect">
+              <ion-option value="482">Viajé solo</ion-option>
+              <ion-option value="483">Mi paraja/Novia(o)/Esposa(o)</ion-option>
+              <ion-option value="484">Mis hijos</ion-option>
+              <ion-option value="485">Otros familiares</ion-option>
+              <ion-option value="486">Amigos</ion-option>
+              <ion-option value="9227">Compañeros de trabajo</ion-option>
+              <ion-option value="40">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <!-- FINALIZA MOMENTO2  PARTE D-->
+
+      <!-- INICIO MOMENTO PARTE E -->
+      <ion-item>
+          <ion-label class="titulo" stacked>Gastos de preparación y durante el viaje a Cauca</ion-label>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label stacked>¿El viaje al Cauca hizo parte de un paquete/plan turístico o excursión?</ion-label>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>[[Incluye: Planes ofrecidos por hoteles (plan de vacaciones, plan fin desemana, plan noche de bodas, etc). En general, se refiere a planes que incluyen ademas de alojamiento, otros servicios complementarios como comidas, bebidas, actividades, etc)].</ion-label>
+          <ion-select placeholder="SELECCIONE"  >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Seleccione los gastos realizados por usted antes (gastos de preparación del viaje) y durante su viaje al Cauca. Nota: si su viaje hizo parte de un paquete/plan turístico o excursión se refiere a otros gastos realizados.</ion-label>
+          <ion-select placeholder="SELECCIONE"  >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="640">No realicé ningún tipo de gasto</ion-option>
+              <ion-option value="641">Transporte aéreo internacional (Incluye ida-vuelta)</ion-option>
+              <ion-option value="641">Transporte aereo desde una ciudad de Colombia al Cauca (inluye ida-vuelta)</ion-option>
+              <ion-option value="642">Transporte terrestre (público) desde una ciudad de Colombia al Cauca (incluye ida-vuelta)</ion-option>
+              <ion-option value="643">Transporte terrestre de pasajeros para movilizarse dentro del Cauca</ion-option>
+              <ion-option value="644">Alquiler de vehículo</ion-option>
+              <ion-option value="645">Combustible</ion-option>
+              <ion-option value="646">Alojamiento</ion-option>
+              <ion-option value="647">Alimentos y bebidas</ion-option>
+              <ion-option value="648">Actividades recreativas, culturales y deportivas</ion-option>
+              <ion-option value="649">Artesanías (incluye ropa y/o calzado artesanal), recuerdos</ion-option>
+              <ion-option value="650">Objetos valiosos (Joyas, obras de arte)</ion-option>
+              <ion-option value="651">Bienes de consumo duradero (Ropa, calzado, implementos deportivos, etc)</ion-option>
+              <ion-option value="652">Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones</ion-option>
+              <ion-option value="653">Cursos/talleres de enseñanza</ion-option>
+              <ion-option value="654">Servicios médicos (Incluye la cirugía estética)</ion-option>
+              <ion-option value="40">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label stacked>Transporte terrestre de pasajeros para movilizarse dentro de Cauca</ion-label>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Cuánto gastó?</ion-label>
+          <ion-input type="number" placeholder=""  class="requiredInput"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿A cuantas personas cubrió? Si [solo a ud ingrese 1]?</ion-label>
+          <ion-input type="number" placeholder=""  class="requiredInput"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Seleccione los gastos del viaje realizados por otra persona u organización/empresa diferente a usted o a su grupo de viaje:</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="640">No realicé ningún tipo de gasto</ion-option>
+              <ion-option>Transporte aéreo internacional (Incluye ida-vuelta)</ion-option>
+              <ion-option>Transporte aereo desde una ciudad de Colombia al Cauca (inluye ida-vuelta)</ion-option>
+              <ion-option>Transporte terrestre (público) desde una ciudad de Colombia al Cauca (incluye ida-vuelta)</ion-option>
+              <ion-option>Transporte terrestre de pasajeros para movilizarse dentro del Cauca</ion-option>
+              <ion-option>Alquiler de vehículo</ion-option>
+              <ion-option>Combustible</ion-option>
+              <ion-option>Alojamiento</ion-option>
+              <ion-option>Alimentos y bebidas</ion-option>
+              <ion-option>Actividades recreativas, culturales y deportivas</ion-option>
+              <ion-option>Artesanías (incluye ropa y/o calzado artesanal), recuerdos</ion-option>
+              <ion-option>Objetos valiosos (Joyas, obras de arte)</ion-option>
+              <ion-option>Bienes de consumo duradero (Ropa, calzado, implementos deportivos, etc)</ion-option>
+              <ion-option>Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones</ion-option>
+              <ion-option>Cursos/talleres de enseñanza</ion-option>
+              <ion-option>Servicios médicos (Incluye la cirugía estética)</ion-option>
+              <ion-option>Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Los gastos de las personas que conformaron el grupo de viaje fueron pagados por:</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="242">Por mi</ion-option>
+              <ion-option value="243">Por mi pareja/Novia(o)/Esposa(o)</ion-option>
+              <ion-option value="244">Cada uno asumió sus gastos</ion-option>
+              <ion-option value="245">Se sumaron todos los gastos y se dividió por partes iguales</ion-option>
+              <ion-option value="246">Por otro(s) familiares(s)/Amigos(s)</ion-option>
+              <ion-option value="247">Cada familia pagó lo que le correspondió</ion-option>
+              <ion-option value="248">Por todos pero no se dividió en partes iguales</ion-option>
+              <ion-option value="249">Totalmente por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+              <ion-option value="250"> Una parte fue pagada por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+              <ion-option value="251">Una entidad que no es la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+              <ion-option value="40">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <!-- FINALIZA MOMENTO2  PARTE  E -->
+
+
+      <!-- INICIO MOMENTO PARTE F -->
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Percepción del viaje a Cauca</ion-label>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Durante su viaje utilizó servicio de alojamiento?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Durante su viaje utilizó servicios de restaurante?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho valore el siguiente aspecto: Factores Ambientales. Limpieza y aseo en los municipios.</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Limpieza y conservación de los lugares visitados (PARQUES TEMATICOS, PARQUES NATURALES, SITIOS NATURLES, CASCADAS, RIOS).</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Hospitalidad</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho, valore el siguiente aspecto: Ocio, recreación y tiempo libre. Actividades culturales</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Actividades deportivas</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Parques</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Discotecas, bares, casinos</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho valore el siguiente aspecto: Infraestructura. Estado de carreteras</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Transporte local</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Seguridad</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Qué recomendaría para lograr atraer más visitantes a Cauca (Resalte en detalles aspectos que realmente le disgustaron).</ion-label>
+          <ion-input type="text" placeholder=""  class="requiredInput"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho. Valore en general la experiencia de su visita a Cauca.</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Volvería a visitar Cauca?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No estoy seguro</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Recomendaría a Cauca como destino turístico?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No estoy seguro</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Cuántas veces ha venido a Cauca en los últimos dos años?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">Mayor a 20</option>
+          </ion-select>
+      </ion-item>
+
+      <!-- FINALIZA MOMENTO2  PARTE  F -->
+
+      <!-- INICIO MOMENTO PARTE G -->
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Como se enteran los visitantes sobre Cauca</ion-label>
+      </ion-item>
+
+
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Antes de venir a Cauca, de qué forma se enteró usted de los destinos turísticos visitados?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="253">Ya los conocía</ion-option>
+              <ion-option value="254">Amigos y/o familiares</ion-option>
+              <ion-option value="255">Búsquedas en internet</ion-option>
+              <ion-option value="256">Medios de comunicación masiva (prensa, radio, televisión.)</ion-option>
+              <ion-option value="257">Agencia de viajes</ion-option>
+              <ion-option value="258">Guía turística impresa</ion-option>
+              <ion-option value="259">Facebook</ion-option>
+              <ion-option value="260">Avisos en internet</ion-option>
+              <ion-option value="262">Correo electrónico</ion-option>
+              <ion-option value="9439">Blog</ion-option>
+              <ion-option value="9444">Otras redes sociales</ion-option>
+              <ion-option value="9445">Twitter</ion-option>
+              <ion-option value="9454">El portal del lugar</ion-option>
+              <ion-option value="40">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Durante la permanencia en Cauca, de qué forma usted buscó más información sobre destinos turísticos?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-option value="266">Familiares</ion-option>
+              <ion-option value="267">Hotel</ion-option>
+              <ion-option value="268">Otros turistas</ion-option>
+              <ion-option value="269">Busqué en internet</ion-option>
+              <ion-option value="270">Redes sociales</ion-option>
+              <ion-option value="271">Blog</ion-option>
+              <ion-option value="272">Amigos</ion-option>
+              <ion-option value="273">Guías de turismo (persona)</ion-option>
+              <ion-option value="274">Agencias de viajes o agencias operadoras</ion-option>
+              <ion-option value="275">Habitantes de los municipios visitados</ion-option>
+              <ion-option value="276"> Guías de turismo impresas, revistas</ion-option>
+              <ion-option value="277">Conductores de servicio público (De taxi, bus, buseta)</ion-option>
+              <ion-option value="278">No busqué más información</ion-option>
+              <ion-option value="9455">Visité lugares turisticos</ion-option>
+              <ion-option value="40">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Después del viaje a Cauca en que redes sociales compartió su experiencia de viaje(Comentarios, fotos, etc)?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-option value="280">No compartí en redes sociales</ion-option>
+              <ion-option value="281">Mensajería (Skype, Whatsapp, messenger)</ion-option>
+              <ion-option value="282">Facebook</ion-option>
+              <ion-option value="9446">Twitter</ion-option>
+              <ion-option value="9447">Linkedin</ion-option>
+              <ion-option value="9448">Pinterest</ion-option>
+              <ion-option value="9449">TripAdvisor</ion-option>
+              <ion-option value="9450">Google+</ion-option>
+              <ion-option value="9451">Flickr+</ion-option>
+              <ion-option value="9452">Youtube</ion-option>
+              <ion-option value="9456">instagram</ion-option>
+              <ion-option value="40">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Le gustaría que le enviáramos una invitación por redes sociales o correo electrónico para seguir a SITUR Cauca?</ion-label>
+          <ion-select placeholder="SELECCIONE" >
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+
+      <!-- FINALIZA MOMENTO2  PARTE  G -->
+
+
+      <!-- <ion-item>
+            <ion-label class="titulo" stacked>Hora fin</ion-label>
+            <ion-input type="text" [(ngModel)]="momento2.dateEnd" disabled></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="titulo" stacked>Coloque las observaciones que necesita</ion-label>
+          </ion-item>
+          <ion-item>
+            <button ion-button color="primary" (click)="addObservation()">Adicionar</button>
+            <button ion-button color="danger" (click)="removeObservation()">Remover</button>
+          </ion-item> -->
+ <!--    <div *ngFor="let observation of momento2.lObservations;let i=index">
+      <ion-item>
+        <ion-label class="titulo" stacked>Observación {{i+1}}</ion-label>
+        <ion-textarea [(ngModel)]="observation.value" placeholder=""></ion-textarea>
+      </ion-item>
+    </div> -->
+  </ion-list>
+  <div text-center>
+    <button (click)="save()" ion-button color="primary">Guardar y Salir</button>
+  </div>
+</div>

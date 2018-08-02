@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Encuesta Receptor</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <receptor-moment1 [hidden]="!flagMomento1"></receptor-moment1>
+  <receptor-moment2 [hidden]="!flagMomento2"></receptor-moment2>
+</ion-content>

@@ -1,0 +1,969 @@
+<!--
+    Generated template for the AlojamientoPage page.
+    
+    See http://ionicframework.com/docs/components/#navigation for more info on
+    Ionic pages and navigation.
+    -->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Alojamiento</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <div #container class="emisorMoment1">
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    La información suministrada es clave para el diseño de los planes de desarrollo para la industria turística del departamento y la
+                    inversión pública y privada.
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>Categoría de alojamiento:</ion-label>
+                <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="alojamiento.A1"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    (No se diligencia según lo que diga el proveedor de la información, sino como el establecimiento se encuentra clasificado en el
+                    Registro Nacional de Turismo. Si dado caso el establecimiento no está en el Registro Nacional de Turismo, clasificarlo según definición
+                    de las categorías del Registro Nacional de Turismo).
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="titulo"> Año de fundación: </ion-label>
+                <ion-datetime displayFormat="YYYY" [(ngModel)]="alojamiento.A2"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>Modalidad de alojamiento:</ion-label>
+                <ion-select (ionChange)="validateB1()" class="requiredSelect" placeholder="Seleccionar" multiple="true" [(ngModel)]="alojamiento.lB1">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">Habitaciones</ion-option>
+                    <ion-option value="2">Apartamentos</ion-option>
+                    <ion-option value="3">Casas</ion-option>
+                    <ion-option value="4">Cabañas</ion-option>
+                    <ion-option value="5">Camping</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <!--HABITACIONES-->
+            <div *ngIf="flagCategoryRooms">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Total habitaciones (Por favor no incluir habitaciones para el personal de la empresa)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_1_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente las personas que pueden hospedarse en camas creadas a petición del cliente)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_1_2"></ion-input>
+                </ion-item>
+            </div>
+            <!--APARTAMENTOS-->
+            <div *ngIf="flagCategoryApartment">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Total apartamentos (Por favor no incluir apartamentos para el personal de la empresa)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_2_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente las personas que pueden hospedarse en camas creadas a petición del cliente)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_2_2"></ion-input>
+                </ion-item>
+            </div>
+
+            <!--Casas-->
+            <div *ngIf="flagCategoryHouse">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Total casas (Por favor no incluir casas para el personal de la empresa)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_3_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente las personas que pueden hospedarse en camas creadas a petición del cliente)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_3_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>Número promedio de personas por casa:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_3_3"></ion-input>
+                </ion-item>
+            </div>
+            <!--Cabañas-->
+            <div *ngIf="flagCategoryCabin">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Total cabañas (Por favor no incluir cabañas para el personal de la empresa)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_4_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente las personas que pueden hospedarse en camas creadas a petición del cliente)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_4_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>Número promedio de personas por cabaña:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_4_5"></ion-input>
+                </ion-item>
+            </div>
+            <!--Camping-->
+            <div *ngIf="flagCategoryCamping">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Área del terreno para camping? (m 2 )</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_5_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>Total parcelas (N° espacios para carpas)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_5_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>Capacidad en número de personas</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.lB1_5_3"></ion-input>
+                </ion-item>
+            </div>
+            <ion-item>
+                <ion-label>
+                    El objetivo de conocer la actividad comercial es comunicar en el Sistema de Información Turística de Antioquia a todos los
+                    interesados en organizar eventos en el departamento (académicos, deportivos, religiosos, etc.) el comportamiento de esta variable
+                    por municipios mes a mes
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿En el mes de ___ el establecimiento estuvo en actividad comercial?</ion-label>
+                <ion-select (ionChange)="showC1_1()" class="requiredSelect" placeholder="Seleccionar" [(ngModel)]="alojamiento.C1">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">Si</ion-option>
+                    <ion-option value="2">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagShowC1_1">
+                <ion-label class="titulo" stacked>¿Cuántos días en el mes?</ion-label>
+                <ion-input class="requiredInput" type="number" placeholder="Días" [(ngModel)]="alojamiento.C1_1"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    El objetivo de conocer en detalle la ocupación es para cuantificarla, de tal manera que la industria del servicio de alojamiento pueda
+                    conocer su actividad y compararse por tipos de alojamiento, tamaños de empresa y municipios, de tal manera que puedan
+                    evaluarse. Además establecer el volumen de viajeros que llegan a Antioquia y se hospedan en establecimientos comerciales.
+                </ion-label>
+            </ion-item>
+
+            <!--Habitaciones-->
+            <div *ngIf="flagCategoryRooms">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Tarifa de habitación doble estándar incluido impuestos ($) en el mes de ____:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="$" [(ngModel)]="alojamiento.D1_1_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas personas realizaron Check in o ingresaron durante el mes de ____?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_1_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos viajeros que ingresaron durante el mes de ____ tienen residencia fuera de Antioquia?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_1_3"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas habitaciones se ocuparon durante el mes de _______?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_1_4"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Total huéspedes durante noches del mes de _______? (Es la sumatoria de los huéspedes que se encontraban registrados cada noche del mes)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_1_5"></ion-input>
+                </ion-item>
+            </div>
+            <!--Apartamentos-->
+            <div *ngIf="flagCategoryApartment">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Tarifa apartamento de acomodación doble incluido impuesto ($) en el mes de ______:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="$" [(ngModel)]="alojamiento.D1_2_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas personas realizaron Check in o ingresaron durante el mes de ____?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_2_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos viajeros que ingresaron durante el mes de ____ tienen residencia fuera de Antioquia?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_2_3"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos apartamentos se ocuparon durante el mes de _______?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_2_4"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Total huéspedes durante noches del mes de _____? (Es la sumatoria de los huéspedes que se encontraban registrados cada noche del mes)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_2_5"></ion-input>
+                </ion-item>
+            </div>
+            <!--Casas-->
+            <div *ngIf="flagCategoryHouse">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Tarifa promedio casa incluido impuestos ($) en el mes de ______:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="$" [(ngModel)]="alojamiento.D1_3_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas personas realizaron Check in o ingresaron durante el mes de ____?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_3_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos viajeros que ingresaron durante el mes de ____ tienen residencia fuera de Antioquia?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_3_3"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas casas se ocuparon durante el mes de _______?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_3_4"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Total huéspedes durante noches del mes de _____?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_3_5"></ion-input>
+                </ion-item>
+            </div>
+            <!--Cabañas-->
+            <div *ngIf="flagCategoryCabin">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Tarifa promedio cabaña incluido impuestos ($) en el mes de ______:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="$" [(ngModel)]="alojamiento.D1_4_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas personas realizaron Check in o ingresaron durante el mes de ____?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_4_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos viajeros que ingresaron durante el mes de ____ tienen residencia fuera de Antioquia?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_4_3"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas cabañas se ocuparon durante el mes de _______?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_4_4"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Total huéspedes durante noches del mes de _____? (Es la sumatoria de los huéspedes que se encontraban registrados cada noche del mes)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_4_5"></ion-input>
+                </ion-item>
+            </div>
+            <!--Camping-->
+            <div *ngIf="flagCategoryCamping">
+                <ion-item>
+                    <ion-label class="titulo" stacked>Tarifa por persona día ($) en el mes de ______:</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="$" [(ngModel)]="alojamiento.D1_5_1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas personas ingresaron durante el mes de ____?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_5_2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos viajeros que ingresaron durante el mes de ____ tienen residencia fuera de Antioquia?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_5_3"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántas parcelas (N° de espacios para carpas-casas rodantes) se ocuparon durante el mes de _______?</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_5_4"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Total personas que acamparon durante noches del mes de julio _______? (Es la sumatoria de las personas que se encontraban acampando cada noche del mes)</ion-label>
+                    <ion-input class="requiredInput" type="number" placeholder="" [(ngModel)]="alojamiento.D1_5_5"></ion-input>
+                </ion-item>
+            </div>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuáles equipamientos hay en una habitación estándar?</ion-label>
+                <ion-select (ionChange)="showE1_otro()" class="requiredSelect" placeholder="Seleccionar" multiple="true" [(ngModel)]="alojamiento.E1">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">Baño privado</ion-option>
+                    <ion-option value="2">Televisión</ion-option>
+                    <ion-option value="3">Televisión por cable</ion-option>
+                    <ion-option value="4">Aire Acondicionado</ion-option>
+                    <ion-option value="5">Agua caliente</ion-option>
+                    <ion-option value="6">Teléfono</ion-option>
+                    <ion-option value="7">Equipos de audio</ion-option>
+                    <ion-option value="8">Despertador</ion-option>
+                    <ion-option value="9">Minibar</ion-option>
+                    <ion-option value="10">Secador</ion-option>
+                    <ion-option value="11">Caja de seguridad</ion-option>
+                    <ion-option value="12">Closet</ion-option>
+                    <ion-option value="13">Amenities</ion-option>
+                    <ion-option value="96">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagShowE1_otro">
+                <ion-label class="titulo" stacked>Otro</ion-label>
+                <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="alojamiento.E1_otro"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuáles servicios complementarios ofrece el hotel?</ion-label>
+                <ion-select (ionChange)="showE2_otro()" class="requiredSelect" placeholder="Seleccionar" multiple="true" [(ngModel)]="alojamiento.E2">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">Sauna o baños turcos</ion-option>
+                    <ion-option value="2">Gimnasio</ion-option>
+                    <ion-option value="3">Áreas deportivas</ion-option>
+                    <ion-option value="4">Piscina para adultos</ion-option>
+                    <ion-option value="5">Piscina para niños</ion-option>
+                    <ion-option value="6">Sala de juegos</ion-option>
+                    <ion-option value="7">Locales comerciales</ion-option>
+                    <ion-option value="8">Servicio de Internet</ion-option>
+                    <ion-option value="9">Lavandería</ion-option>
+                    <ion-option value="10">Guardería</ion-option>
+                    <ion-option value="11">Enfermería</ion-option>
+                    <ion-option value="12">Transporte</ion-option>
+                    <ion-option value="13">Transfer</ion-option>
+                    <ion-option value="14">Tours</ion-option>
+                    <ion-option value="15">Oficinas ejecutivas</ion-option>
+                    <ion-option value="16">Bussines center</ion-option>
+                    <ion-option value="17">Bar</ion-option>
+                    <ion-option value="96">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagShowE2_otro">
+                <ion-label class="titulo" stacked>Otro</ion-label>
+                <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="alojamiento.E2_otro"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿El hotel ofrece servicio de restaurante?</ion-label>
+                <ion-select (ionChange)="showE4()" class="requiredSelect" placeholder="Seleccionar" [(ngModel)]="alojamiento.E3">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="Si">Si</ion-option>
+                    <ion-option value="No">No</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="flagShowE4">
+                <ion-label class="titulo" stacked>¿Cuáles servicios de restaurante ofrece el hotel?</ion-label>
+                <ion-select (ionChange)="showE4_otro()" class="requiredSelect" placeholder="Seleccionar" [(ngModel)]="alojamiento.E4">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">Desayuno</ion-option>
+                    <ion-option value="2">Alimentación completa</ion-option>
+                    <ion-option value="3">Servicio de restaurante abierto al público</ion-option>
+                    <ion-option value="96">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="flagShowE4_otro">
+                <ion-label class="titulo" stacked>Otro</ion-label>
+                <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="alojamiento.E4_otro"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿El establecimiento cuenta con Centro de Reuniones, Eventos, Convenciones y Congresos?</ion-label>
+                <ion-select class="requiredSelect" placeholder="Seleccionar" [(ngModel)]="alojamiento.E5">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="Si">Si</ion-option>
+                    <ion-option value="No">No</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuál es el medio de contacto más frecuente de los usuarios para reservar?</ion-label>
+                <ion-select class="requiredSelect" placeholder="Seleccionar" [(ngModel)]="alojamiento.E6">
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">Personalmente en la recepción</ion-option>
+                    <ion-option value="2">Telefónicamente</ion-option>
+                    <ion-option value="3">Página web</ion-option>
+                    <ion-option value="4">Dispositivos móviles</ion-option>
+                    <ion-option value="5">Agencia de viajes</ion-option>
+                    <ion-option value="96">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="flagShowE6_otro">
+                <ion-label class="titulo" stacked>Otro</ion-label>
+                <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="alojamiento.E6_otro"></ion-input>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div text-center>
+        <button (click)="save()" ion-button color="primary">Guardar</button>      
+    </div>
+</ion-content>
+<!--<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label>
+                La información suministrada es clave para el diseño de los planes de desarrollo para la industria turística
+                del departamento y la inversión pública y privada.
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Nit:
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Categoría de alojamiento:
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            (No se diligencia según lo que diga el proveedor de la información, sino como el establecimiento se
+            encuentra clasificado en el Registro Nacional de Turismo. Si dado caso el establecimiento no está en el
+            Registro Nacional de Turismo, clasificarlo según definición de las categorías del Registro Nacional de
+            Turismo).
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Año de fundación:
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Modalidad de alojamiento: (Respuesta múltiple)</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                Habitaciones
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Total habitaciones (Por favor no incluir habitaciones para el personal de la
+                empresa)
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente
+                las personas que pueden hospedarse en camas creadas a petición del cliente)
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-radio value="no"></ion-radio>
+            <ion-label>Apartamentos</ion-label>
+        </ion-item>
+
+            <ion-item>
+                <ion-label>
+                    Total apartamentos (Por favor no incluir apartamentos para el personal de la
+                    empresa)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    ¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente
+                    las personas que pueden hospedarse en camas creadas a petición del cliente)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="no"></ion-radio>
+              <ion-label>Casas</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Total casas (Por favor no incluir casas para el personal de la empresa)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    ¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente
+                    las personas que pueden hospedarse en camas creadas a petición del cliente)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Número promedio de personas por casa:
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="no"></ion-radio>
+              <ion-label>Cabañas</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Total cabañas (Por favor no incluir cabañas para el personal de la empresa)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    ¿Cuál es la capacidad máxima de alojamiento en personas? (Por favor no cuente
+                    las personas que pueden hospedarse en camas creadas a petición del cliente)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Número promedio de personas por cabaña:
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="no"></ion-radio>
+              <ion-label>Camping</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Área del terreno para camping? (m 2 )
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Total parcelas (N° espacios para carpas)
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>
+                    Capacidad en número de personas
+                </ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+        
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <p>
+                El objetivo de conocer la actividad comercial es comunicar en el Sistema de Información Turística de
+                {{mainNameApp}} a todos los interesados en organizar eventos en el departamento (académicos, deportivos,
+                religiosos, etc.) el comportamiento de esta variable por municipios mes a mes
+            </p>
+        </ion-item>
+        <ion-item>
+            <ion-label>¿En el mes de  el establecimiento estuvo en actividad comercial?</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="¿Cuántos días en el mes?  días"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>
+                El objetivo de conocer en detalle la ocupación es para cuantificarla, de tal manera que la industria del
+                servicio de alojamiento pueda conocer su actividad y compararse por tipos de alojamiento, tamaños de
+                empresa y municipios, de tal manera que puedan evaluarse. Además establecer el volumen de viajeros
+                que llegan a {{mainNameApp}} y se hospedan en establecimientos comerciales.
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Modalidad de alojamiento: Habitaciones
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Tarifa de habitación doble estándar incluido impuestos ($) en el mes de :
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas personas realizaron Check in o ingresaron durante el mes de ?
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántos viajeros que ingresaron durante el mes de  tienen residencia fuera
+                de {{mainNameApp}}?
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas habitaciones se ocuparon durante el mes de ?
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Total huéspedes durante noches del mes de ? (Es la sumatoria de los
+                huéspedes que se encontraban registrados cada noche del mes)
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>
+                Modalidad de alojamiento: Apartamentos
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Tarifa apartamento de acomodación doble incluido impuesto ($) en el mes de __:
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas personas realizaron Check in o ingresaron durante el mes de ?
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántos viajeros que ingresaron durante el mes de  tienen residencia fuera de
+                {{mainNameApp}}?
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántos apartamentos se ocuparon durante el mes de ?
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Total huéspedes durante noches del mes de _? (Es la sumatoria de los huéspedes que
+                se encontraban registrados cada noche del mes)
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>
+                Modalidad de alojamiento: Casas
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Tarifa promedio casa incluido impuestos ($) en el mes de __:
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas personas realizaron Check in o ingresaron durante el mes de ?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántos viajeros que ingresaron durante el mes de  tienen residencia fuera
+                de {{mainNameApp}}?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas casas se ocuparon durante el mes de ?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Total huéspedes durante noches del mes de _? (Es la sumatoria de los
+                huéspedes que se encontraban registrados cada noche del mes)
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>
+                Modalidad de alojamiento: Cabañas
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Tarifa promedio cabaña incluido impuestos ($) en el mes de __:
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas personas realizaron Check in o ingresaron durante el mes de ?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántos viajeros que ingresaron durante el mes de  tienen residencia
+                fuera de {{mainNameApp}}?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas cabañas se ocuparon durante el mes de ?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Total huéspedes durante noches del mes de _? (Es la sumatoria de los
+                huéspedes que se encontraban registrados cada noche del mes)
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>
+                Modalidad de alojamiento: Camping
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                Tarifa por persona día ($) en el mes de __:
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas personas ingresaron durante el mes de ?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántos viajeros que ingresaron durante el mes de  tienen residencia fuera de
+                {{mainNameApp}}?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Cuántas parcelas (N° de espacios para carpas-casas rodantes) se ocuparon durante el mes de
+                ?
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>
+                ¿Total personas que acamparon durante noches del mes de julio ? (Es la sumatoria de
+                las personas que se encontraban acampando cada noche del mes)
+            </ion-label>
+            <ion-input placeholder=""></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <h2>¿Cuáles equipamientos hay en una habitación estándar?</h2>
+        </ion-item>
+        <ion-item>
+            Equipamiento
+        </ion-item>
+        <ion-item>
+            <ion-label>Baño privado</ion-label>
+            <ion-radio value="friends"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Televisión</ion-label>
+            <ion-radio value="family"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Televisión por cable</ion-label>
+            <ion-radio value="enemies" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Ventilador</ion-label>
+            <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Aire Acondicionado</ion-label>
+            <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Agua caliente</ion-label>
+            <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Teléfono</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Equipos de audio</ion-label>
+            <ion-radio value="friends"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Despertador</ion-label>
+            <ion-radio value="family"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Minibar</ion-label>
+            <ion-radio value="enemies" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Secador</ion-label>
+            <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Caja de seguridad</ion-label>
+            <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Closet</ion-label>
+            <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Amenities</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            <h2>¿Cuáles servicios complementarios ofrece el hotel?</h2>
+        </ion-item>
+        <ion-item>
+            Servicios
+        </ion-item>
+        <ion-item>
+            <ion-label>Sauna o baños turcos</ion-label>
+            <ion-radio value="friends"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Gimnasio</ion-label>
+            <ion-radio value="family"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Áreas deportivas</ion-label>
+            <ion-radio value="enemies" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Piscina para adultos</ion-label>
+            <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Piscina para niños</ion-label>
+            <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Servicio de Internet</ion-label>
+            <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Lavandería</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Guardería</ion-label>
+            <ion-radio value="friends"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Enfermería</ion-label>
+            <ion-radio value="family"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Transporte</ion-label>
+            <ion-radio value="enemies" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Sala de juegos</ion-label>
+            <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Locales comerciales</ion-label>
+            <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Oficinas ejecutivas</ion-label>
+            <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Bussines center</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Transfer</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Tours</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Bar</ion-label>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Otro</ion-label>
+            <ion-input></ion-input>
+            <ion-radio value="4"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            ¿El hotel ofrece servicio de restaurante?
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            ¿Cuáles servicios de restaurante ofrece el hotel?
+        </ion-item>
+        <ion-item>
+            <ion-label>Desayuno</ion-label>
+            <ion-radio value="si" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Alimentación completa</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Servicio de restaurante abierto al público</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Otro</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            ¿El establecimiento cuenta con Centro de Reuniones, Eventos, Convenciones y Congresos?
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item>
+            ¿Cuál es el medio de contacto más frecuente de los usuarios para reservar?
+        </ion-item>
+        <ion-item>
+            <ion-label>Personalmente en la recepción</ion-label>
+            <ion-radio value="si" ></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Telefónicamente</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Página web</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Dispositivos</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Agencia de viajes</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label> Otro </ion-label>
+            <ion-radio value="no"></ion-radio>
+            <ion-input></ion-input>
+        </ion-item>
+    </ion-list>
+</ion-content>-->

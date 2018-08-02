@@ -1,0 +1,1938 @@
+<!--
+  Generated template for the EmpleoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Empleo</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div #container class="emisorMoment1">
+    <ion-list>
+      <ion-item>
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-input type="text" placeholder="Nombre" disabled class="no_border" [(ngModel)]="empleo.pollster"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="calendar" item-start></ion-icon>
+        <ion-input name="dateStart" [(ngModel)]="empleo.datepoll" type="text" placeholder="Fecha elaboración de la encuenta" disabled class="no_border"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Lugar de la encuesta</ion-label>
+        <ion-select class="requiredSelect" placeholder="Seleccionar" [(ngModel)]="empleo.pollplace">
+          <ion-label> Seleccione </ion-label>
+          <ion-option value="1">Municipio de Santa Fé de Antioquia.</ion-option>
+          <ion-option value="2">Municipio de Rionegro</ion-option>
+          <ion-option value="3">Municipio de Jericó</ion-option>
+          <ion-option value="4">Municipio de Jardín</ion-option>
+          <ion-option value="5">Municipio de Guatapé</ion-option>
+          <ion-option value="6">Sector Estadio - La 70</ion-option>
+          <ion-option value="7">Cerro Nutibara (Pueblito Paisa)</ion-option>
+          <ion-option value="8">Parque del Poblado</ion-option>
+          <ion-option value="9">Parque Lleras</ion-option>
+          <ion-option value="10">Ruta N</ion-option>
+          <ion-option value="11">Parque Arví</ion-option>
+          <ion-option value="12">Plaza Botero</ion-option>
+          <ion-option value="13">Terminal del sur</ion-option>
+          <ion-option value="14">Terminal del Norte</ion-option>
+          <ion-option value="15">Aeropuerto Olaya Herrera</ion-option>
+          <ion-option value="16">Aeropuerto José María Córdova</ion-option>
+          <ion-option value="96">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Tipo de establecimiento:</ion-label>
+        <ion-select placeholder="Seleccionar" multiple="true" class="requiredSelect" [(ngModel)]="empleo.planttype">
+            <ion-option value="1">Alojamiento</ion-option>
+            <ion-option value="2">Alimentación </ion-option>
+            <ion-option value="3">Transporte</ion-option>
+            <ion-option value="4">Agencia de viajes</ion-option>
+            <ion-option value="5">Esparcimiento</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Actividad económica:</ion-label>
+          <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="empleo.economicactivity"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Dirección:</ion-label>
+          <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="empleo.address"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Nombre del encuestado:</ion-label>
+          <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="empleo.respondentname"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Cargo:</ion-label>
+          <ion-input class="requiredInput" type="text" placeholder="" [(ngModel)]="empleo.charge"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+            El objetivo de conocer el empleo en la industria turística de Antioquia, es para cuantificar y publicar su importancia en el sector
+            servicios que permita generar proyectos para la industria.
+            Gracias por su valioso aporte. Los datos que se solicitan no serán revelados con nombre propio, sólo se publican resúmenes
+            numéricos que no permiten deducir datos de carácter individual. En ningún caso tiene fines fiscales.
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Nombre del establecimiento:</ion-label>
+          <ion-input [(ngModel)]="empleo.A1" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Número de empleados en año anterior:</ion-label>
+          <ion-input [(ngModel)]="empleo.A2" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Nombre del contacto:</ion-label>
+          <ion-input [(ngModel)]="empleo.A3" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Cargo:</ion-label>
+          <ion-input [(ngModel)]="empleo.A4" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Teléfono fijo:</ion-label>
+          <ion-input [(ngModel)]="empleo.A5" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Extensión:</ion-label>
+          <ion-input [(ngModel)]="empleo.A5_1" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Celular:</ion-label>
+          <ion-input [(ngModel)]="empleo.A6" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Correo electrónico:</ion-label>
+          <ion-input [(ngModel)]="empleo.A7" class="requiredInput" type="email" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+            ¿Con cuántos empleados cuenta la empresa?
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B1_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B1_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()"  [(ngModel)]="empleo.B1_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()"  [(ngModel)]="empleo.B1_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()"  [(ngModel)]="empleo.B1_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()"  [(ngModel)]="empleo.B1_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B1_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B1_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B1_9}}</strong>
+          </ion-label>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label>
+             Propietarios, socios y familiares (sin remuneración fija)
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B2_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B2_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B2_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B2_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B2_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B2_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B2_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B2_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B2_9}}</strong>
+          </ion-label>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>
+              Empleados permanentes (contrato a término indefinido)
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B3_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B3_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B3_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B3_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B3_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B3_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B3_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B3_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B3_9}}</strong>
+          </ion-label>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label>
+              Empleados temporales directos (termino fijo)
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B4_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B4_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B4_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B4_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B4_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B4_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B4_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B4_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B4_9}}</strong>
+          </ion-label>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label>
+              Empleados temporales por agencia (terceros)
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B5_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B5_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B5_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B5_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B5_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B5_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B5_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B5_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B5_9}}</strong>
+          </ion-label>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label>
+              Temporal en misión en otras empresas
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B6_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B6_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B6_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B6_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B6_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B6_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B6_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B6_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B6_9}}</strong>
+          </ion-label>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label>
+              Aprendices y pasantes
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B7_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B7_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B7_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B7_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B7_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B7_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B7_7}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B7_8}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B7_9}}</strong>
+          </ion-label>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label>
+              Empleados por otro tipo de contratación
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B8_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B8_2" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Hombres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B8_3" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Menos de 25 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B8_4" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres 25 a 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B8_5" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Mujeres Mas de 40 años</ion-label>
+          <ion-input value="0" (ionBlur)="sumB()" [(ngModel)]="empleo.B8_6" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total Menos de 25 años: <strong>{{empleo.B8_9}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total 25 a 40 años: <strong>{{empleo.B8_9}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+             Total mas de 40 años: <strong>{{empleo.B8_9}}</strong>
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Especifique el tipo de contratación:</ion-label>
+          <ion-input  [(ngModel)]="empleo.B8_1_1" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+              <strong>Definiciones dentro de los iconos de ayuda</strong><br>
+              <strong>Personal temporal contratado directamente:</strong> corresponde a empleados contratados de forma verbal o escrita por un término fijo,
+              para desarrollar labores específicas por una remuneración pactada. Se incluyen en este tipo de contratación los empleados
+              contratados bajo la modalidad de destajo, jornal, obra, etc.<br>
+              <strong>Personal temporal contratado a través de agencia:</strong> corresponde al personal eventual, sin vínculo laboral ni contractual, contratado
+              con empresas especializadas en el suministro de personal por un término fijo.<br>
+              <strong>Personal permanente:</strong> personas contratadas para desempeñar labores por tiempo indefinido y que figuran en la nómina
+              empresarial, para desarrollar labores relacionadas con la actividad principal de la empresa, exclusivamente, no obstante se
+              encuentre temporalmente ausente, como trabajadores con licencias remuneradas o en huelga.<br>
+              <strong>Personal aprendiz o estudiante por convenio (universitario, tecnólogo o técnico):</strong> empleados vinculados mediante contrato de
+              aprendizaje, por tiempo definido, no mayor a dos años, y a quienes se les otorga una mensualidad, como apoyo de sostenimiento,
+              que oscila entre 50% y 100% del salario mínimo, de acuerdo con el grado de formación en que se encuentre el aprendiz, en las
+              diferentes modalidades educativas, universitaria, tecnológica o técnica.<br>
+              <strong>Remuneración:</strong> Es la remuneración que recibe el trabajador, en contraprestación a los servicios prestados, dentro de una relación
+              laboral. Comprenden los sueldos y salarios, sobresueldos, recargos por horas extras, trabajos nocturnos, dominicales y festivos,
+              comisiones sobre ventas y viáticos permanentes constitutivos de salario.
+          </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Usted paga honorarios por servicios especiales? (profesionales, artísticos, asesorías legales, financieras y técnicas, etc.)</ion-label>
+        <ion-select (ionChange)="showB9_1()" [(ngModel)]="empleo.B9" placeholder="Seleccionar" class="requiredSelect">
+            <ion-option value="Si">Si</ion-option>
+            <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagB9_1">
+          <ion-label class="titulo" stacked>¿Qué servicios especiales contrata?</ion-label>
+          <ion-input [(ngModel)]="empleo.B9_1" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Cuáles son los niveles o escalafones de cargos que maneja la empresa?</ion-label>
+        <ion-select [(ngModel)]="empleo.B10" multiple="true" (ionChange)="renderB10()" class="requiredSelect" placeholder="Seleccionar">
+          <ion-label> Seleccione </ion-label>
+          <ion-option value="1">Agente de viajes</ion-option>
+          <ion-option value="2">Aseador</ion-option>
+          <ion-option value="3">Asistente de servicios administrativos</ion-option>
+          <ion-option value="4">Auxiliar administrativo</ion-option>
+          <ion-option value="5">Auxiliar de contabilidad</ion-option>
+          <ion-option value="6">Cajero</ion-option>
+          <ion-option value="7">Camarera(o)</ion-option>
+          <ion-option value="8">Capitán de meseros-Hostess</ion-option>
+          <ion-option value="9">Chef</ion-option>
+          <ion-option value="10">Cocinero</ion-option>
+          <ion-option value="11">Contador</ion-option>
+          <ion-option value="12">Coordinador de ventas y/o comercialización</ion-option>
+          <ion-option value="13">Director de operación</ion-option>
+          <ion-option value="14">Director de talento humano</ion-option>
+          <ion-option value="15">Director de ventas y/o comercialización</ion-option>
+          <ion-option value="16">Director financiero y/o administrativo</ion-option>
+          <ion-option value="17">Director o Gerente general</ion-option>
+          <ion-option value="18">Director regional, sucursal, oficina</ion-option>
+          <ion-option value="19">Guía</ion-option>
+          <ion-option value="20">Mesero-Barman</ion-option>
+          <ion-option value="21">Recepcionista, empleado de información y servicio al cliente</ion-option>
+          <ion-option value="22">Representante comercial- técnico de ventas</ion-option>
+          <ion-option value="23">Secretaria(o)</ion-option>
+          <ion-option value="24">Supervisor de operaciones</ion-option>
+          <ion-option value="25">Supervisor de operaciones de limpieza y servicios similares</ion-option>
+          <ion-option value="40">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagB10Otro">
+          <ion-label class="titulo" stacked>¿Otro, Cuál?</ion-label>
+          <ion-input [(ngModel)]="empleo.B10_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let B10 of empleo.lB10; let i = index">
+          <ion-label class="titulo" stacked>Cantidad?</ion-label>
+          <ion-input [(ngModel)]="B10.B10Cantidad" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Cuáles son los perfiles que más requieren?</ion-label>
+          <ion-select  (ionChange)="showB11_otro()" [(ngModel)]="empleo.B11" multiple="true" class="requiredSelect" placeholder="Seleccionar">
+            <ion-label> Seleccione </ion-label>
+            <ion-option value="1">Agente de viajes</ion-option>
+            <ion-option value="2">Aseador</ion-option>
+            <ion-option value="3">Asistente de servicios administrativos</ion-option>
+            <ion-option value="4">Auxiliar administrativo</ion-option>
+            <ion-option value="5">Auxiliar de contabilidad</ion-option>
+            <ion-option value="6">Cajero</ion-option>
+            <ion-option value="7">Camarera(o)</ion-option>
+            <ion-option value="8">Capitán de meseros-Hostess</ion-option>
+            <ion-option value="9">Chef</ion-option>
+            <ion-option value="10">Cocinero</ion-option>
+            <ion-option value="11">Contador</ion-option>
+            <ion-option value="12">Coordinador de ventas y/o comercialización</ion-option>
+            <ion-option value="13">Director de operación</ion-option>
+            <ion-option value="14">Director de talento humano</ion-option>
+            <ion-option value="15">Director de ventas y/o comercialización</ion-option>
+            <ion-option value="16">Director financiero y/o administrativo</ion-option>
+            <ion-option value="17">Director o Gerente general</ion-option>
+            <ion-option value="18">Director regional, sucursal, oficina</ion-option>
+            <ion-option value="19">Guía</ion-option>
+            <ion-option value="20">Mesero-Barman</ion-option>
+            <ion-option value="21">Recepcionista, empleado de información y servicio al cliente</ion-option>
+            <ion-option value="22">Representante comercial- técnico de ventas</ion-option>
+            <ion-option value="23">Secretaria(o)</ion-option>
+            <ion-option value="24">Supervisor de operaciones</ion-option>
+            <ion-option value="25">Supervisor de operaciones de limpieza y servicios similares</ion-option>
+            <ion-option value="40">Otro</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="flagB11Otro">
+            <ion-label class="titulo" stacked>¿Otro, Cuál?</ion-label>
+            <ion-input [(ngModel)]="empleo.B11_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="titulo" stacked>¿Cuáles son los perfiles que más rotan? </ion-label>
+            <ion-select  (ionChange)="showB12_otro()" [(ngModel)]="empleo.B12" multiple="true" class="requiredSelect" placeholder="Seleccionar">
+              <ion-label> Seleccione </ion-label>
+              <ion-option value="1">Agente de viajes</ion-option>
+              <ion-option value="2">Aseador</ion-option>
+              <ion-option value="3">Asistente de servicios administrativos</ion-option>
+              <ion-option value="4">Auxiliar administrativo</ion-option>
+              <ion-option value="5">Auxiliar de contabilidad</ion-option>
+              <ion-option value="6">Cajero</ion-option>
+              <ion-option value="7">Camarera(o)</ion-option>
+              <ion-option value="8">Capitán de meseros-Hostess</ion-option>
+              <ion-option value="9">Chef</ion-option>
+              <ion-option value="10">Cocinero</ion-option>
+              <ion-option value="11">Contador</ion-option>
+              <ion-option value="12">Coordinador de ventas y/o comercialización</ion-option>
+              <ion-option value="13">Director de operación</ion-option>
+              <ion-option value="14">Director de talento humano</ion-option>
+              <ion-option value="15">Director de ventas y/o comercialización</ion-option>
+              <ion-option value="16">Director financiero y/o administrativo</ion-option>
+              <ion-option value="17">Director o Gerente general</ion-option>
+              <ion-option value="18">Director regional, sucursal, oficina</ion-option>
+              <ion-option value="19">Guía</ion-option>
+              <ion-option value="20">Mesero-Barman</ion-option>
+              <ion-option value="21">Recepcionista, empleado de información y servicio al cliente</ion-option>
+              <ion-option value="22">Representante comercial- técnico de ventas</ion-option>
+              <ion-option value="23">Secretaria(o)</ion-option>
+              <ion-option value="24">Supervisor de operaciones</ion-option>
+              <ion-option value="25">Supervisor de operaciones de limpieza y servicios similares</ion-option>
+              <ion-option value="40">Otro</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="flagB12Otro">
+              <ion-label class="titulo" stacked>¿Otro, Cuál?</ion-label>
+              <ion-input [(ngModel)]="empleo.B12_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label class="titulo" stacked>¿Cuáles son los perfiles más difíciles de cubrir?</ion-label>
+              <ion-select  (ionChange)="showB13_otro()" [(ngModel)]="empleo.B13" multiple="true" class="requiredSelect" placeholder="Seleccionar">
+                <ion-label> Seleccione </ion-label>
+                <ion-option value="1">Agente de viajes</ion-option>
+                <ion-option value="2">Aseador</ion-option>
+                <ion-option value="3">Asistente de servicios administrativos</ion-option>
+                <ion-option value="4">Auxiliar administrativo</ion-option>
+                <ion-option value="5">Auxiliar de contabilidad</ion-option>
+                <ion-option value="6">Cajero</ion-option>
+                <ion-option value="7">Camarera(o)</ion-option>
+                <ion-option value="8">Capitán de meseros-Hostess</ion-option>
+                <ion-option value="9">Chef</ion-option>
+                <ion-option value="10">Cocinero</ion-option>
+                <ion-option value="11">Contador</ion-option>
+                <ion-option value="12">Coordinador de ventas y/o comercialización</ion-option>
+                <ion-option value="13">Director de operación</ion-option>
+                <ion-option value="14">Director de talento humano</ion-option>
+                <ion-option value="15">Director de ventas y/o comercialización</ion-option>
+                <ion-option value="16">Director financiero y/o administrativo</ion-option>
+                <ion-option value="17">Director o Gerente general</ion-option>
+                <ion-option value="18">Director regional, sucursal, oficina</ion-option>
+                <ion-option value="19">Guía</ion-option>
+                <ion-option value="20">Mesero-Barman</ion-option>
+                <ion-option value="21">Recepcionista, empleado de información y servicio al cliente</ion-option>
+                <ion-option value="22">Representante comercial- técnico de ventas</ion-option>
+                <ion-option value="23">Secretaria(o)</ion-option>
+                <ion-option value="24">Supervisor de operaciones</ion-option>
+                <ion-option value="25">Supervisor de operaciones de limpieza y servicios similares</ion-option>
+                <ion-option value="40">Otro</ion-option>
+              </ion-select>
+            </ion-item>
+      <ion-item *ngIf="flagB13Otro">
+                <ion-label class="titulo" stacked>¿Otro, Cuál?</ion-label>
+                <ion-input [(ngModel)]="empleo.B13_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Por qué son los perfiles más difíciles de cubrir?</ion-label>
+        <ion-input [(ngModel)]="empleo.B13_1" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Según el nivel académico, ¿cómo están distribuidos sus empleados?</ion-label>
+        <ion-select (ionChange)="renderB14()" [(ngModel)]="empleo.B14" multiple="true" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="Sin estudios">Sin estudios</ion-option>
+          <ion-option value="Primaria">Primaria</ion-option>
+          <ion-option value="Bachillerato">Bachillerato</ion-option>
+          <ion-option value="Técnico">Técnico</ion-option>
+          <ion-option value="Tecnólogo">Tecnólogo</ion-option>
+          <ion-option value="Profesional">Profesional (universitario)</ion-option>
+          <ion-option value="Especialización">Especialización</ion-option>
+          <ion-option value="Maestría">Maestría</ion-option>
+          <ion-option value="Doctorado">Doctorado</ion-option>
+          <ion-option value="Otro">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagB14Otro">
+          <ion-label class="titulo" stacked>¿Otro, Cuál?</ion-label>
+          <ion-input [(ngModel)]="empleo.B14_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <div margin-top *ngFor="let B14 of empleo.lB14; let i = index">
+          <ion-item>
+              <ion-label class="titulo" stacked>Con experiencia exigida {{B14.id}}</ion-label>
+              <ion-input [(ngModel)]="B14.conExperencia" class="requiredInput" type="text" placeholder=""></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label class="titulo" stacked>Sin experiencia {{B14.id}}</ion-label>
+              <ion-input [(ngModel)]="B14.sinExperencia" class="requiredInput" type="text" placeholder=""></ion-input>
+          </ion-item>
+      </div>
+      <ion-item>
+          <ion-label>
+            El objetivo de conocer las vacantes que se generan mes a mes es conocer el aporte del sector turismo a la generación de empleo.
+          </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Actualmente tiene vacantes por cubrir?</ion-label>
+        <ion-select [(ngModel)]="empleo.C1" (ionChange)="showC1()" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="Si">Si</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="flagC1">
+          <ion-item>
+            <ion-label class="titulo" stacked>¿Las vacantes son por:</ion-label>
+            <ion-select [(ngModel)]="empleo.C1_1" class="requiredSelect" placeholder="Seleccionar">
+              <ion-option value="1">Expansión</ion-option>
+              <ion-option value="2">Dificultad</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label class="titulo" stacked>Cuantos puestos de trabajo posee</ion-label>
+            <ion-input (ionBlur)="renderC1_2()" [(ngModel)]="empleo.C1_2" class="requiredInput" type="text" placeholder=""></ion-input>
+          </ion-item>
+          <div margin-top *ngFor="let C1_2 of empleo.lC1_2; let i = index">
+              <ion-item>
+                  <ion-label class="titulo" stacked>Nombre de puesto de trabajo No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_1" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Cantidad de personas requeridas para el puesto requerido en el mercado de trabajo No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_2" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Nivel educativo requerido para el puesto de trabajo No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_3" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Cantidad de años de experiencia requerida para el puesto No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_4" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Edad requerida para el puesto No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_5" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Sexo requerido para el puesto No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_6" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Manejo de herramientaso No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_7" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="titulo" stacked>Medios por los cuales se realizó la búsqueda No. {{i+1}}</ion-label>
+                  <ion-input [(ngModel)]="C1_2.C1_1_8" class="requiredInput" type="text" placeholder=""></ion-input>
+              </ion-item>
+          </div>            
+      </div>      
+      <ion-item>
+          <ion-label>
+            Conocer las necesidades de capacitación permitirá al sector turismo priorizar los temas de educación y formación comunes a
+            fortalecer.
+          </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿En el mes de ____ hay cargos que requieren capacitación?</ion-label>
+        <ion-select (ionChange)="showD1()" [(ngModel)]="empleo.D1" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="Si">Si</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagD1_otro">
+          <ion-label class="titulo" stacked>¿En cuáles temas?</ion-label>
+          <ion-input [(ngModel)]="empleo.D1_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Ha realizado procesos de capacitación en su empresa?</ion-label>
+        <ion-select (ionChange)="showD3()" [(ngModel)]="empleo.D2" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="Si">Si</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="flagD3">
+        <ion-item>
+            <ion-label class="titulo" stacked>¿Cuantos procesos de capacitación han realizado en la empresa y con qué entidad?</ion-label>
+            <ion-input (ionBlur)="renderD3()" [(ngModel)]="empleo.D3" class="requiredInput" type="text" placeholder=""></ion-input>
+        </ion-item>
+        <div margin-top *ngFor="let D3 of empleo.lD3; let i = index">
+            <ion-item>
+                <ion-label class="titulo" stacked>Capacitación</ion-label>
+                <ion-input class="requiredInput" [(ngModel)]="D3.capacitacion" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>Entidad</ion-label>
+                <ion-input class="requiredInput" [(ngModel)]="D3.entidad" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+        </div>
+      </div>      
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Cuántos empleados con dominio de inglés tiene en su empresa?</ion-label>
+          <ion-input  [(ngModel)]="empleo.D4" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Cuáles son los medios publicitarios más utilizados para promocionar la empresa?</ion-label>
+        <ion-select [(ngModel)]="empleo.E1" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Agencias</ion-option>
+          <ion-option value="2">Internet</ion-option>
+          <ion-option value="3">Prensa /revistas</ion-option>
+          <ion-option value="4">Radio</ion-option>
+          <ion-option value="5">Tarjetas</ion-option>
+          <ion-option value="6">TV</ion-option>
+          <ion-option value="7">Vallas</ion-option>
+          <ion-option value="8">Volantes / folletos</ion-option>
+          <ion-option value="9">Voz a voz</ion-option>
+          <ion-option value="10">No le hacen publicidad</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+              Según el nivel de ingresos económicos que tiene la empresa a lo largo del año; clasifique como alto, normal o bajo cada uno de
+              los meses del año:
+          </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Enero</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_1" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Febrero</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_2" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Marzo</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_3" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Abril</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_4" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Mayo</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_5" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Junio</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_6" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Julio</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_7" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Agosto</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_8" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Septiembre</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_9" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Octubre</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_10" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Noviembre</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_11" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Diciembre</ion-label>
+        <ion-select [(ngModel)]="empleo.E2_12" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alto</ion-option>
+          <ion-option value="2">Normal</ion-option>
+          <ion-option value="3">Bajo</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Cuál es la época o período del año en la que más demanda tiene?</ion-label>
+        <ion-select [(ngModel)]="empleo.E3" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Enero</ion-option>
+          <ion-option value="2">Febrero</ion-option>
+          <ion-option value="3">Marzo</ion-option>
+          <ion-option value="4">Abril</ion-option>
+          <ion-option value="5">Mayo</ion-option>
+          <ion-option value="6">Junio</ion-option>
+          <ion-option value="7">Julio</ion-option>
+          <ion-option value="8">Agosto</ion-option>
+          <ion-option value="9">Septiembre</ion-option>
+          <ion-option value="10">Octubre</ion-option>
+          <ion-option value="11">Noviembre</ion-option>
+          <ion-option value="12">Diciembre</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>¿En cuánto varía el número de personas laborando en el período de mayor demanda con respecto a la planta habitual?</ion-label>
+          <ion-input [(ngModel)]="empleo.E3_1" class="requiredInput" type="number" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+              Clasifique las siguiente temporadas de 1 a 7 de acuerdo a mayores ventas en el establecimiento, siendo 1 la de mayores ventas:
+          </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Fin e inicio del año</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_1" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Semana Santa</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_2" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Vacaciones mitad de año</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_3" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Semana de receso escolar</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_4" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Fines de semana</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_5" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Fin de semana con puente</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_6" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Fiestas del municipio / Feria de flores</ion-label>
+        <ion-select [(ngModel)]="empleo.E4_7" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Cuál es el evento que más ingresos ($) genera a su empresa?</ion-label>
+          <ion-input [(ngModel)]="empleo.E5" class="requiredInput" type="number" placeholder="$"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Ustedes, ¿a qué segmento del mercado, o tipo de público, están más dirigidos o atiende?</ion-label>
+        <ion-select (ionChange)="showE6_otro()" [(ngModel)]="empleo.E6" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Individuo</ion-option>
+          <ion-option value="2">Parejas</ion-option>
+          <ion-option value="3">Familias</ion-option>
+          <ion-option value="4">Estudiantes</ion-option>
+          <ion-option value="5">Empleados</ion-option>
+          <ion-option value="6">Grupos / excursiones</ion-option>
+          <ion-option value="7">Delegaciones / deportistas</ion-option>
+          <ion-option value="8">Extranjeros</ion-option>
+          <ion-option value="40">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagE6_otro">
+          <ion-label class="titulo" stacked>Otro</ion-label>
+          <ion-input [(ngModel)]="empleo.E6_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+              Clasifique las siguiente temporadas de 1 a 7 de acuerdo a mayores ventas en el establecimiento, siendo 1 la de mayores ventas:
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Locales</ion-label>
+          <ion-input (ionBlur)="totalE7()" [(ngModel)]="empleo.E7_1" class="requiredInput" type="number" placeholder="%"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Nacionales</ion-label>
+          <ion-input (ionBlur)="totalE7()" [(ngModel)]="empleo.E7_2" class="requiredInput" type="number" placeholder="%"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>Internaciones</ion-label>
+          <ion-input (ionBlur)="totalE7()" [(ngModel)]="empleo.E7_3" class="requiredInput" type="number" placeholder="%"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Cuál es el motivo de viaje de sus clientes?</ion-label>
+        <ion-select (ionChange)="showE8_otro()" [(ngModel)]="empleo.E8" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Vacaciones</ion-option>
+          <ion-option value="2">Compras</ion-option>
+          <ion-option value="3">Visitar familiares/Conocidos</ion-option>
+          <ion-option value="4">Trabajo/Negocios</ion-option>
+          <ion-option value="5">Pasar el día</ion-option>
+          <ion-option value="6">Excursión</ion-option>
+          <ion-option value="40">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagE8_otro">
+          <ion-label class="titulo" stacked>Otro</ion-label>
+          <ion-input [(ngModel)]="empleo.E8_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Según su percepción, ¿en qué es lo que más gastan el segmento del mercado al que ustedes están más dirigidos?</ion-label>
+        <ion-select (ionChange)="showE9_otro()" [(ngModel)]="empleo.E9" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Alimentación</ion-option>
+          <ion-option value="2">Visita a sitios turísticos</ion-option>
+          <ion-option value="3">Disfrute de atracciones turísticas</ion-option>
+          <ion-option value="4">Rumba</ion-option>
+          <ion-option value="5">Artesanías</ion-option>
+          <ion-option value="6">Suvenires</ion-option>
+          <ion-option value="40">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagE9_otro">
+          <ion-label class="titulo" stacked>Otro</ion-label>
+          <ion-input [(ngModel)]="empleo.E9_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label class="titulo" stacked>¿Qué les piden los clientes?</ion-label>
+          <ion-input [(ngModel)]="empleo.E10" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>¿Cuál es el medio de pago más utilizado por los clientes?</ion-label>
+        <ion-select  (ionChange)="showE11_otro()" [(ngModel)]="empleo.E11" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Efectivo</ion-option>
+          <ion-option value="2">Tarjeta débito</ion-option>
+          <ion-option value="3">Tarjeta crédito</ion-option>
+          <ion-option value="40">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="flagE11_otro">
+          <ion-label class="titulo" stacked>Otro</ion-label>
+          <ion-input [(ngModel)]="empleo.E11_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Durante el último año, ¿a cuánto ascendieron los ingresos ($) generados por la empresa?</ion-label>
+        <ion-select [(ngModel)]="empleo.E12" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="1">Menos de 15.000.000</ion-option>
+          <ion-option value="2">15.000.000-25.000.000</ion-option>
+          <ion-option value="3">25.000.001-50.000.000</ion-option>
+          <ion-option value="4">50.000.001-100.000.000</ion-option>
+          <ion-option value="5">100.000.001-250.000.000</ion-option>
+          <ion-option value="6">250.000.001-500.000.000</ion-option>
+          <ion-option value="7">500.000.001-1.000.000.000</ion-option>
+          <ion-option value="8">Más de 1.000.000.000</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>¿Qué cree usted que hace falta en el departamento de Antioquia en cuanto a desarrollo para generar mejores ingresos a su empresa?</ion-label>
+          <ion-textarea [(ngModel)]="empleo.E13" placeholder=""></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Dando cumplimiento a la ley de Protección de datos Personales le solicito su autorización para que FENALCO pueda contactarlo nuevamente en caso de ser necesario ¿Está usted de acuerdo?</ion-label>
+        <ion-select [(ngModel)]="empleo.E50" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="Si">Si</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo" stacked>Ya para terminar, le solicito su autorización para que FENALCO comparta sus respuestas con las entidades que contrataron el proyecto, ¿está usted de acuerdo?</ion-label>
+        <ion-select [(ngModel)]="empleo.E51" class="requiredSelect" placeholder="Seleccionar">
+          <ion-option value="Si">Si</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div text-center>
+      <button (click)="save()" ion-button color="primary">Guardar</button>      
+    </div>
+</ion-content>
+<!--<ion-content padding>
+  <ion-list>
+    <ion-item>
+        <p>CARACTERIZACIÓN DE LA INDUSTRIA TURÍSTICA EN {{mainNameApp}}</p>
+      </ion-item>
+    <ion-item>
+      <ion-label>
+        Encuestador:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Fecha elaboración de la encuesta:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Municipio de la encuesta:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      Tipo de establecimiento:
+    </ion-item>
+    <ion-item>
+      <ion-item>
+        <ion-label>Alojamiento</ion-label>
+        <ion-radio value="friends"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Alimentación</ion-label>
+        <ion-radio value="friends"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Transporte</ion-label>
+        <ion-radio value="friends"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Agencia de viajes</ion-label>
+        <ion-radio value="friends"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Esparcimiento</ion-label>
+        <ion-radio value="friends"></ion-radio>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Actividad económica:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        RNT:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        NIT:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Dirección:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Nombre del encuestado:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Cargo
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <div item-content>
+        El objetivo de conocer el empleo en la industria turística de {{mainNameApp}}, es para cuantificar y publicar su importancia en el sector servicios que permita generar proyectos para la industria.
+        <br>
+        Gracias por su valioso aporte. Los datos que se solicitan no serán revelados con nombre propio, sólo se publican resúmenes numéricos que no permiten deducir datos de carácter individual. En ningún caso tiene fines fiscales.
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Nombre del establecimiento:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Número de empleados en año anterior:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Nombre del contacto:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Cargo:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Teléfono fijo:
+      </ion-label>
+      <ion-input></ion-input>
+      <ion-label>
+        Extensión:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Celular:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Correo electrónico:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>¿Con cuántos empleados cuenta la empresa?</ion-label>
+
+    </ion-item>
+    <ion-item>
+      <ion-label>Propietarios, socios y familiares (sin remuneración fija)</ion-label>
+    </ion-item>
+    <ion-item>
+      <div item-content>Hombre:</div>
+      <ion-select>
+        <ion-option>Menos de 25 años</ion-option>
+        <ion-option>25 a 40 años</ion-option>
+        <ion-option>Más de 40 años</ion-option>
+      </ion-select>
+      <div item-content>Mujer:</div>
+      <ion-select>
+        <ion-option>Menos de 25 años</ion-option>
+        <ion-option>25 a 40 años</ion-option>
+        <ion-option>Más de 40 años</ion-option>
+      </ion-select>
+      <div item-content>Total:</div>
+      <ion-select>
+        <ion-option>Menos de 25 años</ion-option>
+        <ion-option>25 a 40 años</ion-option>
+        <ion-option>Más de 40 años</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Empleados permanentes (contrato a término indefinido)</ion-label>
+      <ion-item>
+        <div item-content>Hombre:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Mujer:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Total:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>Empleados temporales directos (termino fijo)</ion-label>
+      <ion-item>
+        <div item-content>Hombre:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Mujer:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Total:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>Empleados temporales por agencia (terceros)</ion-label>
+      <ion-item>
+        <div item-content>Hombre:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Mujer:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Total:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>Temporal en misión en otras empresas</ion-label>
+      <ion-item>
+        <div item-content>Hombre:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Mujer:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Total:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>Aprendices y pasantes</ion-label>
+      <ion-item>
+        <div item-content>Hombre:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Mujer:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Total:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>Empleados por otro tipo de contratación</ion-label>
+      <ion-item>
+        <div item-content>Hombre:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Mujer:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+        <div item-content>Total:</div>
+        <ion-select>
+          <ion-option>Menos de 25 años</ion-option>
+          <ion-option>25 a 40 años</ion-option>
+          <ion-option>Más de 40 años</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Cargo:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      ¿Usted paga honorarios por servicios especiales? (profesionales, artísticos, asesorías legales,
+      financieras y técnicas, etc.)
+    </ion-item>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="si" checked></ion-radio>
+      <ion-label>No</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>¿Qué servicios especiales contrata?</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      Conocer las necesidades de capacitación permitirá al sector turismo priorizar los temas de educación y
+      formación comunes a fortalecer.
+    </ion-item>
+
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      Según el nivel académico, ¿cómo están distribuidos sus empleados? (cantidad)
+    </ion-item>
+    <ion-item>
+      <ion-label>Sin estudios</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Primaria</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Bachillerato</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Técnico</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tecnólogo</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Profesional (universitario)</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Especialización</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Maestría</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Doctorado</ion-label>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Otro</ion-label>
+      <ion-input placeholder="Cual"></ion-input>
+      <ion-input>Con experiencia exigida</ion-input>
+      <ion-input>Sin experiencia</ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      El objetivo de conocer las vacantes que se generan mes a mes es conocer el aporte del sector turismo a
+      la generación de empleo.
+    </ion-item>
+    <ion-item>
+      ¿Actualmente tiene vacantes por cubrir?
+    </ion-item>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="si" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      ¿Las vacantes son por:
+    </ion-item>
+    <ion-item>
+      <ion-label>Expansión</ion-label>
+      <ion-radio value="si" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dificultad</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      Nombre de puesto de trabajo
+      <ion-input></ion-input>
+      Cantidad de personas requeridas para el puesto requerido en el mercado de trabajo
+      <ion-input></ion-input>
+      Nivel educativo requerido para el puesto de
+      trabajo <ion-input></ion-input>
+      Cantidad de años de experiencia requerida para el
+      puesto <ion-input></ion-input>
+      Edad requerida para el
+      puesto <ion-input></ion-input>
+      Sexo requerido para el
+      puesto<ion-input></ion-input>
+      Manejo de herramientas
+      <ion-input></ion-input>
+      Medios por los cuales se realizó la
+      búsqueda<ion-input></ion-input>
+      Nombre de puesto de trabajo
+      <ion-input></ion-input>
+      Cantidad de personas requeridas para el puesto requerido en el mercado de trabajo
+      <ion-input></ion-input>
+      Nivel educativo requerido para el puesto de
+      trabajo<ion-input></ion-input>
+      Cantidad de años de experiencia requerida para el
+      puesto<ion-input></ion-input>
+      Edad requerida para el
+      puesto <ion-input></ion-input>
+      Sexo requerido para el
+      puesto <ion-input></ion-input>
+      Manejo de herramientas
+      <ion-input></ion-input>
+      Medios por los cuales se realizó la
+      búsqueda <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      ¿En el mes de ____ hay cargos que requieren capacitación?
+    </ion-item>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="si" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      ¿En el mes de ____ hay cargos que requieren capacitación?
+    </ion-item>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="si" checked></ion-radio>
+      <ion-label>¿En cuáles temas?</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      ¿Ha realizado procesos de capacitación en su empresa?
+    </ion-item>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="si" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+  </ion-list>
+<ion-list>
+  <ion-item>
+    <ion-label>¿Cuáles procesos de capacitación han realizado en la empresa y con qué entidad?</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>¿Cuántos empleados con dominio de inglés tiene en su empresa?</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-select placeholder="¿Cuáles son los medios publicitarios más utilizados para promocionar la empresa?">
+      <ion-option>Agencias</ion-option>
+      <ion-option>Internet</ion-option>
+      <ion-option>Prensa /revistas</ion-option>
+      <ion-option>Radio</ion-option>
+      <ion-option>Tarjetas</ion-option>
+      <ion-option>TV</ion-option>
+      <ion-option>Vallas</ion-option>
+      <ion-option>Volantes / folletos</ion-option>
+      <ion-option>Voz a voz</ion-option>
+      <ion-option>No le hacen</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    Según el nivel de ingresos económicos que tiene la empresa a lo largo del año; clasifique como alto,
+    normal o bajo cada uno de los meses del año:
+  </ion-item>
+  <ion-item>
+    <ion-label> Enero </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Febrero </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Marzo </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Abril </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-item>
+    ¿Cuál es la época o período del año en la que más demanda tiene?
+  </ion-item>
+  <ion-item>
+    <ion-label> Enero </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Febrero </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Marzo </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Abril </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-item>
+    ¿En cuánto varía el número de personas laborando en el período de mayor demanda con
+    respecto a la planta habitual?
+  </ion-item>
+  <ion-item>
+    <ion-label> Enero </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Febrero </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Marzo </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label> Abril </ion-label>
+    <ion-input placeholder="Alto, Normal, Bajo"></ion-input>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-item>
+    <ion-label>Si</ion-label>
+    <ion-radio value="si" checked></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>No</ion-label>
+    <ion-radio value="no"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Clasifique las siguiente temporadas de 1 a 7 de acuerdo a mayores ventas en el establecimiento,
+      siendo 1 la de mayores ventas:</ion-label>
+    <p>Temporada</p>
+    <ion-label>
+      Fin e inicio del año
+    </ion-label>
+    <ion-input>
+    </ion-input>
+    <ion-label>
+      Semana Santa
+    </ion-label>
+    <ion-input>
+    </ion-input>
+    <ion-label>
+      Vacaciones mitad de año
+    </ion-label>
+    <ion-input>
+    </ion-input>
+    <ion-label>
+      Semana de receso escolar
+    </ion-label>
+    <ion-input>
+    </ion-input>
+    <ion-label>
+      Fines de semana
+    </ion-label>
+    <ion-input>
+    </ion-input><ion-label>
+    Fin de semana con puente
+  </ion-label>
+    <ion-input>
+    </ion-input>
+    <ion-label>
+      Fiestas del municipio / Feria de flores
+    </ion-label>
+    <ion-input>
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      (solo para Medellín) ¿Cuál es el evento que más ingresos ($) genera a su empresa?
+    </ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <div item-content>Ustedes, ¿a qué segmento del mercado, o tipo de público, están más dirigidos o atiende? (no lea las
+      opciones)</div>
+    <ion-select>
+      <ion-option>Individuo</ion-option>
+      <ion-option>Parejas</ion-option>
+      <ion-option>Familias</ion-option>
+      <ion-option>Estudiantes</ion-option>
+      <ion-option>Empleados</ion-option>
+      <ion-option>Grupos / excursiones</ion-option>
+      <ion-option>Delegaciones / deportistas</ion-option>
+      <ion-option>Extranjeros</ion-option>
+      <ion-option>Otro <ion-input></ion-input></ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <div item-content>¿Cuál es el segmento de clientes que recibe y en qué porcentajes?</div>
+    <ion-select>
+      <ion-input>Locales</ion-input>
+      <ion-input>Nacionales</ion-input>
+      <ion-input>Internaciones</ion-input>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <div item-content>¿Cuál es el motivo de viaje de sus clientes?</div>
+    <ion-select>
+      <ion-option>Vacaciones</ion-option>
+      <ion-option>Compras</ion-option>
+      <ion-option>Visitar familiares/Conocidos</ion-option>
+      <ion-option>Trabajo/Negocios</ion-option>
+      <ion-option>Pasar el día</ion-option>
+      <ion-option>Excursión</ion-option>
+      <ion-option>Otro <ion-input></ion-input></ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <div item-content>Según su percepción, ¿en qué es lo que más gastan el segmento del mercado al que ustedes están
+      más dirigidos?</div>
+    <ion-select>
+      <ion-option>Alimentación</ion-option>
+      <ion-option>Visita a sitios turísticos</ion-option>
+      <ion-option>Disfrute de atracciones turísticas</ion-option>
+      <ion-option>Rumba</ion-option>
+      <ion-option>Artesanías</ion-option>
+      <ion-option>Suvenires</ion-option>
+      <ion-option>Otro <ion-input></ion-input></ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      ¿Qué les piden los clientes?:
+    </ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+</ion-list>
+  <ion-list>
+    <ion-item>
+      ¿Cuál es el medio de pago más utilizado por los clientes?
+    </ion-item>
+    <ion-item>
+      <ion-label>Efectivo </ion-label>
+      <ion-radio value="friends"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tarjeta débito</ion-label>
+      <ion-radio value="family"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tarjeta crédito</ion-label>
+      <ion-radio value="enemies" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Otro</ion-label>
+      <ion-radio value="1"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      Durante el último año, ¿a cuánto ascendieron los ingresos ($) generados por la empresa? (lea las
+      opciones)
+    </ion-item>
+    <ion-item>
+      <ion-label>Menos de 15.000.000 </ion-label>
+      <ion-radio value="friends"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>15.000.000-25.000.000</ion-label>
+      <ion-radio value="family"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>25.000.001-50.000.000</ion-label>
+      <ion-radio value="enemies" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>50.000.001 - 100.000.000</ion-label>
+      <ion-radio value="1"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>100.000.001-250.000.000</ion-label>
+      <ion-radio value="2"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>250.000.001-500.000.000</ion-label>
+      <ion-radio value="3"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>500.000.001-1.000.000.000</ion-label>
+      <ion-radio value="4"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Más de 1.000.000.000</ion-label>
+      <ion-radio value="5"></ion-radio>
+    </ion-item>
+  </ion-list>
+<ion-list>
+    <ion-item>
+      <ion-label>¿Qué cree usted que hace falta en el departamento de {{mainNameApp}} en cuanto a desarrollo para
+        generar mejores ingresos a su empresa?</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Dando cumplimiento a la ley de Protección de datos Personales le solicito su autorización para que
+        FENALCO pueda contactarlo nuevamente en caso de ser necesario ¿Está usted de acuerdo?
+      </ion-label>
+      <ion-item>
+        <ion-label>Si</ion-label>
+        <ion-radio value="friends" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>No</ion-label>
+        <ion-radio value="family"></ion-radio>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Ya para terminar, le solicito su autorización para que FENALCO comparta sus respuestas con las
+        entidades que contrataron el proyecto, ¿está usted de acuerdo?
+      </ion-label>
+      <ion-item>
+        <ion-label>Si</ion-label>
+        <ion-radio value="friends" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>No</ion-label>
+        <ion-radio value="family"></ion-radio>
+      </ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-label> Hora fin: </ion-label>
+      <ion-input> </ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>-->

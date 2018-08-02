@@ -1,0 +1,16 @@
+emisor-moment1 {
+    .label-md[stacked] {
+        font-size: 16px;
+    }
+    .list-md {
+        .item[no-lines] {
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+    .textB {
+        display: flex;
+        align-items: flex-end;
+    }
+}

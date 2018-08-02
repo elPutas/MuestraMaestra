@@ -1,0 +1,795 @@
+<!--
+  Generated template for the AgenciasdeviajesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Encuesta Agencia de viajes</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <div #container class="emisorMoment1">
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    La información suministrada es clave para el diseño de los planes de desarrollo para la industria turística del departamento y la
+                    inversión pública y privada.
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="titulo"> Año de fundación: </ion-label>
+                <ion-datetime [(ngModel)]="agencia.A1" displayFormat="YYYY"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="titulo">Tipo de viajes que ofrece:</ion-label>
+                <ion-select (ionChange)="renderA3()" [(ngModel)]="agencia.A2" placeholder="Seleccionar" multiple="true" class="requiredSelect">
+                    <ion-option value="Locales">Locales</ion-option>
+                    <ion-option value="Regionales">Regionales</ion-option>
+                    <ion-option value="Nacionales">Nacionales</ion-option>
+                    <ion-option value="Internacionales">Internacionales</ion-option>
+                    <ion-option value="Otros">Otros</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagA2Otro">
+                <ion-label class="titulo" stacked>¿Cuáles?</ion-label>
+                <ion-input  [(ngModel)]="agencia.A2_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <div margin-top *ngFor="let A3 of agencia.lA3; let i = index">
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos destinos ofrece {{A3.id}}?</ion-label>
+                    <ion-input [(ngModel)]="A3.A3" class="requiredInput" type="number" placeholder="Cantidad"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuáles son los rangos de tarifas que manejan  {{A3.id}}?</ion-label>
+                    <ion-input [(ngModel)]="A3.A4" class="requiredInput" type="number" placeholder="$"></ion-input>
+                </ion-item>
+            </div>
+            <ion-item>
+                    <ion-label class="titulo" stacked>¿Cuántos planes turísticos ofrece la empresa?</ion-label>
+                    <ion-input [(ngModel)]="agencia.A5" class="requiredInput" type="number" placeholder="$"></ion-input>
+            </ion-item>
+                <ion-label>
+                    Plan turístico: Plan adquirido por un viajero o grupo de viajeros que incluye un conjunto de servicios, tales como: pasajes aéreos,
+                    terrestres, alimentación, alojamiento, city tours, transporte local, etc. En ningún caso los paquetes turísticos incluyen solo pasajes
+                    o un servicio.
+                </ion-label>
+            <ion-item>
+                <ion-label stacked class="titulo">¿Qué tipo de servicio presta la agencia de viajes?</ion-label>
+                <ion-select (ionChange)="showA6Otro()" [(ngModel)]="agencia.A6" placeholder="Seleccionar" multiple="true" class="requiredSelect">
+                    <ion-option value="microbus">Venta de paquetes turísticos nacionales</ion-option>
+                    <ion-option value="escalera">Venta de paquetes turísticos internacionales</ion-option>
+                    <ion-option value="camioneta">Reserva y venta de pasajes</ion-option>
+                    <ion-option value="buseta">Asesoría en trámites y documentación</ion-option>
+                    <ion-option value="bus">Guías de turismo</ion-option>
+                    <ion-option value="bus">Transporte turístico</ion-option>
+                    <ion-option value="bus">Reservas hoteleras fuera de paquetes turísticos</ion-option>
+                    <ion-option value="bus">Tarjetas de asistencia</ion-option>
+                    <ion-option value="bus">Alquiler de carros</ion-option>
+                    <ion-option value="bus">Alimentación</ion-option>
+                    <ion-option value="40">Otros</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagA6Otro">
+                <ion-label class="titulo" stacked>¿Cuáles?</ion-label>
+                <ion-input  [(ngModel)]="agencia.A6_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    Personas que viajaron con planes según destino
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuántas personas viajaron con planes con destino internacional en el mes de ______?</ion-label>
+                <ion-input [(ngModel)]="agencia.B1_1" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B1_2" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B1_3" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>¿Qué porcentaje fue comprado por residentes en el extranjero? (%)¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B1_4" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuántas personas viajaron con planes con destino nacional, excluyendo Antioquia, en el mes de ______?</ion-label>
+                <ion-input [(ngModel)]="agencia.B2_1" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B2_2" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B2_3" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>¿Qué porcentaje fue comprado por residentes en el extranjero? (%)¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B2_4" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuántas personas viajaron con planes con destino Antioquia en el mes de ______?</ion-label>
+                <ion-input [(ngModel)]="agencia.B3_1" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B3_2" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B3_3" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>¿Qué porcentaje fue comprado por residentes en el extranjero? (%)¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B3_4" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuántas personas viajaron con planes con destino Medellín en el mes de ______?</ion-label>
+                <ion-input [(ngModel)]="agencia.B4_1" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B4_2" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B4_3" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>¿Qué porcentaje fue comprado por residentes en el extranjero? (%)¿Qué porcentaje fue comprado por residentes en Colombia fuera de Antioquia? (%)</ion-label>
+                <ion-input [(ngModel)]="agencia.B4_4" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked class="titulo">¿Qué productos ofrece?</ion-label>
+                <ion-select (ionChange)="showC1Otro()" [(ngModel)]="agencia.C1"  placeholder="Seleccionar" multiple="true" class="requiredSelect">
+                    <ion-option value="microbus">Cultura y Patrimonio</ion-option>
+                    <ion-option value="escalera">Parques de diversiones</ion-option>
+                    <ion-option value="camioneta">Religioso</ion-option>
+                    <ion-option value="buseta">Naturaleza</ion-option>
+                    <ion-option value="bus">Gastronómico</ion-option>
+                    <ion-option value="bus">Rumba</ion-option>
+                    <ion-option value="bus">Compras</ion-option>
+                    <ion-option value="bus">Transformación urbana</ion-option>
+                    <ion-option value="bus">Aventura</ion-option>
+                    <ion-option value="bus">Salud</ion-option>
+                    <ion-option value="bus">Negocios</ion-option>
+                    <ion-option value="bus">Ruta de los embalses</ion-option>
+                    <ion-option value="bus">Ruta del café</ion-option>
+                    <ion-option value="bus">Ruta de la panela</ion-option>
+                    <ion-option value="bus">Ruta de la leche</ion-option>
+                    <ion-option value="bus">Ruta del banano</ion-option>
+                    <ion-option value="40">Otros</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagC1Otro">
+                <ion-label>¿Cuáles?</ion-label>
+                <ion-input [(ngModel)]="agencia.C1_otro"  class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Observaciones</ion-label>
+                <ion-textarea [(ngModel)]="agencia.C1_observacion" placeholder=""></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked class="titulo">¿Qué sitios de interés ofrece?</ion-label>
+                <ion-select (ionChange)="showC2Otro()"  [(ngModel)]="agencia.C2" placeholder="Seleccionar" multiple="true" class="requiredSelect">
+                    <ion-option value="microbus">Aeroparque Juan Pablo II</ion-option>
+                    <ion-option value="escalera">Parque de las Aguas</ion-option>
+                    <ion-option value="camioneta">Catedrales e Iglesias</ion-option>
+                    <ion-option value="buseta">Cementerio San Pedro</ion-option>
+                    <ion-option value="bus">Museos</ion-option>
+                    <ion-option value="bus">Plaza Botero</ion-option>
+                    <ion-option value="bus">Cerro Nutibara / Pueblito Paisa</ion-option>
+                    <ion-option value="bus">Parque Natural Regional Metropolitano Cerro El Volador</ion-option>
+                    <ion-option value="bus">Jardín Botánico Joaquín Antonio Uribe</ion-option>
+                    <ion-option value="bus">Parque Zoológico Santa Fe</ion-option>
+                    <ion-option value="bus">Parque Arví</ion-option>
+                    <ion-option value="bus">Parque ecológico Piedras Blancas</ion-option>
+                    <ion-option value="bus">Parque Explora</ion-option>
+                    <ion-option value="bus">Planetario de Medellín</ion-option>
+                    <ion-option value="bus">Parque Norte</ion-option>
+                    <ion-option value="bus">Piedra del Peñon</ion-option>
+                    <ion-option value="bus">Parque temático hacienda Nápoles</ion-option>
+                    <ion-option value="bus">Otros</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagC2Otro">
+                <ion-label>¿Cuáles?</ion-label>
+                <ion-input [(ngModel)]="agencia.C2_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Observaciones</ion-label>
+                <ion-textarea [(ngModel)]="agencia.C2_observacion" placeholder=""></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> ¿Tiene convenios con otros establecimientos? </ion-label>
+                <ion-select (ionChange)="showD2()" [(ngModel)]="agencia.D1" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option>No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagD2">
+                <ion-label  stacked class="titulo"> ¿Con qué tipo de establecimientos tiene convenios? </ion-label>
+                <ion-select (ionChange)="showD2Otro()" [(ngModel)]="agencia.D2" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option>Aerolíneas</ion-option>
+                    <ion-option>Transporte terrestre</ion-option>
+                    <ion-option>Transporte fluvialr</ion-option>
+                    <ion-option>Restaurante-heladería</ion-option>
+                    <ion-option>Hospedaje</ion-option>
+                    <ion-option>Café Bar</ion-option>
+                    <ion-option>Atracciones turísticas</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagD2Otro">
+                <ion-label class="titulo" stacked>Otro</ion-label>
+                <ion-input [(ngModel)]="agencia.D2_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    El objetivo de estudiar la actividad de las agencias operadoras, es cuantificar su importancia como proveedor de servicios turísticos.<br>
+                    *Servicios turísticos: Incluye los planes turísticos operados por la empresa, los servicios individuales (sin plan) para la práctica de un deporte (Rafting, espelelismo, rapel, parapente, etc.), u otras actividades recreativas (caminatas, cabalgatas), y güianza turística, etc.
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    Servicios turísticos
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿A Cuántas personas prestaron servicios turísticos en el mes de ___?</ion-label>
+                <ion-input [(ngModel)]="agencia.E1_1" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje se prestó a residentes en Colombia excluyendo Antioquia?</ion-label>
+                <ion-input [(ngModel)]="agencia.E1_2" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Qué porcentaje se prestó a residentes extranjero?</ion-label>
+                <ion-input [(ngModel)]="agencia.E1_3" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>¿Qué porcentaje se prestó a residentes en Antioquia?</ion-label>
+                <ion-input [(ngModel)]="agencia.E1_4" class="requiredInput" type="number" placeholder="%"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    * Incluya solo las personas a las cuales prestaron servicios turísticos directamente, es decir, no prestados a través de terceros (otra agencia operadora)
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div text-center>
+            <button (click)="save()" ion-button color="primary">Guardar</button>      
+          </div>
+</ion-content>
+<!--<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-note>
+        La información suministrada es clave para el diseño de los planes de desarrollo para la industria turística
+        del departamento y la inversión pública y privada.
+      </ion-note>      
+    </ion-item>
+    <ion-item>
+      <ion-label floating>NIT: </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Año de fundación: </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipos de viajes que ofrece:</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>a. Locales</ion-label>
+        <ion-radio value="si" ></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>b. Regionales</ion-label>
+        <ion-radio value="si" ></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>c. Nacionales</ion-label>
+        <ion-radio value="si" ></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>d. Internacionales</ion-label>
+        <ion-radio value="si" ></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Otros</ion-label>
+        <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>¿Cuántos destinos ofrece? (Cantidad)</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>¿Cuáles son los rangos de tarifas qu manejan? ($)</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>¿Cuántos planes turísticos ofrece la empresa?</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+        Plan turístico: Plan adquirido por un viajero o grupo de viajeros que incluye un conjunto de servicios,
+        tales como: pasajes aéreos, terrestres, alimentación, alojamiento, city tours, transporte local, etc. En
+        ningún caso los paquetes turísticos incluyen solo pasajes o un servicio.
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>¿Qué tipo de servicio presta la agencia de viajes? (Respuesta múltiple)</ion-label>
+    </ion-item>
+    <ion-item>
+
+       <ion-select>
+        <ion-label>¿Qué tipo de servicio presta la agencia de viajes? (Respuesta múltiple)</ion-label>
+        <ion-option>Venta de paquetes turísticos nacionales</ion-option>
+ 
+        <ion-option>Venta de paquetes turísticos internacionales</ion-option>
+     
+        <ion-option>Reserva y venta de pasajes</ion-option>
+      
+        <ion-option>Asesoría en trámites y documentación</ion-option>
+   
+        <ion-option>Guías de turismo</ion-option>
+  
+        <ion-option>Transporte turístico</ion-option>
+
+        <ion-option>Reservas hoteleras fuera de paquetes turísticos</ion-option>
+
+        <ion-option>Tarjetas de asistencia</ion-option>
+
+        <ion-option>Alquiler de carros</ion-option>
+
+        <ion-option >Otros</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-note>
+        El objetivo de estudiar la actividad de las agencias de viajes y turismo, es por una parte, caracterizarla
+        según los servicios prestados y por otra, contrastar o validar la información reportada por los viajeros en
+        los estudios de turismo receptor (Viajeros que llegan a {{mainNameApp}}), interno (Viajeros Antioqueños dentro
+        del departamento) y emisor (Viajeros Antioqueños fuera del departamento) con relación al uso de
+        planes de viaje vendidos por agencias ubicadas en {{mainNameApp}}.
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        ¿Cuántas personas viajaron con planes con destino internacional en el mes de?
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> Número de personas </ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en Colombia fuera de {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en el extranjero? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>
+        ¿Cuántas personas viajaron con planes
+        con destino nacional, excluyendo {{mainNameApp}},
+        en el mes de?
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> Número de personas </ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en Colombia fuera de {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en el extranjero? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>
+        ¿Cuántas personas viajaron con planes
+        con destino {{mainNameApp}} en el mes de ______?
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> Número de personas </ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en Colombia fuera de {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en el extranjero? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>
+        ¿Cuántas personas viajaron con planes
+        con destino Medellín en el mes de ______?
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> Número de personas </ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en Colombia fuera de {{mainNameApp}}? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> ¿Qué porcentaje fue comprado por residentes en el extranjero? (%) </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>¿Qué productos ofrece? (lea cada opción):</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Cultura y Patrimonio</ion-label>
+        <ion-radio value="friends"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parques de diversiones</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>Religioso</ion-label>
+        <ion-radio value="friends"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Naturaleza</ion-label>
+        <ion-radio value="friends"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+    
+        <ion-label>Gastronómico</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+      
+        <ion-label>Rumba</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Compras</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+    
+        <ion-label>Transformación urbana</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Aventura</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+     
+        <ion-label>Salud</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+     
+        <ion-label>Negocios</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item> 
+        <ion-label>Ruta de los embalses</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+     
+        <ion-label>Ruta del café</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Ruta de la panela</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>  
+        <ion-label>Ruta de la leche</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>  
+        <ion-label>Ruta del banano</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Otros</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+        ¿Qué sitios de interés ofrece? (lea cada opción):
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>Sitios</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Aeroparque Juan Pablo II</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parques de las aguas</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Catedrales e Iglesias</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Cementerio San Pedro</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Museos</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Plaza Botero</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Cerro Nutibara / Pueblito Paisa</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque Natural Regional Metropolitano Cerro El Volador</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Jardín Botánico Joaquín Antonio Uribe</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque Zoológico Santa Fe</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque Arví</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque ecológico Piedras Blancas</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque Explora</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Planetario de Medellín</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque Norte</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Piedra del Peñon</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Parque temático hacienda Nápoles</ion-label>
+        <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Otros</ion-label>
+        <ion-radio value="si" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Observaciones"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label> ¿Tiene convenios con otros establecimientos? </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Si</ion-label>
+      <ion-radio value="si"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="si" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>¿Con qué tipo de establecimientos tiene convenios?</ion-label>
+      <ion-select>
+        <ion-option>a. Aerolíneas</ion-option>
+        <ion-option>b. Transporte terrestre</ion-option>
+        <ion-option>c. Transporte fluvial</ion-option>
+        <ion-option>d. Restaurante-heladería</ion-option>
+        <ion-option>e. Hospedaje</ion-option>
+        <ion-option>f. Café Bar</ion-option>
+        <ion-option>g. Atracciones turísticas</ion-option>
+        <ion-option>
+          h. Otro
+          <ion-input></ion-input>
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+        El objetivo de estudiar la actividad de las agencias operadoras, es cuantificar su importancia como
+        proveedor de servicios turísticos.
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+        *Servicios turísticos: Incluye los planes turísticos operados por la empresa, los servicios individuales (sin
+        plan) para la práctica de un deporte (Rafting, espelelismo, rapel, parapente, etc.), u otras actividades
+        recreativas (caminatas, cabalgatas), y güianza turística, etc.
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+        Servicios turísticos
+      </ion-note>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>¿A Cuántas personas prestaron servicios turísticos en el mes de ___?</ion-label>
+        <ion-input placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Número de personas*</ion-label>
+        <ion-input placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>¿Qué porcentaje se prestó a residentes en Colombia excluyendo {{mainNameApp}}?</ion-label>
+        <ion-input placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>¿Qué porcentaje se prestó a residentes extranjero ?</ion-label>
+        <ion-input placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>¿Qué porcentaje se prestó a residentes en {{mainNameApp}}?</ion-label>
+        <ion-input placeholder=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+        * Incluya solo las personas a las cuales prestaron servicios turísticos directamente, es decir, no prestados
+        a través de terceros (otra agencia operadora)
+      </ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>-->

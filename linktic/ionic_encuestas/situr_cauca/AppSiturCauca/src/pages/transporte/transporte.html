@@ -1,0 +1,401 @@
+<!--
+    Generated template for the TransportePage page.
+    
+    See http://ionicframework.com/docs/components/#navigation for more info on
+    Ionic pages and navigation.
+    -->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Transporte</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <div #container class="emisorMoment1">
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuántos años de funcionamiento lleva el establecimiento?</ion-label>
+                <ion-input [(ngModel)]="transporte.A1" class="requiredInput" type="number" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>Tipo de vehículo que tienen para prestar el servicio:</ion-label>
+                <ion-select (ionChange)="showA2Otro()" [(ngModel)]="transporte.A2" placeholder="Seleccionar" multiple="true" class="requiredSelect">
+                    <ion-label> Tipo de vehículo </ion-label>
+                    <ion-option value="494">Microbus</ion-option>
+                    <ion-option value="493">Escalera</ion-option>
+                    <ion-option value="492">Camioneta</ion-option>
+                    <ion-option value="491">Buseta</ion-option>
+                    <ion-option value="490">Bus</ion-option>
+                    <ion-option value="489">Automóvil</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagA2_otro">
+                <ion-label class="titulo" stacked>¿Otro?</ion-label>
+                <ion-input [(ngModel)]="transporte.A2_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuántos vehículos de transporte de pasajeros tiene la empresa?</ion-label>
+                <ion-input [(ngModel)]="transporte.A3" class="requiredInput" type="number" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Tiene capacidad para transportar cuántos pasajeros?</ion-label>
+                <ion-input [(ngModel)]="transporte.A4" class="requiredInput" type="number" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>¿Cuál es la tarifa promedio que maneja?</ion-label>
+                <ion-input [(ngModel)]="transporte.A5" class="requiredInput" type="number" placeholder="$"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    ¿Cuáles servicios complementarios ofrece la empresa?
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Recorridos turísticos </ion-label>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="transporte.A6_1" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Guía turístico </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_2" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Bebidas </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_3" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Refrigerios </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_4" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Alquiler de vehículos </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_5" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Recogida en domicilio </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_6" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Transporte con baño </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_7" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Transporte con televisión </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_8" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Transporte con aire acondicionado </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_9" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> Rumba sobre ruedas </ion-label>
+                <ion-select [(ngModel)]="transporte.A6_10" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label class="titulo" stacked>Otros</ion-label>
+                <ion-input [(ngModel)]="transporte.A6_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label  stacked class="titulo"> ¿Tiene convenios con otros establecimientos? </ion-label>
+                <ion-select  (ionChange)="showA8()" [(ngModel)]="transporte.A7" placeholder="Seleccionar" class="requiredSelect">
+                    <ion-option  value="si">Si</ion-option>
+                    <ion-option  value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagA8">
+                <ion-label  stacked class="titulo"> ¿Con qué tipo de establecimientos tiene convenios? </ion-label>
+                <ion-select (ionChange)="showA8Otro()" [(ngModel)]="transporte.A8" placeholder="Seleccionar">
+                    <ion-option value="1750">Restaurante-heladería</ion-option>
+                    <ion-option value="751">Hospedaje</ion-option>
+                    <ion-option value="752">Café Bar</ion-option>
+                    <ion-option value="754">Agencias de viaje</ion-option>
+                    <ion-option value="755">Atracciones turísticas</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagA8_otro">
+                <ion-label class="titulo" stacked>Otro</ion-label>
+                <ion-input [(ngModel)]="transporte.A8_otro" class="requiredInput" type="text" placeholder=""></ion-input>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div text-center>
+        <button (click)="save()" ion-button color="primary">Guardar</button>      
+      </div>
+</ion-content>
+<!--<ion-content padding>
+    <form [formGroup]="transporte" (ngSubmit)="logForm()">
+    <ion-item>
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-input formControlName="nombre" type="text" placeholder="Nombre" disabled class="no_border"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-icon name="calendar" item-start></ion-icon>
+        <ion-input formControlName="fechaencuesta" type="text" placeholder="Fecha elaboración de la encuenta" disabled class="no_border"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label> 1. Prestador</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-select formControlName="prestador" placeholder="Seleccionar">
+            <ion-label> Prestador </ion-label>
+            <ion-option value="agencia">Agencia de viajes y turismo AVIATUR</ion-option>
+            <ion-option value="falta">Aviatur Villanueva</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label class="titulo"> Datos del establecimiento </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label floating> 2. ¿ Cuántos años de funcionamiento lleva el establecimiento ?</ion-label>
+        <ion-input type="number" formControlName="anos_funcionamiento"> </ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating> 3. Tipo de vehículo que tienen para prestar el servicio</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-select formControlName="tipo_vehiculo" placeholder="Seleccionar" multiple="true">
+            <ion-label> Tipo de vehículo </ion-label>
+            <ion-option value="microbus">Microbus</ion-option>
+            <ion-option value="escalera">Escalera</ion-option>
+            <ion-option value="camioneta">Camioneta</ion-option>
+            <ion-option value="buseta">Buseta</ion-option>
+            <ion-option value="bus">Bus</ion-option>
+            <ion-option value="automovil">Automóvil</ion-option>
+            <ion-option value="otro">Otro</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="transporte.value.tipo_vehiculo!==''">
+        <ion-input formControlName="cantidad" type="number" placeholder="Cantidad"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="transporte.value.tipo_vehiculo!==''">
+        <ion-input formControlName="capacidad" type="number" placeholder="Capacidad total pasajeros"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="transporte.value.tipo_vehiculo!==''">
+        <ion-input formControlName="tarifa_pasajero" type="number" placeholder="Tarifa promedio por pasajero"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="transporte.value.tipo_vehiculo!==''">
+        <ion-input formControlName="tarifa_vehiculo" type="number" placeholder="Tarifa promedio por vehiculo"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>4.  ¿ Cuantos pasajeros se transportaron en el mes de Diciembre ?</ion-label>
+        <ion-input type="number" formControlName="pasajeros_transportados"> </ion-input>
+    </ion-item>
+    <ion-list radio-group formControlName="rumba">
+        <ion-list-header>
+            5. ¿ Cuáles servicios complementarios ofrece la empresa ?
+        </ion-list-header>
+        <ion-item>
+            <ion-label>
+                Rumba sobre ruedas
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="transporte">
+        <ion-item>
+            <ion-label>
+                Transporte con aire acondicionado
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="transporte_television">
+        <ion-item>
+            <ion-label>
+                Transporte con televisión
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="transporte_bano">
+        <ion-item>
+            <ion-label>
+                Transporte con baño
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="recogida_domicilio">
+        <ion-item>  
+            <ion-label>
+                Recogida en domicilio
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="alquiler_vehiculos">
+        <ion-item>
+            <ion-label>
+                Alquiler de vehículos
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="refrigerios">
+        <ion-item> 
+            <ion-label>
+                Refrigerios
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="bebidas">
+        <ion-item>
+            <ion-label>
+                Bebidas
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="guia_turiticos">
+        <ion-item>
+            <ion-label>
+                Guia Turísticos
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="otro">
+        <ion-item>    
+            <ion-label>
+                Otro
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rust</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-item *ngIf="transporte.value.otro == 'otro'">
+        <ion-input formControlName="otro_servicio" type="text" placeholder="Otros servicios complementarios"></ion-input>
+    </ion-item>
+    <ion-list radio-group formControlName="convenios">
+        <ion-item>
+            <ion-label class="titulo"> Convenios </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label> ¿ Tiene convenios con otros establecimientos ? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item *ngIf="transporte.value.convenios == 'si'">
+            <ion-label floating> ¿ Con qué tipo de establecimientos tiene convenios ? </ion-label>
+            <ion-select formControlName="tipo_convenio" multiple="true">
+                <ion-option value="1">Hola </ion-option>
+                <ion-option value="female">Female</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item class="botones">
+            <button ion-button type="submit" [disabled]="transporte.valid">Enviar </button>
+        </ion-item>
+    </ion-list>
+    </form>
+</ion-content>-->

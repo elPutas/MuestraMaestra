@@ -1,0 +1,55 @@
+
+  <ion-list>
+
+
+    <ion-item>
+      <ion-label floating> Nivel de educación más alto alcanzado: </ion-label>
+      <ion-select [(ngModel)]="gaming">
+        <ion-option value="nes">Ninguno </ion-option>
+        <ion-option value="n64">Preescolar </ion-option>
+        <ion-option value="ps"> Básica Primaria (1°-5°) </ion-option>
+        <ion-option> Básica secundaria (6°-9°) </ion-option>
+        <ion-option>Media (10°-11°)</ion-option>
+        <ion-option>Superior o universitaria (Técnica/Tecnológica,
+          universitaria, posgrado)
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> Estado civil: </ion-label>
+      <ion-select [(ngModel)]="gaming">
+        <ion-option value="nes">Soltero(a) </ion-option>
+        <ion-option value="n64">Casado (a) </ion-option>
+        <ion-option value="ps"> Unión Libre </ion-option>
+        <ion-option> Serparado (a) </ion-option>
+        <ion-option>Viudo (a)</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> Ocupación </ion-label>
+      <ion-select [(ngModel)]="gaming">
+        <ion-option value="nes">Desempleado </ion-option>
+        <ion-option value="n64"> Ama de casa</ion-option>
+        <ion-option value="ps"> Empleado</ion-option>
+        <ion-option> Independiente</ion-option>
+        <ion-option> Empresario </ion-option>
+        <ion-option> Jubilado/pensionado  </ion-option>
+        <ion-option> Estudiante</ion-option>
+        <ion-option> Otro, ¿Cúal?
+          <ion-input></ion-input>
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating> De los rangos que leeré a continuación, en promedio ¿cuál es el nivel de ingresos mensuales de este hogar? </ion-label>
+      <ion-select [(ngModel)]="gaming">
+        <ion-option value="nes">Menos de $690.000 </ion-option>
+        <ion-option value="n64"> De $690.000 y menos de $1.400.000</ion-option>
+        <ion-option value="ps"> De $1.400.000 y menos de $2.000.000</ion-option>
+        <ion-option> De $2.000.000 y menos de $3.000.000</ion-option>
+        <ion-option> De $3.000.000 y menos de $4.000.000 </ion-option>
+        <ion-option> De $4.000.000 y menos de $5.000.000  </ion-option>
+        <ion-option> $5.000.000 o más</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>

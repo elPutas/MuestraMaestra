@@ -1,0 +1,18 @@
+<ion-menu id="main-menu" [content]="content">
+  <ion-content>
+    <ion-list>
+      <div>
+      <ion-img class="logoSitur" src="./assets/imgs/logoHeader.png"></ion-img>
+      </div>
+      <ion-note class="textop"><ion-icon name="list" ></ion-icon>  Listado de encuestas</ion-note>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon name="{{ p.icon }}"></ion-icon>{{p.title}}
+      </button>
+    </ion-list>
+    <button (click)="logOut()" class="cerrar_sesion">  <ion-icon name="log-out"></ion-icon> Cerrar Sesión</button>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

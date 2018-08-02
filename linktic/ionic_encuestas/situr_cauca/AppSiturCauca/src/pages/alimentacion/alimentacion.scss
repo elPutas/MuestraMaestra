@@ -1,0 +1,23 @@
+page-alimentacion {
+    .item-select {
+        ion-select {
+            font-size: 14px;
+            padding-left: 10px !important;
+        }
+    }
+    .item-md {
+        p {
+            font-size: 14px;
+        }
+    }
+    .label-md[stacked] {
+        &.titulo {
+            font-size: 14px;
+        }
+    }
+    ion-label {
+        &.label {
+            font-size: 14px;
+        }
+    }
+}
