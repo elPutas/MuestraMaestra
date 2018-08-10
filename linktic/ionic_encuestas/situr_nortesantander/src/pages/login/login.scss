@@ -1,0 +1,81 @@
+page-login {
+  .imgFondo .scroll-content{
+      background-image: url('../assets/imgs/img_login_d.jpg');
+      background-size: cover;
+      background-color: #fff;
+      background-blend-mode: multiply;
+    }
+  .scroll-content:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0, 0.7);
+      top: 0;
+      left: 0;
+  }
+  .logoImg{
+    background: transparent;
+    display: block;
+    margin: 0 auto;
+    contain: none;
+  }
+  .logoImg{
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  .login{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    width: 90%;
+  }
+  .m_t_20.inicio_sesion{
+    background-color: color($colors,primary);
+    opacity: 1;
+    padding: 22px 0;
+    display: block;
+    font-size: 18px;
+    margin-top: 50px;
+  }
+  .m_t_20.inicio_sesion:disabled{
+    background: #bfbfbf;
+  }
+  .item-md{
+    background: transparent;
+    padding: 0;
+  }
+  .item-md.item-block .item-inner{
+    border-bottom: none;
+    padding-right: 0;
+  }
+  .label{
+    font-size: 18px;
+  }
+  .input{
+    border-bottom: 1px solid #fff;
+  }
+  input{
+    color: white;
+  }
+  .toast-message{
+    background: #000;
+  }
+  .contentLogo {
+    ion-img {
+      width: 150px;
+    }
+    h1 {
+      color: #E8262F;
+      font-weight: bold;
+      text-align: center;
+    }
+    h2,h3 {
+      color: #fff;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
+}

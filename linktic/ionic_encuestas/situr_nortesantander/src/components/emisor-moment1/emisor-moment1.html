@@ -1,0 +1,452 @@
+<!-- Generated template for the EmisorMoment1Component component -->
+<div #container class="emisorMoment1">
+  <ion-list>  
+    <ion-item>
+      <ion-icon name="person" item-start></ion-icon>
+      <ion-input type="text" placeholder="Nombre" disabled class="no_border" name="interviewer" [(ngModel)]="moment1.interviewer"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="titulo">Datos administrativos</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="calendar" item-start></ion-icon>
+      <ion-input type="text" placeholder="Fecha elaboración de la encuesta" name="date" [(ngModel)]="moment1.date" disabled class="no_border"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>CH</ion-label>
+      <ion-input class="requiredInput" type="text" name="ch" [(ngModel)]="moment1.ch"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>EN</ion-label>
+      <ion-input class="requiredInput" type="text" name="en" [(ngModel)]="moment1.en"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Lugar de la encuesta" name="place_id" [(ngModel)]="moment1.place_id" class="requiredSelect">
+        <ion-label>Seleccione</ion-label>
+        <ion-option value="780">CÚCUTA</ion-option>
+        <ion-option value="781">ÁBREGO</ion-option>
+        <ion-option value="782">ARBOLEDAS</ion-option>
+        <ion-option value="783">BOCHALEMA</ion-option>
+        <ion-option value="784">BUCARASICA</ion-option>
+        <ion-option value="785">CÁCOTA</ion-option>
+        <ion-option value="786">CÁCHIRA</ion-option>
+        <ion-option value="787">CHINÁCOTA</ion-option>
+        <ion-option value="788">CHITAGÁ</ion-option>
+        <ion-option value="789">CONVENCIÓN</ion-option>
+        <ion-option value="790">CUCUTILLA</ion-option>
+        <ion-option value="791">DURANIA</ion-option>
+        <ion-option value="792">EL CARMEN</ion-option>
+        <ion-option value="793">EL TARRA</ion-option>
+        <ion-option value="794">EL ZULIA</ion-option>
+        <ion-option value="795">GRAMALOTE</ion-option>
+        <ion-option value="796">HACARÍ</ion-option>
+        <ion-option value="797">HERRÁN</ion-option>
+        <ion-option value="798">LABATECA</ion-option>
+        <ion-option value="799">LA ESPERANZA</ion-option>
+        <ion-option value="800">LA PLAYA</ion-option>
+        <ion-option value="801">LOS PATIOS</ion-option>
+        <ion-option value="802">LOURDES</ion-option>
+        <ion-option value="803">MUTISCUA</ion-option>
+        <ion-option value="804">OCAÑA</ion-option>
+        <ion-option value="805">PAMPLONA</ion-option>
+        <ion-option value="806">PAMPLONITA</ion-option>
+        <ion-option value="807">PUERTO SANTANDER</ion-option>
+        <ion-option value="808">RAGONVALIA</ion-option>
+        <ion-option value="809">SALAZAR</ion-option>
+        <ion-option value="810">SAN CALIXTO</ion-option>
+        <ion-option value="811">SAN CAYETANO</ion-option>
+        <ion-option value="812">SANTIAGO</ion-option>
+        <ion-option value="813">SARDINATA</ion-option>
+        <ion-option value="814">SILOS</ion-option>
+        <ion-option value="815">TEORAMA</ion-option>
+        <ion-option value="816">TIBÚ</ion-option>
+        <ion-option value="817">TOLEDO</ion-option>
+        <ion-option value="818">VILLA CARO</ion-option>
+        <ion-option value="819">VILLA DEL ROSARIO</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+
+<div class="emisorMoment1" margin-top>
+  <ion-list>  
+    <ion-item>
+      <ion-label class="titulo">Identificación del hogar</ion-label>
+    </ion-item>
+    <ion-list-header>
+      ¿Cuántas personas incluyéndose usted integran su hogar?
+    </ion-list-header>
+    <ion-item>
+      <ion-select [(ngModel)]="moment1.numPersons" placeholder="Seleccionar"  (ionChange)=renderPersons() class="requiredSelect">
+        <ion-label> Seleccione </ion-label>
+        <ion-option value="1">1</ion-option>
+        <ion-option value="2">2</ion-option>
+        <ion-option value="3">3</ion-option>
+        <ion-option value="4">4</ion-option>
+        <ion-option value="5">5</ion-option>
+        <ion-option value="6">6</ion-option>
+        <ion-option value="7">7</ion-option>
+        <ion-option value="8">8</ion-option>
+        <ion-option value="9">9</ion-option>
+        <ion-option value="10">10</ion-option>
+        <ion-option value="11">11</ion-option>
+        <ion-option value="12">12</ion-option>
+        <ion-option value="13">13</ion-option>
+        <ion-option value="14">14</ion-option>
+        <ion-option value="15">15</ion-option>
+        <ion-option value="16">16</ion-option>
+        <ion-option value="17">17</ion-option>
+        <ion-option value="18">18</ion-option>
+        <ion-option value="19">19</ion-option>
+        <ion-option value="20">20</ion-option>
+        <ion-option value="21">Mas de 20</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</div>
+
+<div class="emisorMoment1" margin-top *ngFor="let person of moment1.lMoment1PersonModel; let i = index">
+  <ion-list>
+    <ion-item>
+      <ion-label class="titulo">Integrante del hogar {{ i+1 }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Nombre completo del integrante(a) del hogar {{ i+1 }}</ion-label>
+      <ion-input class="requiredInput" type="text" name="household" [(ngModel)]="person.housemember"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Género" [(ngModel)]="person.sex_id" class="requiredSelect">
+        <ion-option value="11">Masculino</ion-option>
+        <ion-option value="12">Femenino</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Edad</ion-label>
+      <ion-input class="requiredInput" type="number" name="age" min="1" max="99" [(ngModel)]="person.age" (ionBlur)="validateMoment2()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Nivel de educación" name="education_id" [(ngModel)]="person.education_id" text-wrap class="requiredSelect">
+          <ion-option value="57">Ninguno</ion-option>
+          <ion-option value="58">Preescolar</ion-option>
+          <ion-option value="59">Básica Primaria (1°-5°)</ion-option>
+          <ion-option value="60">Básica secundaria (6°-9°)</ion-option>
+          <ion-option value="61">Media (10°-11°)</ion-option>
+          <ion-option value="62">Superior o universitaria (Técnica/Tecnológica, universitaria, posgrado)</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Estado civil" name="civil_id" [(ngModel)]="person.civil_id" class="requiredSelect">
+          <ion-option value="51">Soltero(a)</ion-option>
+          <ion-option value="52">Casado(a)</ion-option>
+          <ion-option value="53">Unión Libre</ion-option>
+          <ion-option value="54">Separado(a)</ion-option>
+          <ion-option value="55">Viudo(a)</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Ocupación" name="ocupation_id" (ionChange)="showWhichCareer(person)" [(ngModel)]="person.ocupation_id" class="requiredSelect">
+        <ion-option value="64">Desempleado</ion-option>
+        <ion-option value="65">Ama de casa</ion-option>
+        <ion-option value="66">Empleado</ion-option>
+        <ion-option value="67">Independiente</ion-option>
+        <ion-option value="68">Empresario</ion-option>
+        <ion-option value="69">Jubilado/pensionado</ion-option>
+        <ion-option value="71">Estudiante </ion-option>
+        <ion-option value="72">Otro</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="moment1.lMoment1PersonModel[i].flagWhichCarreer">
+      <ion-label stacked>¿Cual?</ion-label>
+      <ion-input class="requiredInput" type="text" [(ngModel)]="person.whichCareer"></ion-input>
+    </ion-item>
+    <!--<ion-item>
+      <ion-label stacked>
+          ¿Los integrantes nombrados anteriormente han vivido continuamente en Norte de Santander durante los últimos 12 meses, sin contar las ausencias temporales por vacaciones o de trabajo?”.
+      </ion-label>
+      <ion-select placeholder="Seleccione" class="requiredSelect">
+          <ion-option value="si">Si</ion-option>
+          <ion-option value="no">No</ion-option>
+      </ion-select>
+    </ion-item>-->
+  </ion-list>
+    <ion-list>
+      <ion-item>
+          <ion-label class="titulo">Viajes realizados</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Nombre del integrante del hogar</ion-label>
+        <ion-input class="requiredInput" type="text" [(ngModel)]="person.housemember"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-list-header>
+        ¿Sin importar el motivo, durante la temporada  de Junio-Julio finalizó algún viaje que había emprendido?
+      </ion-list-header>
+      <ion-item>
+          <ion-select placeholder="Seleccione" name="motives" [(ngModel)]="person.motives" (ionChange)="validateMoment2()" class="requiredSelect">
+              <ion-option value="si">Si</ion-option>
+              <ion-option value="no">No</ion-option>
+          </ion-select>
+      </ion-item>
+      </ion-list>
+      <ion-list *ngIf="moment1.lMoment1PersonModel[i].flagWhyNoTrip" margin-top>
+            <ion-list-header>
+                ¿Cuáles son los motivos por los cuales no viajó durante la temporada de Junio-Julio?
+            </ion-list-header>
+            <ion-item>
+              <ion-select class="requiredSelect" placeholder="Motivos" multiple="true" name="reasons" (ionChange)="showOtherReason(person)" [(ngModel)]="person.reasons" selectedText>
+                  <ion-option value="773">Las vacaciones no coinciden con otros miembros del hogar</ion-option>
+                  <ion-option value="772">No le gusta viajar</ion-option>
+                  <ion-option value="771">Estudio</ion-option>
+                  <ion-option value="770">Desempleo</ion-option>
+                  <ion-option value="769">Piensa viajar en otra temporada</ion-option>
+                  <ion-option value="768">Viajó recientemente</ion-option>
+                  <ion-option value="767">Motivos de salud</ion-option>
+                  <ion-option value="766">Calamidad doméstica</ion-option>
+                  <ion-option value="765">Motivos laborales</ion-option>
+                  <ion-option value="764">Falta de tiempo</ion-option>
+                  <ion-option value="763">Motivos econímicos</ion-option>
+                  <ion-option value="40">Otro</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="moment1.lMoment1PersonModel[i].flagOtherReason">
+                <ion-label stacked>¿Cual?</ion-label>
+                <ion-input type="text" name="otherReason" [(ngModel)]="moment1.otherReason" class="requiredInput"></ion-input>
+            </ion-item>
+        </ion-list>
+</div>
+<!--<div class="nivelingresos">
+    <ion-list radio-group margin-top class="item-borderless">
+      <ion-list-header>
+        De los rangos que leere acontinuación, en promedio ¿cuál es el nivel de ingresos mensuales de este hogar?
+      </ion-list-header>
+      <ion-item no-lines>
+        <ion-select placeholder="Seleccione" name="income_id" [(ngModel)]="moment1.income_id">
+            <ion-option value="74">Menos de $690.000</ion-option>
+            <ion-option value="75">De $690.000 y menos de $1.400.000</ion-option>
+            <ion-option value="76">De $1.400.000 y menos de $2.000.000</ion-option>
+            <ion-option value="77">De $2.000.000 y menos de $3.000.000</ion-option>
+            <ion-option value="78">De $3.000.000 y menos de $4.000.000</ion-option>
+            <ion-option value="79">De $4.000.000 y menos de $5.000.000</ion-option>
+            <ion-option value="80">$5.000.000 o más</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+</div>-->
+<div class="emisorMoment1" margin-top>
+  <ion-list>
+    <ion-item>
+      <ion-label class="titulo">Datos de contacto</ion-label>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-100>
+          <ion-item no-padding no-lines>
+            <ion-label stacked>Nombre de la persona entrevistada</ion-label>
+            <ion-input class="requiredInput" type="text" name="interview_person" [(ngModel)]="moment1.interview_person"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item no-margin no-padding no-lines>
+            <ion-label stacked>Teléfono fijo</ion-label>
+            <ion-input class="requiredInput" type="number" name="phone" [(ngModel)]="moment1.phone"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item no-margin no-padding no-lines>
+            <ion-label stacked>Celular</ion-label>
+            <ion-input class="requiredInput" type="number" name="cellphone" [(ngModel)]="moment1.cellphone"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-100>
+          <ion-item no-margin no-padding no-lines>
+              <ion-label stacked>Correo electrónico</ion-label>
+              <ion-input class="requiredInput" type="email" name="email" [(ngModel)]="moment1.email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-100>
+          <ion-grid no-padding>
+            <ion-item no-margin no-padding no-lines>
+              <ion-label stacked>Dirección de residencia</ion-label>
+            </ion-item>
+            <ion-row>
+              <ion-col>
+                <ion-item no-margin no-padding no-lines>
+                  <ion-select placeholder="Seleccione" name="address1" [(ngModel)]="moment1.address1" class="requiredSelect">
+                      <ion-option value="19">Calle</ion-option>
+                      <ion-option value="20">Carrera</ion-option>
+                      <ion-option value="21">Diagonal</ion-option>
+                      <ion-option value="22">Transversal</ion-option>
+                      <ion-option value="23">Circular</ion-option>
+                      <ion-option value="24">Vereda</ion-option>
+                      <ion-option value="775">Avenida</ion-option>
+                      <ion-option value="776">Corregimiento</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item no-margin no-padding no-lines>
+                  <ion-input class="requiredInput" type="text" name="address2" [(ngModel)]="moment1.address2"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-1 class="textB">#</ion-col>
+              <ion-col>
+                <ion-item no-margin no-padding no-lines>
+                  <ion-input class="requiredInput" type="text" name="address3" [(ngModel)]="moment1.address3"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-1 class="textB">-</ion-col>
+              <ion-col>
+                <ion-item no-margin no-padding no-lines>
+                  <ion-input class="requiredInput" type="text" name="address4" [(ngModel)]="moment1.address4"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-100>
+          <ion-item no-margin no-padding no-lines>
+              <ion-label stacked>Barrio</ion-label>
+              <ion-input type="text" class="requiredInput" name="neighborhood" [(ngModel)]="moment1.neighborhood"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item no-margin no-padding no-lines>
+              <ion-select placeholder="Estrato" name="stratum" [(ngModel)]="moment1.stratum" class="requiredSelect">
+                  <ion-option value="1">1</ion-option>
+                  <ion-option value="2">2</ion-option>
+                  <ion-option value="3">3</ion-option>
+                  <ion-option value="4">4</ion-option>
+                  <ion-option value="5">5</ion-option>
+                  <ion-option value="6">6</ion-option>
+              </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item no-margin no-padding no-lines>
+              <ion-select placeholder="Municipio" name="municipality_id" [(ngModel)]="moment1.municipality_id" class="requiredSelect">
+                <ion-option value="780">CÚCUTA</ion-option>
+                <ion-option value="781">ÁBREGO</ion-option>
+                <ion-option value="782">ARBOLEDAS</ion-option>
+                <ion-option value="783">BOCHALEMA</ion-option>
+                <ion-option value="784">BUCARASICA</ion-option>
+                <ion-option value="785">CÁCOTA</ion-option>
+                <ion-option value="786">CÁCHIRA</ion-option>
+                <ion-option value="787">CHINÁCOTA</ion-option>
+                <ion-option value="788">CHITAGÁ</ion-option>
+                <ion-option value="789">CONVENCIÓN</ion-option>
+                <ion-option value="790">CUCUTILLA</ion-option>
+                <ion-option value="791">DURANIA</ion-option>
+                <ion-option value="792">EL CARMEN</ion-option>
+                <ion-option value="793">EL TARRA</ion-option>
+                <ion-option value="794">EL ZULIA</ion-option>
+                <ion-option value="795">GRAMALOTE</ion-option>
+                <ion-option value="796">HACARÍ</ion-option>
+                <ion-option value="797">HERRÁN</ion-option>
+                <ion-option value="798">LABATECA</ion-option>
+                <ion-option value="799">LA ESPERANZA</ion-option>
+                <ion-option value="800">LA PLAYA</ion-option>
+                <ion-option value="801">LOS PATIOS</ion-option>
+                <ion-option value="802">LOURDES</ion-option>
+                <ion-option value="803">MUTISCUA</ion-option>
+                <ion-option value="804">OCAÑA</ion-option>
+                <ion-option value="805">PAMPLONA</ion-option>
+                <ion-option value="806">PAMPLONITA</ion-option>
+                <ion-option value="807">PUERTO SANTANDER</ion-option>
+                <ion-option value="808">RAGONVALIA</ion-option>
+                <ion-option value="809">SALAZAR</ion-option>
+                <ion-option value="810">SAN CALIXTO</ion-option>
+                <ion-option value="811">SAN CAYETANO</ion-option>
+                <ion-option value="812">SANTIAGO</ion-option>
+                <ion-option value="813">SARDINATA</ion-option>
+                <ion-option value="814">SILOS</ion-option>
+                <ion-option value="815">TEORAMA</ion-option>
+                <ion-option value="816">TIBÚ</ion-option>
+                <ion-option value="817">TOLEDO</ion-option>
+                <ion-option value="818">VILLA CARO</ion-option>
+                <ion-option value="819">VILLA DEL ROSARIO</ion-option>
+              </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--<ion-row>
+        <ion-col width-100>
+          <ion-list radio-group>
+            <ion-list-header no-padding>
+              ¿Sin importar el motivo, durante la temporada  de Junio-Julio finalizó algún viaje que había emprendido?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccione" name="motives" (ionChange)="showWhyNoTrip()" [(ngModel)]="moment1.agreement">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>-->
+      <ion-row *ngIf="whyNoTrip">
+        <ion-col>
+          <ion-list-header no-padding>
+              ¿Cuáles son los motivos por los cuales no viajó durante la temporada de Junio-Julio?
+          </ion-list-header>
+          <ion-item no-margin no-padding no-lines text-wrap>
+            <ion-select placeholder="Motivos" multiple="true" name="reasons" (ionChange)="showOtherReason()" [(ngModel)]="moment1.reasons" selectedText class="requiredSelect">
+                <ion-option value="773">Las vacaciones no coinciden con otros miembros del hogar</ion-option>
+                <ion-option value="772">No le gusta viajar</ion-option>
+                <ion-option value="771">Estudio</ion-option>
+                <ion-option value="770">Desempleo</ion-option>
+                <ion-option value="769">Piensa viajar en otra temporada</ion-option>
+                <ion-option value="768">Viajó recientemente</ion-option>
+                <ion-option value="767">Motivos de salud</ion-option>
+                <ion-option value="766">Calamidad doméstica</ion-option>
+                <ion-option value="765">Motivos laborales</ion-option>
+                <ion-option value="764">Falta de tiempo</ion-option>
+                <ion-option value="763">Motivos econímicos</ion-option>
+                <ion-option value="40">Otro</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item no-margin no-padding no-lines *ngIf="flagOtherReason">
+              <ion-label stacked>¿Cual?</ion-label>
+              <ion-input type="text" name="otherReason" class="requiredInput" [(ngModel)]="moment1.otherReason"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-100>
+          <ion-label stacked>Observaciones del encuestador</ion-label>
+          <ion-textarea name="observations" [(ngModel)]="moment1.observations"></ion-textarea>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-100>
+          <ion-list radio-group>
+            <ion-list-header no-padding>
+              Dando cumplimiento a la ley de proteccion de datos personales, solicito su autorizacion para que FENALCO pueda contactarlo nuevamente, Esta Usted de acuerdo?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccione" name="fenalcoSolicitude" [(ngModel)]="moment1.fenalcoSolicitude" class="requiredSelect">
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <div text-center>
+    <button (click)="save()" ion-button color="primary">Guardar</button>
+    <button *ngIf="flagMomento2" (click)="next()" ion-button color="primary">Siguiente</button>
+  </div>
+</div>
+</div>

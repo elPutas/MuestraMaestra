@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Encuesta Emisor</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <emisor-moment1 [hidden]="!flagMomento1"></emisor-moment1>
+  <div [hidden]="!flagMomento2">
+      <emisor-moment2 [datas]="i" *ngFor="let item of emisorMoment1Component.moment1.numMoment2;let i=index"></emisor-moment2>
+      <div text-center>
+        <button (click)="save()" ion-button color="primary">Guardar</button>
+      </div>
+  </div>
+  <!--<emisor-moment2 [datas]="0"></emisor-moment2>-->
+  <!--<emisor-moment3></emisor-moment3>-->
+  <!--<emisor-moment1 [ngClass]="{'hideMoment': showMoment1 == false }"></emisor-moment1>
+  <div style="display:none" [ngClass]="{'showMoment': showMoment2 == true }">
+    <emisor-moment2 [datas]="i" *ngFor="let item of emisorMoment1Component.moment1.numMoment2;let i=index"></emisor-moment2>
+  </div>
+  <div text-center padding-vertical>
+    <button [ngClass]="{'hideMoment': emisorMoment1Component.moment1.numMoment2.length>0 }" (click)="save()" ion-button color="primary">Guardar</button>
+    <button *ngIf="showMoment1" style="display:none; margin: 0 auto;" [ngClass]="{'showMoment': emisorMoment1Component.moment1.numMoment2.length>0 }" (click)="next()" ion-button color="primary" text-center>Siguiente</button>
+    <button style="display:none; margin: 0 auto;" [ngClass]="{'showMoment': emisorMoment1Component.moment1.numMoment2.length>0 && showMoment2 == true}" (click)="save()" ion-button color="primary" text-center>Guardar</button>
+  </div>-->
+</ion-content>

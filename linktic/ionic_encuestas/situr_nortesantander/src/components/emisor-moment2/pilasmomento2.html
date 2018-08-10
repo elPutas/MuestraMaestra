@@ -1,0 +1,2240 @@
+<ion-card no-margin width-100 (click)="acordeon($event,datas)" id="{{ datas }}">
+    <ion-list>
+        <button ion-item color="cards">
+            Momento 2 - {{ datas+1 }}
+            <ion-icon name="arrow-dropdown-circle" item-end color="light"></ion-icon>
+        </button>
+    </ion-list>
+</ion-card>
+<div class="acordeonMomento">
+    <div class="emisorMoment2">
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo">Viajes realizados</ion-label>
+            </ion-item>
+            <ion-list-header>
+                ¿Cuántos viajes realizados por cualquier motivo, finalizó en la temporada de Junio-Julio?
+            </ion-list-header>
+            <ion-item>
+                <ion-select [(ngModel)]="moment2.numTrips" placeholder="Seleccionar"  (ionChange)=renderTrips()>
+                    <ion-label> Seleccione </ion-label>
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">6</ion-option>
+                    <ion-option value="7">7</ion-option>
+                    <ion-option value="8">8</ion-option>
+                    <ion-option value="9">9</ion-option>
+                    <ion-option value="10">10</ion-option>
+                    <ion-option value="11">11</ion-option>
+                    <ion-option value="12">12</ion-option>
+                    <ion-option value="13">13</ion-option>
+                    <ion-option value="14">14</ion-option>
+                    <ion-option value="15">15</ion-option>
+                    <ion-option value="16">16</ion-option>
+                    <ion-option value="17">17</ion-option>
+                    <ion-option value="18">18</ion-option>
+                    <ion-option value="19">19</ion-option>
+                    <ion-option value="20">20</ion-option>
+                    <ion-option value="21">Mas de 20</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="emisorMoment2">
+        <div *ngFor="let trip of moment2.lTrips; let a =  index;">
+            <ion-list>
+                <ion-item-divider>
+                    Viaje {{ a+1 }}
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label stacked>En qué fecha inicio el viaje.</ion-label>
+                    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="moment2.startTrip" (ionChange)="calculateNight()"></ion-datetime>
+                </ion-item>
+                <ion-item>
+                    <ion-label stacked>En qué fecha finalizó el viaje.</ion-label>
+                    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="moment2.endTrip" (ionChange)="calculateNight()"></ion-datetime>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="titulo">¿Qué destinos incluyo el primer viaje realizado?</ion-label>
+                </ion-item>
+                <div *ngFor="let destination of trip.lDestination;let i = index">
+                    <ion-item-divider>
+                        Destino {{ i+1 }}
+                    </ion-item-divider>
+                    <ion-item>
+                        <ion-select placeholder="País" [(ngModel)]="destination.country" (ionChange)="onChangeCountry(i,$event,destination)">
+                            <ion-label>Seleccionar</ion-label>
+                            <ion-option *ngFor="let country of data.countries" value="{{country.id}}">{{country.name}} </ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-select placeholder="Departamento" [(ngModel)]="destination.state" (ionChange)="onChangeDept(i,$event)">
+                            <ion-label>Seleccionar</ion-label>
+                            <ion-option *ngFor="let dept of depts[i]" value="{{dept.id}} ">{{dept.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="destination.city"  (ionChange)="getNameCity(destination,$event)">
+                            <ion-label> Ciudad/Municipio de residencia: </ion-label>
+                            <ion-option *ngFor="let city of cities[i]" value="{{city.id}} ">{{city.name}} </ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <!--<ion-input type="text" ></ion-input>-->
+                    <ion-item-divider>
+                        Destino principal
+                    </ion-item-divider>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" (ionChange)="isMainDestination($event,destination)" [(ngModel)]="destination.mainDestination">
+                            <!--<ion-label> Seleccione </ion-label>-->
+                            <ion-option value="si">Si</ion-option>
+                            <ion-option value="no">No</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+                <ion-item>
+                    <button ion-button color="primary" (click)="addDestination(trip.lDestination)">Adicionar</button>
+                    <button ion-button color="danger" (click)="removeDestination(trip.lDestination)">Remover</button>
+                </ion-item>
+                <ion-list-header>
+                        ¿Cuál fue el motivo principal del primer viaje?
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" (ionChange)="showMainMotivation()" [(ngModel)]="moment2.mainMotivation">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="793">Realizar funciones propias de personal de embajada, consulado y militares en el departamento.</ion-option>
+                        <ion-option value="97">Trabajar en una empresa ubicada en Antioquia</ion-option>
+                        <ion-option value="96">Vender bienes o prestar servicios como representante de empresa que no es de Antioquia o como independiente</ion-option>
+                        <ion-option value="95">Comprar bienes o servicios para empresa que no es de Antioquia o como independiente</ion-option>
+                        <ion-option value="94">Investigación académica o científica</ion-option>
+                        <ion-option value="93">Competir en actividad deportiva</ion-option>
+                        <ion-option value="92">Artista de espectáculo (concierto, obra de teatro, danza, etc.)</ion-option>
+                        <ion-option value="91">Dictar conferencia, ponente en congreso, feria comercial o exposición</ion-option>
+                        <ion-option value="90">Asistir a conferencia, congreso, feria comercial o exposición</ion-option>
+                        <ion-option value="89">Realizar inversión y/o asistir a reunión de negocios</ion-option>
+                        <ion-option value="88">Compras para uso personal o para regalo</ion-option>
+                        <ion-option value="87">Asistir a eventos religiosos/peregrinaciones</ion-option>
+                        <ion-option value="86">Salud y atención médica (incluye la cirugía estética)</ion-option>
+                        <ion-option value="85">Educación/Formación</ion-option>
+                        <ion-option value="84">En tránsito a otro destino</ion-option>
+                        <ion-option value="83">Visitar a familiares y/o amigos</ion-option>
+                        <ion-option value="82">Vacaciones, recreo y ocio</ion-option>
+                        <ion-option value="40">Otro</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item *ngIf="flagLongStop">
+                    <ion-label stacked>Cuantas horas duro la parada mas larga?</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.longStop"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="flagHealth">
+                    <ion-label stacked>La finalidad del servicio medico es?</ion-label>
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.motivationHealth">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="1">Solo opinion acesoria medica.</ion-option>
+                        <ion-option value="2">Chequeo medico o examenes de rutina</ion-option>
+                        <ion-option value="3">Tratamiento medico sin intervencion quirurgica</ion-option>
+                        <ion-option value="4">Tratamiento medico con intervencion quirurgica</ion-option>                        
+                    </ion-select>
+                </ion-item>
+                <ion-item *ngIf="flagOtherMotivation">
+                    <ion-label stacked>Otros motivos</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.otherMotivation"></ion-input>
+                </ion-item>
+                <ion-list-header>
+                    ¿Con qué frecuencia realiza este viaje?
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.frecuencyTrip">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="103">Varias veces a la semana</ion-option>
+                        <ion-option value="104">Una vez a la semana</ion-option>
+                        <ion-option value="105">Menor o igual a un mes (No incluye varias veces a la semana y una vez a la semana)</ion-option>
+                        <ion-option value="106">Mayor a un mes</ion-option>
+                        <ion-option value="107">Esta es la primera vez</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-list-header>
+                        ¿Cuántas personas incluyéndose usted, realizaron juntos el primer viaje desde la salida hasta el regreso al lugar de residencia?
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.howMuchMakeTrip" (ionChange)="showTourist()">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="1">1</ion-option>
+                        <ion-option value="2">2</ion-option>
+                        <ion-option value="3">3</ion-option>
+                        <ion-option value="4">4</ion-option>
+                        <ion-option value="5">5</ion-option>
+                        <ion-option value="6">6</ion-option>
+                        <ion-option value="7">7</ion-option>
+                        <ion-option value="8">8</ion-option>
+                        <ion-option value="9">9</ion-option>
+                        <ion-option value="10">10</ion-option>
+                        <ion-option value="11">11</ion-option>
+                        <ion-option value="12">12</ion-option>
+                        <ion-option value="13">13</ion-option>
+                        <ion-option value="14">14</ion-option>
+                        <ion-option value="15">15</ion-option>
+                        <ion-option value="16">16</ion-option>
+                        <ion-option value="17">17</ion-option>
+                        <ion-option value="18">18</ion-option>
+                        <ion-option value="19">19</ion-option>
+                        <ion-option value="20">20</ion-option>
+                        <ion-option value="21">21</ion-option>
+                        <ion-option value="22">22</ion-option>
+                        <ion-option value="23">23</ion-option>
+                        <ion-option value="24">24</ion-option>
+                        <ion-option value="25">25</ion-option>
+                        <ion-option value="26">26</ion-option>
+                        <ion-option value="27">27</ion-option>
+                        <ion-option value="28">28</ion-option>
+                        <ion-option value="29">29</ion-option>
+                        <ion-option value="30">30</ion-option>
+                        <ion-option value="31">31</ion-option>
+                        <ion-option value="32">32</ion-option>
+                        <ion-option value="33">33</ion-option>
+                        <ion-option value="34">34</ion-option>
+                        <ion-option value="35">35</ion-option>
+                        <ion-option value="36">36</ion-option>
+                        <ion-option value="37">37</ion-option>
+                        <ion-option value="38">38</ion-option>
+                        <ion-option value="39">39</ion-option>
+                        <ion-option value="40">40</ion-option>
+                        <ion-option value="41">41</ion-option>
+                        <ion-option value="42">42</ion-option>
+                        <ion-option value="43">43</ion-option>
+                        <ion-option value="44">44</ion-option>
+                        <ion-option value="45">45</ion-option>
+                        <ion-option value="46">46</ion-option>
+                        <ion-option value="47">47</ion-option>
+                        <ion-option value="48">48</ion-option>
+                        <ion-option value="49">49</ion-option>
+                        <ion-option value="50">50</ion-option>
+                        <ion-option value="51">51</ion-option>
+                        <ion-option value="52">52</ion-option>
+                        <ion-option value="53">53</ion-option>
+                        <ion-option value="54">54</ion-option>
+                        <ion-option value="55">55</ion-option>
+                        <ion-option value="56">56</ion-option>
+                        <ion-option value="57">57</ion-option>
+                        <ion-option value="58">58</ion-option>
+                        <ion-option value="59">59</ion-option>
+                        <ion-option value="60">60</ion-option>
+                        <ion-option value="61">61</ion-option>
+                        <ion-option value="62">62</ion-option>
+                        <ion-option value="63">63</ion-option>
+                        <ion-option value="64">64</ion-option>
+                        <ion-option value="65">65</ion-option>
+                        <ion-option value="66">66</ion-option>
+                        <ion-option value="67">67</ion-option>
+                        <ion-option value="68">68</ion-option>
+                        <ion-option value="69">69</ion-option>
+                        <ion-option value="70">70</ion-option>
+                        <ion-option value="71">71</ion-option>
+                        <ion-option value="72">72</ion-option>
+                        <ion-option value="73">73</ion-option>
+                        <ion-option value="74">74</ion-option>
+                        <ion-option value="75">75</ion-option>
+                        <ion-option value="76">76</ion-option>
+                        <ion-option value="77">77</ion-option>
+                        <ion-option value="78">78</ion-option>
+                        <ion-option value="79">79</ion-option>
+                        <ion-option value="80">80</ion-option>
+                        <ion-option value="81">81</ion-option>
+                        <ion-option value="82">82</ion-option>
+                        <ion-option value="83">83</ion-option>
+                        <ion-option value="84">84</ion-option>
+                        <ion-option value="85">85</ion-option>
+                        <ion-option value="86">86</ion-option>
+                        <ion-option value="87">87</ion-option>
+                        <ion-option value="88">88</ion-option>
+                        <ion-option value="89">89</ion-option>
+                        <ion-option value="90">90</ion-option>
+                        <ion-option value="91">91</ion-option>
+                        <ion-option value="92">92</ion-option>
+                        <ion-option value="93">93</ion-option>
+                        <ion-option value="94">94</ion-option>
+                        <ion-option value="95">95</ion-option>
+                        <ion-option value="96">96</ion-option>
+                        <ion-option value="97">97</ion-option>
+                        <ion-option value="98">98</ion-option>
+                        <ion-option value="99">99</ion-option>
+                        <ion-option value="100">100</ion-option>
+                        <ion-option value="101">101</ion-option>
+                        <ion-option value="102">102</ion-option>
+                        <ion-option value="103">103</ion-option>
+                        <ion-option value="104">104</ion-option>
+                        <ion-option value="105">105</ion-option>
+                        <ion-option value="106">106</ion-option>
+                        <ion-option value="107">107</ion-option>
+                        <ion-option value="108">108</ion-option>
+                        <ion-option value="109">109</ion-option>
+                        <ion-option value="110">110</ion-option>
+                        <ion-option value="111">111</ion-option>
+                        <ion-option value="112">112</ion-option>
+                        <ion-option value="113">113</ion-option>
+                        <ion-option value="114">114</ion-option>
+                        <ion-option value="115">115</ion-option>
+                        <ion-option value="116">116</ion-option>
+                        <ion-option value="117">117</ion-option>
+                        <ion-option value="118">118</ion-option>
+                        <ion-option value="119">119</ion-option>
+                        <ion-option value="120">120</ion-option>
+                        <ion-option value="121">121</ion-option>
+                        <ion-option value="122">122</ion-option>
+                        <ion-option value="123">123</ion-option>
+                        <ion-option value="124">124</ion-option>
+                        <ion-option value="125">125</ion-option>
+                        <ion-option value="126">126</ion-option>
+                        <ion-option value="127">127</ion-option>
+                        <ion-option value="128">128</ion-option>
+                        <ion-option value="129">129</ion-option>
+                        <ion-option value="130">130</ion-option>
+                        <ion-option value="131">131</ion-option>
+                        <ion-option value="132">132</ion-option>
+                        <ion-option value="133">133</ion-option>
+                        <ion-option value="134">134</ion-option>
+                        <ion-option value="135">135</ion-option>
+                        <ion-option value="136">136</ion-option>
+                        <ion-option value="137">137</ion-option>
+                        <ion-option value="138">138</ion-option>
+                        <ion-option value="139">139</ion-option>
+                        <ion-option value="140">140</ion-option>
+                        <ion-option value="141">141</ion-option>
+                        <ion-option value="142">142</ion-option>
+                        <ion-option value="143">143</ion-option>
+                        <ion-option value="144">144</ion-option>
+                        <ion-option value="145">145</ion-option>
+                        <ion-option value="146">146</ion-option>
+                        <ion-option value="147">147</ion-option>
+                        <ion-option value="148">148</ion-option>
+                        <ion-option value="149">149</ion-option>
+                        <ion-option value="150">Mayor a 150</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-list-header *ngIf="flagTourist">
+                    Las personas mencionadas son:
+                </ion-list-header>
+                <ion-item *ngIf="flagTourist">
+                    <ion-select placeholder="Seleccionar" multiple="true" (ionChange)="showWhoAreThem()" [(ngModel)]="moment2.whoAreThem">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="109">Viajé solo</ion-option>
+                        <ion-option value="110">Otra(s) personas del hogar compartiendo gastos </ion-option>
+                        <ion-option value="111">Otra(s) personas del hogar sin compartir gastos </ion-option>
+                        <ion-option value="112">Otra(s) personas que no son del hogar compartiendo gastos</ion-option>
+                        <ion-option value="113">Otra(s) personas que no son del hogar sin compartir gastos</ion-option>
+                        <ion-option value="114">¿Dentro de las personas que no son del hogar incluía otros turistas, es decir, personas desconocidas o sin ningún vínculo con usted?</ion-option>
+                    </ion-select>
+                </ion-item>
+                <!-- TEXTOS SEGÚN ITEM SELECICONADO EN SELECT ANTERIOS -->
+                <ion-item *ngIf="flagHowManyShare">
+                    <ion-label stacked>¿Cuántas personas del hogar compartiendo gastos?</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.howManyShare"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="flagHowManyShareNo">
+                    <ion-label stacked>¿Cuántas personas del hogar sin compartir gastos?</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.howManyShareNo"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="flagHowManyShareNoHome">
+                    <ion-label stacked>¿Cuántas personas que no son del hogar compartiendo gastos?</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.howManyShareNoHome"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="flagHowManyShareNoHomeNo">
+                    <ion-label stacked>¿Cuántas personas que no son del hogar sin compartir gastos?</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.howManyShareNoHomeNo"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="flagTouristHome">
+                    <ion-label stacked>¿Dentro de las personas que no son del hogar incluía otros turistas, es decir, personas desconocidas o sin ningún vínculo con usted?</ion-label>
+                </ion-item>
+                <ion-item *ngIf="flagTouristHome">
+                    <ion-select placeholder="Seleccionar" (ionChange)="showTouristShare()" [(ngModel)]="moment2.touristHome">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="si">Si</ion-option>
+                        <ion-option value="no">No</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item *ngIf="flagTouristShare">
+                    <ion-label stacked>¿Cuántos eran otros turistas?</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.howManyTouristHome"></ion-input>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+    <div class="emisorMoment2" margin-top>
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo">Duración de la estancia y lugares visitados</ion-label>
+            </ion-item>
+            <ion-item>
+                Ahora vamos a hablar solamente del viaje realizado por [nombre del momento 1] cuyo destino principal fue:
+            </ion-item>
+            <ion-list-header>
+                ¿Cuántas noches totales pasó durante el viaje?
+            </ion-list-header>
+            <ion-item>
+                <ion-input readonly="true" type="text" [(ngModel)]="moment2.howManyNight"></ion-input>
+            </ion-item>
+            <div *ngIf="flagNightDay">
+            <ion-list *ngFor="let night of moment2.lNights;let i = index">
+                <ion-list-header>
+                    ¿Cuántas noches paso en Destino {{ moment2.lNights[i].name }}?
+                </ion-list-header>
+                <ion-item>
+                    <ion-input type="number" [(ngModel)]="night.howManyNight"></ion-input>
+                </ion-item>
+                <ion-list-header>
+                    ¿Tipo de alojamiento utilizado?
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="night.typeNight" (ionChange)="showOtherTypeNight(night)">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="0">Casa de familiares o amigos</ion-option>
+                        <ion-option value="1">Hotel</ion-option>
+                        <ion-option value="2">Posada</ion-option>
+                        <ion-option value="3">Posada turística</ion-option>
+                        <ion-option value="4">Hostal/Albergue/Refugio</ion-option>
+                        <ion-option value="5">Finca agroturística/Alojamiento rural</ion-option>
+                        <ion-option value="6">Centro vacacional/Resort</ion-option>
+                        <ion-option value="7">Casa/cabaña de vacaciones propia</ion-option>
+                        <ion-option value="8">Casa/cabaña de vacaciones arrendada</ion-option>
+                        <ion-option value="9">Apartahotel</ion-option>
+                        <ion-option value="10">Apartamento arrendado</ion-option>
+                        <ion-option value="11">Casa/Apartamento propio</ion-option>
+                        <ion-option value="12">Habitación rentada en vivienda familiar</ion-option>
+                        <ion-option value="13">Habitación sin pagar en vivienda de familia que no es allegada mía</ion-option>
+                        <ion-option value="14">Camping</ion-option>
+                        <ion-option value="15">Ningún tipo de alojamiento</ion-option>
+                        <ion-option value="16">Otro</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item *ngIf="moment2.lNights[i].flagNight">
+                    <ion-label stacked>¿Cuál?</ion-label>
+                    <ion-input type="text" [(ngModel)]="night.whichNight"></ion-input>
+                </ion-item>
+            </ion-list>
+            </div>       
+            <ion-list-header *ngIf="showActivitiesAntioquiaSelect">
+                ¿Qué actividades realizó en Antioquia?
+            </ion-list-header>
+            <ion-item *ngIf="showActivitiesAntioquiaSelect">
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.activitiesAntioquia"  multiple="true" (ionChange)="showActivitiesAntioquia()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="159">Asistencia a espectáculos artísticos que no hacen parte de festivales</ion-option>
+                    <ion-option value="158">Asistencia a festivales artísticos (Música, cine, danzas)</ion-option>
+                    <ion-option value="157">Asistencia a fiestas y ferias de los pueblos o municipios</ion-option>
+                    <ion-option value="156">Visita a museos, casas de la cultura, iglesias, santuarios, monumentos</ion-option>
+                    <ion-option value="155">Visita a parques temáticos/parque de atracciones</ion-option>
+                    <ion-option value="154">Visita a parques naturales, Cascadas, ríos, pozos, balnearios, zoológicos y jardines</ion-option>
+                    <ion-option value="153">Recorrer las calles del casco urbano</ion-option>
+                    <ion-option value="152">Visita haciendas o fábricas donde enseñan el proceso del café, la panela, los dulces etc</ion-option>                    
+                    <ion-option value="151">Visita a casinos y otros sitios de juegos de azar</ion-option>                    
+                    <ion-option value="150">Practica de deportes</ion-option>    
+                    <ion-option value="149">Asistencia a competencia o muestras deportivas</ion-option> 
+                    <ion-option value="148">Visita a discotecas,bares,karaoke y pista de baile</ion-option> 
+                    <ion-option value="147">Visita a centros comerciales</ion-option> 
+                    <ion-option value="146">Compras en almacenes no ubicados en centros comerciales</ion-option> 
+                    <ion-option value="145">Actividad religiosas</ion-option> 
+                    <ion-option value="144">Reuniones de negocios</ion-option> 
+                    <ion-option value="143">Asistir a conferencias/congresos/ferias comerciales</ion-option> 
+                    <ion-option value="40">Otro</ion-option>                
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA EL ID 156 -->
+            <ion-list-header *ngIf="flagAntioquiaActivities">
+                ¿Cuales visita a museos, casas de la cultura, iglesias, santuarios, monumentos?
+            </ion-list-header>
+            <ion-item>
+                <ion-select *ngIf="flagAntioquiaActivities" multiple="true" placeholder="Seleccionar"  (ionChange)="showActivitiesAntioquiaMuseumOther()"  [(ngModel)]="moment2.whichActivitiesAntioquia">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="159">Catedrales, iglesias</ion-option>
+                    <ion-option value="158">Casas de la cultura</ion-option>
+                    <ion-option value="157">Museos de arte</ion-option>
+                    <ion-option value="155">Haciendas y/o casas históricas</ion-option>
+                    <ion-option value="154">Puentes históricos</ion-option>
+                    <ion-option value="153">Monumentos</ion-option>
+                    <ion-option value="152">Cementerios</ion-option>
+                    <ion-option value="151">Santuarios</ion-option>
+                    <ion-option value="150">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA OTRO -->
+            <ion-item  *ngIf="flagAntioquiaActivitiesOtherMuseum">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.whichActivitiesAntioquiaOther"></ion-input>
+            </ion-item>
+            <ion-list-header *ngIf="flagAntioquiaActivitiesPark">
+                ¿Cuales Visita a parques temáticos/parque de atracciones?
+            </ion-list-header>
+            <ion-item *ngIf="flagAntioquiaActivitiesPark">
+                <ion-select placeholder="Seleccionar"  [(ngModel)]="moment2.visitParks">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="160">Parque Explora</ion-option>
+                    <ion-option value="161">Aeroparque Juan Pablo II</ion-option>
+                    <ion-option value="162">Parque temático Hacienda Nápoles</ion-option>
+                    <ion-option value="163">Parque de las Aguas</ion-option>
+                    <ion-option value="164">Kanaloa Parque Acuático (Santa Fe de Antioquia)</ion-option>
+                    <ion-option value="165">Parque Norte</ion-option>
+                    <ion-option value="166">Planetario de Medellín</ion-option>
+                    <ion-option value="167">Parques recreativos Comfama (Rionegro, Parque Arví, La Estrella, Copacabana, Guatapé)</ion-option>
+                    <ion-option value="168">Parques Comfenalco (Los Tamarindos, Los Encuentros, Guayabal, Gran Avenida, Piedras Blancas, Camping Los Farallones, Ecoparque Mario Aramburo)</ion-option>
+                    <ion-option value="315">Ninguno de los anteriores</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header *ngIf="flagVisitZoo">
+                ¿Cuales Visita a parques naturales, Cascadas, ríos, pozos, balnearios, zoológicos y jardines?
+            </ion-list-header>
+            <ion-item  *ngIf="flagVisitZoo">
+                <ion-select placeholder="Seleccionar" (ionChange)="showVisitZooOther()" [(ngModel)]="moment2.visitZoo">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="179">Parque Natural Regional Metropolitano Cerro El Volador</ion-option>
+                    <ion-option value="178">Cerro Nutibara y Pueblito Paisa</ion-option>
+                    <ion-option value="177">Parque ecológico Piedras Blancas</ion-option>
+                    <ion-option value="176">Cuevas</ion-option>
+                    <ion-option value="175">Jardín Botánico Joaquín Antonio Uribe</ion-option>
+                    <ion-option value="174">Parque Zoológico Santa Fe</ion-option>
+                    <ion-option value="173">Ríos, pozos, balnearios</ion-option>
+                    <ion-option value="172">Cascadas</ion-option>
+                    <ion-option value="171">Miradores paisajísticos</ion-option>
+                    <ion-option value="170">Reservas/Parques naturales</ion-option>
+                    <ion-option value="169">Parque Arví</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagVisitZooOther">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text"  [(ngModel)]="moment2.visitZooOther"></ion-input>
+            </ion-item>
+
+            <ion-list-header *ngIf="flagMakePanela">
+                ¿Cuáles haciendas o fábricas donde enseñan el proceso del café, la panela, los dulces etc?
+            </ion-list-header>
+            <ion-item *ngIf="flagMakePanela">
+                <ion-select placeholder="Seleccionar" (ionChange)="showMakePanela()" [(ngModel)]="moment2.makePanela">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="184">Ruta del banano</ion-option>
+                    <ion-option value="183">Ruta de la leche</ion-option>
+                    <ion-option value="182">Ruta de la panela</ion-option>
+                    <ion-option value="181">Ruta del café</ion-option>
+                    <ion-option value="180">Ruta de los embalses</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagMakePanelaOther">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.makePanelaOther"></ion-input>
+            </ion-item>                        
+            <ion-list-header *ngIf="flagSport">
+                ¿Cuáles deportes?
+            </ion-list-header>
+            <ion-item *ngIf="flagSport">
+                <ion-select placeholder="Seleccionar" (ionChange)="showSportOther()" [(ngModel)]="moment2.whichSports">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="191">Bungee Jumping</ion-option>
+                    <ion-option value="190">Escalada en roca</ion-option>
+                    <ion-option value="189">Senderismo (Caminatas)</ion-option>
+                    <ion-option value="188">Parapente</ion-option>
+                    <ion-option value="187">Rappel en cascadas</ion-option>
+                    <ion-option value="186">Espelelismo (Exploración recreativa de cuevas)</ion-option>
+                    <ion-option value="185">Rafting (Canotaje)</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagSportOther">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.sportsOther"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="flagotherActivityInGeneral">
+                <ion-label stacked>Otras, ¿Cuáles?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.otherActivityInGeneral"></ion-input>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div class="emisorMoment2" margin-top>
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo">Transporte utilizado</ion-label>
+            </ion-item>
+            <ion-list-header>
+                ¿Cuál fue el medio transporte utilizado para recorrer la mayor distancia durante el viaje?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" (ionChange)="showDistanceTripOther()" [(ngModel)]="moment2.distanceTrip">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="201">Transporte terrestre intermunicipal</ion-option>
+                    <ion-option value="200">Ferrocarril/Tren</ion-option>
+                    <ion-option value="199">Transporte acuático</ion-option>
+                    <ion-option value="198">Transporte terrestre de pasajeros (bus, buseta, taxi, automóvil)</ion-option>
+                    <ion-option value="197">Alquiler de vehículo</ion-option>
+                    <ion-option value="196">Transporte aéreo</ion-option>
+                    <ion-option value="195">Transporte terrestre de excursiones y/o planes turísticos</ion-option>
+                    <ion-option value="194">Vehículo de amigos o familiares</ion-option>
+                    <ion-option value="193">Vehículo propio</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagDistanceTripOther">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.whichDistanceTrip"></ion-input>
+            </ion-item>
+            <ion-list-header>
+                ¿Qué tipo de transporte utilizó para desplazarse durante su estancia en destino principal?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar"  (ionChange)="showWhichtransportUsed()" multiple="true" [(ngModel)]="moment2.transportUsed">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="210">Taxi</ion-option>
+                    <ion-option value="209">Motocicleta	</ion-option>
+                    <ion-option value="208">Bicicleta	</ion-option>
+                    <ion-option value="207"> A pie</ion-option>
+                    <ion-option value="205">Automóvil alquilado	</ion-option>
+                    <ion-option value="204">Automóvil particular</ion-option>
+                    <ion-option value="203">Autobús	</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagwhichtransportUsed">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.whichtransportUsed"></ion-input>
+            </ion-item>
+            <ion-list-header>
+                ¿Qué tipo de transporte utilizó para salir del destino principal?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" (ionChange)="showMainTransportUsed()" multiple="true" [(ngModel)]="moment2.mainTransportUsed">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="210">Taxi</ion-option>
+                    <ion-option value="209">Motocicleta	</ion-option>
+                    <ion-option value="208">Bicicleta	</ion-option>
+                    <ion-option value="207"> A pie</ion-option>
+                    <ion-option value="206">Avión	</ion-option>
+                    <ion-option value="205">Automóvil alquilado	</ion-option>
+                    <ion-option value="204">Automóvil particular</ion-option>
+                    <ion-option value="203">Autobús	</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="flagWhichMainTransportUsed">
+                <ion-label stacked>¿Cuál?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.whichMainTransportUsed"></ion-input>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="emisorMoment2" margin-top>
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo">Gastos de preparación y durante el viaje</ion-label>
+            </ion-item>
+            <ion-list-header>
+                ¿Cuál de los siguientes medios utilizó para reservar?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.medioReserved">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="212">Directo (viajando por su propia cuenta)	</ion-option>
+                    <ion-option value="213">Agencia</ion-option>
+                    <ion-option value="214">Excursión</ion-option>
+                    <ion-option value="215">Internet</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                ¿Cuál fue su medio de pago?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.medioReservedPay">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="217">Efectivo</ion-option>
+                    <ion-option value="218">Tarjeta de crédito</ion-option>
+                    <ion-option value="219">Tarjeta débito</ion-option>
+                    <ion-option value="220">Cheque</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item-divider>
+                ¿El viaje hizo parte de un paquete/plan turístico o excursión?
+            </ion-item-divider>
+            <ion-list>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.tripTouristPack" (ionChange)="tripTouristPackChange()">
+                        <ion-label> Seleccione </ion-label>
+                        <ion-option value="si">Si</ion-option>
+                        <ion-option value="no">No</ion-option>
+                    </ion-select>
+                </ion-item>
+                <!-- SI SELECCIONA SI APARECEN ESTOS CAMPOS -->
+                <div class="showd9" *ngIf="tripTouristPack">
+                <ion-item>
+                    <ion-label stacked>¿Cuánto pagó usted por el paquete turístico o excursión?</ion-label>
+                    <ion-input type="number" placeholder="COP" [(ngModel)]="moment2.howMuchPay" (ionChange)="howMuchPayChange()"></ion-input>
+                </ion-item>
+
+                <!-- SI EL VALOR ES MAS DE 0 -->
+                    <ion-list-header *ngIf="howMuchPay">
+                        ¿Pagó con qué tipo de moneda?
+                    </ion-list-header>
+                    <ion-item *ngIf="howMuchPay">
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.currencyType">
+                            <!--<ion-label> Seleccione </ion-label>-->
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header *ngIf="howMuchPay">
+                        ¿A cuántas personas cubrió?
+                    </ion-list-header>
+                    <ion-item *ngIf="howMuchPay">
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.personsCover">
+                            <!--<ion-label> Seleccione </ion-label>-->
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                            <ion-option value="10">10</ion-option>
+                            <ion-option value="11">Más 10</ion-option>
+                        </ion-select>
+                    </ion-item>
+
+
+
+                <!-- sdfjkhsdjkfh ksjdhfjk sdhfjkh sdkjfhskdhfjkshdjkfh ksjdfh -->  
+                <ion-list-header>
+                    El paquete/plan turístico o excursión fue comprado
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.packageBought" (ionChange)="packageBoughtChange()">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="222">Agencia de viajes/operador turístico</ion-option>
+                        <ion-option value="223">Sitio de alojamiento (Hotel, hostal, posada ..)</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-list-header *ngIf="packageBought">
+                    ¿En donde está ubicada?
+                </ion-list-header>
+                <ion-item *ngIf="packageBought">
+                    <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.whereLocated">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="225">Antioquia</ion-option>
+                        <ion-option value="226">Otra ciudad Colombiana (No incluye las de Antioquia)</ion-option>
+                        <ion-option value="227">Extranjero</ion-option>
+                    </ion-select>
+                </ion-item>
+
+
+
+                
+                <ion-list-header>
+                    ¿Qué productos y servicios incluía el paquete/Plan turístico o excursión?
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.productsPlan" (ionChange)="productsPlanChange()">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="240">Cursos/talleres de enseñanza</ion-option>
+                        <ion-option value="239">Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones</ion-option>
+                        <ion-option value="238">Actividades recreativas, culturales y deportivas</ion-option>
+                        <ion-option value="237">Alimento y bebidas</ion-option>
+                        <ion-option value="236">Alojamiento</ion-option>
+                        <ion-option value="235">Transporte terrestre de pasajeros para movilizarse dentro de Antioquia.</ion-option>
+                        <ion-option value="234">Transporte terrestre de pasajeros nacional</ion-option>
+                        <ion-option value="232">Transporte aéreo nacional</ion-option>
+                        <ion-option value="231">Transporte terrestre internacional (Incluye ida-vuelta)</ion-option>
+                        <ion-option value="230">Transporte acuático internacional (Incluye ida-vuelta)</ion-option>
+                        <ion-option value="229">Transporte aéreo internacional (Incluye ida-vuelta)</ion-option>
+                        <ion-option value="40">Otro</ion-option>
+                    </ion-select>
+                </ion-item>
+                <!-- SI SELECCIONA OTROS -->
+                <ion-item *ngIf="productsPlanCT">
+                    <ion-label stacked>Otros Servicios</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.otherServices"></ion-input>
+                </ion-item>
+
+                <ion-list-header *ngIf="productsPlanAC">
+                    Qué porcentaje del gasto en actividades recreativas, culturales y deportivas se realizó
+                </ion-list-header>
+                <ion-item *ngIf="productsPlanAC">
+                    <ion-label stacked>Dentro de Antioquia</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.productsPlanACD" (ionChange)="validateValuesproductsPlan1()"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="productsPlanAC">
+                    <ion-label stacked>Fuera de Antioquia</ion-label>
+                    <ion-input type="number" [(ngModel)]="moment2.productsPlanACF" (ionChange)="validateValuesproductsPlan1()"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="valueproductsPlan">
+                    <ion-label class="error">
+                        La suma de los dos valores no puede exceder del 100%
+                    </ion-label>
+                </ion-item>
+
+                <ion-list-header *ngIf="productsPlanACO">
+                    Qué porcentaje del gasto en asistencia a conferencias, seminarios, congreso, ferias comercialesy exposiciones se realizó
+                </ion-list-header>
+                <ion-item *ngIf="productsPlanACO">
+                    <ion-label stacked>Dentro de Antioquia</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.productsPlanACOD" (ionChange)="validateValuesproductsPlan2()"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="productsPlanACO">
+                    <ion-label stacked>Fuera de Antioquia</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.productsPlanACOF" (ionChange)="validateValuesproductsPlan2()"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="valueproductsPlan2">
+                    <ion-label class="error">
+                        La suma de los dos valores no puede exceder del 100%
+                    </ion-label>
+                </ion-item>
+
+                <ion-list-header *ngIf="productsPlanCT">
+                    Qué porcentaje del gasto en Cursos/talleres de enseñanza se realizó
+                </ion-list-header>
+                <ion-item *ngIf="productsPlanCT">
+                    <ion-label stacked>Dentro de Antioquia</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.productsPlanCTD" (ionChange)="validateValuesproductsPlan3()"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="productsPlanCT">
+                    <ion-label stacked>Fuera de Antioquia</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.productsPlanCTF" (ionChange)="validateValuesproductsPlan3()"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="valueproductsPlan3">
+                    <ion-label class="error">
+                        La suma de los dos valores no puede exceder del 100%
+                    </ion-label>
+                </ion-item>
+                </div>
+                <ion-list-header>
+                    Qué gastos realizó usted antes (Sólo gastos de preparación del viaje) y durante su viaje FUERA DEL PAQUETE/PLAN TURÍSTICO O EXCURSIÓN
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.costTripPackage" (ionChange)="costTripPackageChange()">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="17">Servicios médicos (Incluye la cirugía estética)</ion-option>
+                        <ion-option value="16">Cursos/talleres de enseñanza</ion-option>
+                        <ion-option value="15">Asistencia a conferencias, seminarios,congresos, ferias comerciales y exposiciones</ion-option>
+                        <ion-option value="14">Bienes de consumo duradero (Ropa, calzado, artículos electrónicos, etc.)</ion-option>
+                        <ion-option value="13">Objetos valiosos (Joyas, obras de arte)</ion-option>
+                        <ion-option value="12">Artesanías (incluye ropa y/o calzado artesanal), recuerdos</ion-option>
+                        <ion-option value="11">Actividades recreativas, culturales y deportivas</ion-option>
+                        <ion-option value="10">Alimento y bebidas</ion-option>
+                        <ion-option value="9">Alojamiento</ion-option>
+                        <ion-option value="8">Combustible</ion-option>
+                        <ion-option value="7">Alquiler de vehículo</ion-option>
+                        <ion-option value="6">Transporte terrestre de pasajeros para movilizarse dentro de Antioquia</ion-option>
+                        <ion-option value="5">Transporte terrestre de pasajeros nacional</ion-option>
+                        <ion-option value="4">Transporte aéreo nacional</ion-option>
+                        <ion-option value="3">Transporte terrestre internacional (Incluye ida-vuelta)</ion-option>
+                        <ion-option value="2">Transporte acuático internacional (Incluye ida-vuelta)</ion-option>
+                        <ion-option value="1">Transporte aéreo internacional (Incluye ida-vuelta)</ion-option>
+                        <ion-option value="99">Esta situación no se presento durante el viaje</ion-option>
+                        <ion-option value="96">Otro</ion-option>
+                    </ion-select>
+                </ion-item>
+                <!-- PENDIENTE -->
+                <div *ngIf="costTripSM">
+                    <ion-list-header>
+                        Servicios médicos (Incluye la cirugía estética)
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesSM"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.typeCurrencySM">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsSM"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripTTN">
+                    <ion-list-header>
+                        Transporte terrestre de pasajeros nacional
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesTTN"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyTTN">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsTTN"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripVA">
+                    <ion-list-header>
+                        Alquiler de vehículo
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesVA"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyVA">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsVA"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripAC">
+                    <ion-list-header>
+                        Actividades recreativas, culturales y deportivas
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesAC"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyAC">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsAC"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripAR">
+                    <ion-list-header>
+                        Artesanías (incluye ropa y/o calzado artesanal), recuerdos
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesAR"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyAR">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsAR"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripOV">
+                    <ion-list-header>
+                        Objetos valiosos (Joyas, obras de arte)
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesOV"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyOV">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsOV"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripBI">
+                    <ion-list-header>
+                        Bienes de consumo duradero (Ropa, calzado, artículos electrónicos, etc.)
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesBI"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyBI">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsBI"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripACO">
+                    <ion-list-header>
+                        Asistencia a conferencias, seminarios,congresos, ferias comerciales y exposiciones
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesACO"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyACO">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsACO"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripCT">
+                    <ion-list-header>
+                        Cursos/talleres de enseñanza
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesCT"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyCT">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsCT"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripAB">
+                    <ion-list-header>
+                        Alimento y bebidas
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesAB"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyAB">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsAB"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripCOM">
+                    <ion-list-header>
+                        Combustible
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesCO"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyCO">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsCO"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripAL">
+                    <ion-list-header>
+                        Alojamiento
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesAL"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyAL">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsAL"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripTTA">
+                    <ion-list-header>
+                        Transporte terrestre de pasajeros para movilizarse dentro de Antioquia
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesTTA"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyTTA">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsTTA"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripTAN">
+                    <ion-list-header>
+                        Transporte aéreo nacional
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesTAN"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyTAN">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsTAN"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripTTI">
+                    <ion-list-header>
+                        Transporte terrestre internacional (Incluye ida-vuelta)
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesTTI"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyTTI">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsTTI"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripTAI">
+                    <ion-list-header>
+                        Transporte acuático internacional (Incluye ida-vuelta)
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesTAI"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyTAI">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsTAI"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripTEI">
+                    <ion-list-header>
+                        Transporte aéreo internacional (Incluye ida-vuelta)
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesTEI"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyTEI">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsTEI"></ion-input>
+                    </ion-item>
+                </div>
+                <div *ngIf="costTripOthers">
+                    <ion-list-header>
+                        Otro
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿Cuáles?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.whichOther"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>¿Cuanto gasto?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.expensesOther"></ion-input>
+                    </ion-item>
+                    <ion-list-header>
+                        Tipo de Moneda
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.typeCurrencyOther">
+                            <ion-option value="1">Peso Colombiano</ion-option>
+                            <ion-option value="2">Dólar Estadounidense</ion-option>
+                            <ion-option value="3">Euro</ion-option>
+                            <ion-option value="4">Yen Japonés</ion-option>
+                            <ion-option value="5">Libra Esterlina</ion-option>
+                            <ion-option value="6">Franco Suizo</ion-option>
+                            <ion-option value="7">Dólar Australiano</ion-option>
+                            <ion-option value="8">Dólar Canadiense</ion-option>
+                            <ion-option value="9">Peso Mexicano</ion-option>
+                            <ion-option value="10">Peso Argentino</ion-option>
+                            <ion-option value="11">Nuevo Sol Peruano</ion-option>
+                            <ion-option value="12">Real Brasileño</ion-option>
+                            <ion-option value="13">Peso Chileno</ion-option>
+                            <ion-option value="14">Bolivar Venezolano</ion-option>
+                            <ion-option value="15">Dólar de Hong Kong</ion-option>
+                            <ion-option value="16">Yuan Chino</ion-option>
+                            <ion-option value="17">Lira Turca</ion-option>
+                            <ion-option value="18">Otra</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header>
+                        
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label stacked>¿A cuántas personas cubrió?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.countPersonsOther"></ion-input>
+                    </ion-item>
+                </div>
+                    <!-- MAL <ion-item *ngIf="costTripTTN">
+                        <ion-label stacked>Cual es el nombre de la empresa de transporte terrestre nacional</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripTTN"></ion-input>
+                    </ion-item>
+                    <ion-list-header *ngIf="costTripVA">
+                        El alquiler del vehículo fue realizado en:
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripVA">
+                        <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.costTripVA">
+                            <ion-option value="1">En Antioquia</ion-option>
+                            <ion-option value="2">Fuera de Antioquia</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-list-header *ngIf="costTripAC">
+                        Qué porcentaje del gasto en actividades recreativas, culturales y deportivas se realizó
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripAC">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripACD"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripAC">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripACF"></ion-input>
+                    </ion-item>
+
+                    <ion-list-header *ngIf="costTripAR">
+                        Qué porcentaje del gasto en artesanías se realizó
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripAR">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripARD"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripAR">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripARF"></ion-input>
+                    </ion-item>
+
+                    <ion-list-header *ngIf="costTripOV">
+                        Qué porcentaje del gasto en Objetos valiosos(Joyas, obras de arte) se realizó
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripOV">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripOVD"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripOV">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripOVF"></ion-input>
+                    </ion-item>
+
+
+                    <ion-list-header *ngIf="costTripBI">
+                        Qué porcentaje del gasto en bienes de consumo duradero(Ropa, calzado, artículo deportivos etc.) se realizó
+                    </ion-list-header>
+                    <ion-item  *ngIf="costTripBI">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripBID"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripBI">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripBIF"></ion-input>
+                    </ion-item>
+
+
+                    <ion-list-header *ngIf="costTripACO">
+                        Qué porcentaje del gasto en asistencia a conferencias, seminarios, congreso, ferias comercialesy exposiciones se realizó
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripACO">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripACOD"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripACO">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripACOF"></ion-input>
+                    </ion-item>
+
+
+                    <ion-list-header *ngIf="costTripCT">
+                        Qué porcentaje del gasto en Cursos/talleres de enseñanza se realizó
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripCT">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripCTD"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripCT">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripCTF"></ion-input>
+                    </ion-item>
+
+
+                    <ion-list-header *ngIf="costTripSM">
+                        Qué porcentaje del gasto en servicios médicos se realizó en
+                    </ion-list-header>
+                    <ion-item *ngIf="costTripSM">
+                        <ion-label stacked>Dentro de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripSMD"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="costTripSM">
+                        <ion-label stacked>Fuera de Antioquia</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripSMF"></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="costTripOthers">
+                        <ion-label stacked>¿Cuales?</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.costTripOthers"></ion-input>
+                    </ion-item>-->
+
+
+                    <ion-list-header>
+                       Seleccione los gastos del viaje realizados por otra persona u organización/empresa diferente a ustedo a su grupo de viaje
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.costTripPackage2" (ionChange)="costTripPackage2Change()">
+                            <!--<ion-label> Seleccione </ion-label>-->
+                            <ion-option value="17">Servicios médicos (Incluye la cirugía estética)</ion-option>
+                            <ion-option value="16">Cursos/talleres de enseñanza</ion-option>
+                            <ion-option value="15">Asistencia a conferencias, seminarios,congresos, ferias comerciales y exposiciones</ion-option>
+                            <ion-option value="14">Bienes de consumo duradero (Ropa, calzado, artí&shy;culos electrónicos, etc.)</ion-option>
+                            <ion-option value="13">Objetos valiosos (Joyas, obras de arte)</ion-option>
+                            <ion-option value="12">Artesanías (incluye ropa y/o calzado artesanal), recuerdos</ion-option>
+                            <ion-option value="11">Actividades recreativas, culturales y deportivas</ion-option>
+                            <ion-option value="10">Alimento y bebidas</ion-option>
+                            <ion-option value="9">Alojamiento</ion-option>
+                            <ion-option value="8">Combustible</ion-option>
+                            <ion-option value="7">Alquiler de vehículo</ion-option>
+                            <ion-option value="6">Transporte terrestre de pasajeros para movilizarse dentro de Antioquia</ion-option>
+                            <ion-option value="5">Transporte terrestre de pasajeros nacional</ion-option>
+                            <ion-option value="4">Transporte aéreo nacional</ion-option>
+                            <ion-option value="3">Transporte terrestre internacional (Incluye ida-vuelta)</ion-option>
+                            <ion-option value="2">Transporte acuático internacional (Incluye ida-vuelta)</ion-option>
+                            <ion-option value="1">Transporte aéreo internacional (Incluye ida-vuelta)</ion-option>
+                            <ion-option value="99">Esta situación no se presento durante el viaje</ion-option>
+                            <ion-option value="96">Otro</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <!-- CUANDO SELECCIONA CUALQUIER OPCIÓN APARECE ESTO -->
+                        <!---->
+                        <ion-item *ngIf="costTrip2TTN">
+                            <ion-label stacked>Cual es el nombre de la empresa de transporte terrestre nacional</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2TTN"></ion-input>
+                        </ion-item>
+                        <ion-list-header *ngIf="costTrip2VA">
+                            El alquiler del vehículo fue realizado en:
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2VA">
+                            <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.costTrip2VA">
+                                <!--<ion-label> Seleccione </ion-label>-->
+                                <ion-option value="1">En Antioquia</ion-option>
+                                <ion-option value="2">Fuera de Antioquia</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-list-header *ngIf="costTrip2AC">
+                            Qué porcentaje del gasto en actividades recreativas, culturales y deportivas se realizó
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2AC">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2ACD"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2AC">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2ACF"></ion-input>
+                        </ion-item>
+
+                        <ion-list-header *ngIf="costTrip2AR">
+                            Qué porcentaje del gasto en artesanías se realizó
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2AR">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2ARD"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2AR">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2ARF"></ion-input>
+                        </ion-item>
+
+                        <ion-list-header *ngIf="costTrip2OV">
+                            Qué porcentaje del gasto en Objetos valiosos(Joyas, obras de arte) se realizó
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2OV">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2OVD"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2OV">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2OVF"></ion-input>
+                        </ion-item>
+
+
+                        <ion-list-header *ngIf="costTrip2BI">
+                            Qué porcentaje del gasto en bienes de consumo duradero(Ropa, calzado, artículo deportivos etc.) se realizó
+                        </ion-list-header>
+                        <ion-item  *ngIf="costTrip2BI">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2BID"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2BI">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2BIF"></ion-input>
+                        </ion-item>
+
+
+                        <ion-list-header *ngIf="costTrip2ACO">
+                            Qué porcentaje del gasto en asistencia a conferencias, seminarios, congreso, ferias comercialesy exposiciones se realizó
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2ACO">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2ACOD"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2ACO">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2ACOF"></ion-input>
+                        </ion-item>
+
+
+                        <ion-list-header *ngIf="costTrip2CT">
+                            Qué porcentaje del gasto en Cursos/talleres de enseñanza se realizó
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2CT">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2CTD"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2CT">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2CTF"></ion-input>
+                        </ion-item>
+
+
+                        <ion-list-header *ngIf="costTrip2SM">
+                            Qué porcentaje del gasto en servicios médicos se realizó en
+                        </ion-list-header>
+                        <ion-item *ngIf="costTrip2SM">
+                            <ion-label stacked>Dentro de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2SMD"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="costTrip2SM">
+                            <ion-label stacked>Fuera de Antioquia</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2SMF"></ion-input>
+                        </ion-item>
+
+                        <ion-item *ngIf="costTrip2Others">
+                            <ion-label stacked>¿Cuales?</ion-label>
+                            <ion-input type="text" [(ngModel)]="moment2.costTrip2Others"></ion-input>
+                        </ion-item>
+
+                <ion-list-header>
+                    Los gastos de las personas que conformaron el grupo de viaje fueron pagados por
+                </ion-list-header>
+                <ion-item>
+                    <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.whoPaySpend" (ionChange)="whoPaySpendChange()">
+                        <!--<ion-label> Seleccione </ion-label>-->
+                        <ion-option value="251">Una entidad que no es la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                        <ion-option value="250"> Una parte fue pagada por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                        <ion-option value="249">Totalmente por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                        <ion-option value="248">Por todos pero no se dividió en partes iguales</ion-option>
+                        <ion-option value="247">Cada familia pagó lo que le correspondió</ion-option>
+                        <ion-option value="246">Por otro(s) familiares(s)/Amigos(s)</ion-option>
+                        <ion-option value="245">Se sumaron todos los gastos y se dividió por partes iguales</ion-option>
+                        <ion-option value="244">Cada uno asumió sus gastos</ion-option>
+                        <ion-option value="243">Por mi pareja/Novia(o)/Esposa(o)</ion-option>
+                        <ion-option value="242">Por mi</ion-option>
+                        <ion-option value="40">Otro</ion-option>
+                    </ion-select>
+                </ion-item>
+                <!-- SI SELECCIONA OTRO -->
+                    <ion-item *ngIf="whoPaySpend">
+                        <ion-label stacked>Otros Gastos del viaje</ion-label>
+                        <ion-input type="text" [(ngModel)]="moment2.othersSpends"></ion-input>
+                    </ion-item>
+                
+            </ion-list>
+        </ion-list>
+    </div>
+
+    <div class="emisorMoment2" margin-top>
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo">Como se enteran los visitantes sobre lugares visitados</ion-label>
+            </ion-item>
+            <ion-list-header>
+                ¿Antes de viajar, de qué forma usted se enteró de los destinos turísticos visitados?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.beforeTravel" (ionChange)="beforeTravelChange()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="264">Blog</ion-option>
+                    <ion-option value="263">Avisos en internet</ion-option>
+                    <ion-option value="262">Correo electrónico</ion-option>
+                    <ion-option value="261">Otras redes sociales</ion-option>
+                    <ion-option value="260">Facebook</ion-option>
+                    <ion-option value="259">Twitter</ion-option>
+                    <ion-option value="258">Guía turística impresa</ion-option>
+                    <ion-option value="257">Agencia de viajes</ion-option>
+                    <ion-option value="256">Medios de comunicación masiva (prensa, radio, televisión.)</ion-option>
+                    <ion-option value="255">Búsquedas en internet</ion-option>
+                    <ion-option value="254">Amigos y/o familiares</ion-option>
+                    <ion-option value="253">Ya los conocía</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA OTRO -->
+                <ion-item *ngIf="beforeTravel">
+                    <ion-label stacked>Otra forma</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.otherBeforeTravel"></ion-input>
+                </ion-item>
+            <ion-list-header>
+                ¿Durante el viaje, de qué forma usted buscó más información sobre destinos turísticos?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.whichWay" (ionChange)="whichWayChange()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="278">No busqué más información</ion-option>
+                    <ion-option value="277">Conductores de servicio público (De taxi, bus, buseta)</ion-option>
+                    <ion-option value="276"> Guías de turismo impresas, revistas</ion-option>
+                    <ion-option value="275">Habitantes de los municipios visitados</ion-option>
+                    <ion-option value="274">Agencias de viajes o agencias operadoras</ion-option>
+                    <ion-option value="273">Guías de turismo (persona)</ion-option>
+                    <ion-option value="272">Amigos</ion-option>
+                    <ion-option value="271">Blog</ion-option>
+                    <ion-option value="270">Redes sociales</ion-option>
+                    <ion-option value="269">Busqué en internet</ion-option>
+                    <ion-option value="268">Otros turistas</ion-option>
+                    <ion-option value="267">Hotel</ion-option>
+                    <ion-option value="266">Familiares</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA OTRO -->
+                <ion-item *ngIf="whichWay">
+                    <ion-label stacked>Otra forma</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.otherWhichWay"></ion-input>
+                </ion-item>
+            <ion-list-header>
+                ¿Después del viaje en que redes sociales compartió su experiencia de viaje (Comentarios, fotos, etc)?
+            </ion-list-header>
+            <!-- PILAS -->
+            <ion-item>
+                <ion-select placeholder="Seleccionar" multiple="true" [(ngModel)]="moment2.afterTripShare" (ionChange)="afterTripShareChange()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="290">Instagram</ion-option>
+                    <ion-option value="289">Mensajería (Skype, Whatsapp, messenger)</ion-option>
+                    <ion-option value="288">Flickr</ion-option>
+                    <ion-option value="287">Youtube</ion-option>
+                    <ion-option value="286">Google+</ion-option>
+                    <ion-option value="285">TripAdvisor</ion-option>
+                    <ion-option value="284">Pinterest</ion-option>
+                    <ion-option value="283">Linkedin</ion-option>
+                    <ion-option value="282">Twitter</ion-option>
+                    <ion-option value="281">Facebook</ion-option>
+                    <ion-option value="280">No compartí en redes sociales</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA OTRO -->
+                <ion-item *ngIf="afterTripShare">
+                    <ion-label stacked>Otra forma</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.otherAfterTripShare"></ion-input>
+                </ion-item>
+            <ion-list-header>
+                ¿Le gustaría que le enviáramos información sobre Antioquia a su correo electrónico?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.wantEmailAntioquia" (ionChange)="wantEmailAntioquiaChange()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA SI -->
+                <ion-item *ngIf="wantEmailAntioquia">
+                    <ion-label stacked>Email</ion-label>
+                    <ion-input type="email" [(ngModel)]="moment2.email"></ion-input>
+                </ion-item>
+            <ion-list-header>
+                ¿Le gustaría que le enviáramos una invitación por redes sociales para seguir a Antioquia?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.wantSocialRed" (ionChange)="wantSocialRedChange()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA SI -->
+                <ion-item *ngIf="wantSocialRed">
+                    <ion-label stacked>Facebook</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.facebook"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="wantSocialRed">
+                    <ion-label stacked>Twitter</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.twitter"></ion-input>
+                </ion-item>
+        </ion-list>
+    </div>
+
+    <div class="emisorMoment2" margin-top>
+        <ion-list>
+            <ion-item>
+                <ion-label class="titulo">Percepción y grado de satisfacción destino principal</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="">¿Cuál fue su grado de satisfacción con los siguientes servicios?</ion-label>
+            </ion-item>
+            <ion-list-header>
+                Paquete turístico
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.packageTourist">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Transporte de llegada
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar"  [(ngModel)]="moment2.transportArrived">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Desplazamientos
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.displacement">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Alojamiento
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.accommodation">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Alimentos y bebidas
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.drinks">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Tours
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.tours">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Recreación
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.recreation">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Regalos/souvenirs
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.present">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Transporte de salida
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.transportOut">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">NS/NR</ion-option>
+                    <ion-option value="7">N/A</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Otro</ion-label>
+                <ion-input type="number" [(ngModel)]="moment2.other"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Otro 2</ion-label>
+                <ion-input type="number" [(ngModel)]="moment2.other2"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Otro 3</ion-label>
+                <ion-input type="number" [(ngModel)]="moment2.other3"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Otro Servicio 1</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.otherService"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Otro Servicio 2</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.otherService2"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Otro Servicio 3</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.otherService3"></ion-input>
+            </ion-item>
+            <ion-list-header>
+                ¿Cuáles características son importantes para usted a la hora de elegir un destino?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.featuresDestiny" (ionChange)="featuresDestinyChange()">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="308">Itinerarios cumplidos</ion-option>
+                    <ion-option value="307">Incluya hospedaje</ion-option>
+                    <ion-option value="306">Incluya alimentación</ion-option>
+                    <ion-option value="305">Incluya transporte</ion-option>
+                    <ion-option value="304">Lugares a visitar</ion-option>
+                    <ion-option value="303">Precio</ion-option>
+                    <ion-option value="302">Calidad del servicio</ion-option>
+                    <ion-option value="40">Otro</ion-option>
+                </ion-select>
+            </ion-item>
+            <!-- SI SELECCIONA OTRO -->
+                <ion-item *ngIf="featuresDestiny">
+                    <ion-label stacked>Otras caracteristicas</ion-label>
+                    <ion-input type="text" [(ngModel)]="moment2.otherFeatures"></ion-input>
+                </ion-item>
+            <ion-list-header>
+                ¿Teniendo en cuenta la escala de calificaciones como persives la imagen antes de visitar a {{ mainNameDestination }}?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.imageBeforeVisit">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="5">Muy Buena</ion-option>
+                    <ion-option value="4">Buena</ion-option>
+                    <ion-option value="3">Ni buena / ni mala</ion-option>
+                    <ion-option value="2">Mala</ion-option>
+                    <ion-option value="1">Muy mala</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>¿Por qué?</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+            <ion-list-header>
+                Continuando con la misma escala, ¿cómo percibe la imagen de después de visitarlo?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.thenImageBeforeVisit">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="5">Muy Buena</ion-option>
+                    <ion-option value="4">Buena</ion-option>
+                    <ion-option value="3">Ni buena / ni mala</ion-option>
+                    <ion-option value="2">Mala</ion-option>
+                    <ion-option value="1">Muy mala</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>¿Qué fue lo que más le gustó de en su estadía?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.moreImportantStay"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>¿Qué fue lo que menos le gustó de en su estadía?</ion-label>
+                <ion-input type="text" [(ngModel)]="moment2.lessImportantStay"></ion-input>
+            </ion-item>
+            <ion-list-header>
+                ¿Volvería a visitar?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.wouldVisitAgain">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-list-header>
+                Ya para terminar, le solicito su autorización para que FENALCO comparta sus respuestas con las entidades que contrataron el proyecto, ¿está usted de acuerdo?
+            </ion-list-header>
+            <ion-item>
+                <ion-select placeholder="Seleccionar" [(ngModel)]="moment2.authFenalco">
+                    <!--<ion-label> Seleccione </ion-label>-->
+                    <ion-option value="si">Si</ion-option>
+                    <ion-option value="no">No</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-input type="text" disabled="true" [(ngModel)]="dateNow"></ion-input>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div text-center>
+        <button (click)="save()" ion-button color="primary">Guardar</button>
+    </div>
+</div>

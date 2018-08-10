@@ -1,0 +1,23 @@
+page-sincronizacion {
+    .buttonSin {
+        ion-label {
+            color: #fff !important;
+            font-weight: bold;
+        }
+        ion-spinner {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+    }
+    .connection {
+        ion-icon {
+            font-size: 20vw;
+            color: color($colors, primary);
+        }
+        p {
+            color: #ffffff;
+        }
+        margin-top: 20vh;
+    }
+}

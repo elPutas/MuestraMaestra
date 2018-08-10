@@ -1,0 +1,1700 @@
+<!--
+  Generated template for the ReceptorTwoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Receptor momento 2</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="receptor_dos" (ngSubmit)="formReceptor()">
+    <ion-list>
+      <ion-item>
+        <ion-label class="titulo"> CARACTERÍSTICAS DEL VIAJE AL DEPARTAMENTO DE ANTIOQUIA</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-note>
+          Esta información servirá para construir nuestras estadísticas de turismo y compararnos con otras regiones nacionales y del mundo, además será base para el diseño de planes de desarrollo para el sector.
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="titulo">
+          Parte B. Duración de la estancia y lugares visitados
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>¿Cuántas noches pasó en Antioquia?</ion-label>
+        <ion-input formControlName="duracion_estancia" disabled></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating> ¿Cuántos municipios visitó desde el momento que llegó a Antioquia hasta su partida? </ion-label>
+        <ion-input formControlName="int" type="text"  class="no_border" (ngModelChange)="addToform($event)"></ion-input>
+      </ion-item>
+      <ion-list *ngFor="let number of formsArray; let i = index">
+        <ion-item>
+          <ion-label class="titulo"> Municipio {{i + 1}} </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-note>
+            Ayuda tipo de alojamiento utilizado: Si utilizó más de un servicio de alojamiento en este municipio, seleccione en el que pasó el mayor número de noches.
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note>
+            Posada turística: Vivienda familiar ubicada en la zona rural en que se presta el servicio de alojamiento en unidades habitacionales preferiblemente de arquitectura autóctona, cuyo principal propósito es promover la generación de empleo e ingresos a la familia residente prestadora del servicio.
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note>
+            Casa/cabaña de vacaciones propia: Vivienda visitada fundamentalmente con fines de ocio, vacaciones o cualquier otra forma de esparcimiento.
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note>
+            Apartahotel: Edificio dedicado al servicio de alojamiento.
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note>
+            Habitación sin pagar en vivienda de familia que no es allegada mía: Servicio de alojamiento gratuito provisto a través de un tercero en una casa de familia con la cual no se tiene ninguna relación.
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label> Municipio   </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-select formControlName="{{'municipio_'+i}}" placeholer="Seleccionar" (ionChange)="getNameMunicipio($event)" >
+            <ion-option value="none">-- Seleccione --</ion-option>
+            <ion-option value="ABEJORRAL">ABEJORRAL</ion-option>
+            <ion-option value="ABRIAQUÍ">ABRIAQUÍ</ion-option>
+            <ion-option value="ALEJANDRÍA">ALEJANDRÍA</ion-option>
+            <ion-option value="AMAGÁ">AMAGÁ</ion-option>
+            <ion-option value="AMALFI">AMALFI</ion-option>
+            <ion-option value="ANDES">ANDES</ion-option>
+            <ion-option value="ANGELÓPOLIS">ANGELÓPOLIS</ion-option>
+            <ion-option value="ANGOSTURA">ANGOSTURA</ion-option>
+            <ion-option value="ANORÍ">ANORÍ</ion-option>
+            <ion-option value="ANZÁ">ANZÁ</ion-option>
+            <ion-option value="APARTADÓ">APARTADÓ</ion-option>
+            <ion-option value="ARBOLETES">ARBOLETES</ion-option>
+            <ion-option value="ARGELIA">ARGELIA</ion-option>
+            <ion-option value="ARMENIA">ARMENIA</ion-option>
+            <ion-option value="BARBOSA">BARBOSA</ion-option>
+            <ion-option value="BELLO">BELLO</ion-option>
+            <ion-option value="BELMIRA">BELMIRA</ion-option>
+            <ion-option value="BETANIA">BETANIA</ion-option>
+            <ion-option value="BETULIA">BETULIA</ion-option>
+            <ion-option value="BRICEÑO">BRICEÑO</ion-option>
+            <ion-option value="BURITICÁ">BURITICÁ</ion-option>
+            <ion-option value="CÁCERES">CÁCERES</ion-option>
+            <ion-option value="CAICEDO">CAICEDO</ion-option>
+            <ion-option value="CALDAS">CALDAS</ion-option>
+            <ion-option value="CAMPAMENTO">CAMPAMENTO</ion-option>
+            <ion-option value="CAÑASGORDAS">CAÑASGORDAS</ion-option>
+            <ion-option value="CARACOLÍ">CARACOLÍ</ion-option>
+            <ion-option value="CARAMANTA">CARAMANTA</ion-option>
+            <ion-option value="CAREPA">CAREPA</ion-option>
+            <ion-option value="CAROLINA">CAROLINA</ion-option>
+            <ion-option value="CAUCASIA">CAUCASIA</ion-option>
+            <ion-option value="CHIGORODÓ">CHIGORODÓ</ion-option>
+            <ion-option value="CISNEROS">CISNEROS</ion-option>
+            <ion-option value="CIUDAD BOLÍVAR">CIUDAD BOLÍVAR</ion-option>
+            <ion-option value="COCORNÁ">COCORNÁ</ion-option>
+            <ion-option value="CONCEPCIÓN">CONCEPCIÓN</ion-option>
+            <ion-option value="CONCORDIA">CONCORDIA</ion-option>
+            <ion-option value="COPACABANA">COPACABANA</ion-option>
+            <ion-option value="DABEIBA">DABEIBA</ion-option>
+            <ion-option value="DONMATÍAS">DONMATÍAS</ion-option>
+            <ion-option value="EBÉJICO">EBÉJICO</ion-option>
+            <ion-option value="EL BAGRE">EL BAGRE</ion-option>
+            <ion-option value="EL CARMEN DE VIBORAL">EL CARMEN DE VIBORAL</ion-option>
+            <ion-option value="EL SANTUARIO">EL SANTUARIO</ion-option>
+            <ion-option value="ENTRERRÍOS">ENTRERRÍOS</ion-option>
+            <ion-option value="ENVIGADO">ENVIGADO</ion-option>
+            <ion-option value="FREDONIA">FREDONIA</ion-option>
+            <ion-option value="FRONTINO">FRONTINO</ion-option>
+            <ion-option value="GIRALDO">GIRALDO</ion-option>
+            <ion-option value="GIRARDOTA">GIRARDOTA</ion-option>
+            <ion-option value="GÓMEZ PLATA">GÓMEZ PLATA</ion-option>
+            <ion-option value="GRANADA">GRANADA</ion-option>
+            <ion-option value="GUADALUPE">GUADALUPE</ion-option>
+            <ion-option value="GUARNE">GUARNE</ion-option>
+            <ion-option value="GUATAPÉ">GUATAPÉ</ion-option>
+            <ion-option value="HELICONIA">HELICONIA</ion-option>
+            <ion-option value="HISPANIA">HISPANIA</ion-option>
+            <ion-option value="ITAGÜÍ">ITAGÜÍ</ion-option>
+            <ion-option value="ITUANGO">ITUANGO</ion-option>
+            <ion-option value="JARDÍN">JARDÍN</ion-option>
+            <ion-option value="JERICÓ">JERICÓ</ion-option>
+            <ion-option value="LA CEJA">LA CEJA</ion-option>
+            <ion-option value="LA ESTRELLA">LA ESTRELLA</ion-option>
+            <ion-option value="LA PINTADA">LA PINTADA</ion-option>
+            <ion-option value="LA UNIÓN">LA UNIÓN</ion-option>
+            <ion-option value="LIBORINA">LIBORINA</ion-option>
+            <ion-option value="MACEO">MACEO</ion-option>
+            <ion-option value="MARINILLA">MARINILLA</ion-option>
+            <ion-option value="MEDELLÍN">MEDELLÍN</ion-option>
+            <ion-option value="MONTEBELLO">MONTEBELLO</ion-option>
+            <ion-option value="MURINDÓ">MURINDÓ</ion-option>
+            <ion-option value="MUTATÁ">MUTATÁ</ion-option>
+            <ion-option value="NARIÑO">NARIÑO</ion-option>
+            <ion-option value="NECHÍ">NECHÍ</ion-option>
+            <ion-option value="NECOCLÍ">NECOCLÍ</ion-option>
+            <ion-option value="OLAYA">OLAYA</ion-option>
+            <ion-option value="PEÑOL">PEÑOL</ion-option>
+            <ion-option value="PEQUE">PEQUE</ion-option>
+            <ion-option value="PUEBLORRICO">PUEBLORRICO</ion-option>
+            <ion-option value="PUERTO BERRÍO">PUERTO BERRÍO</ion-option>
+            <ion-option value="PUERTO NARE">PUERTO NARE</ion-option>
+            <ion-option value="PUERTO TRIUNFO">PUERTO TRIUNFO</ion-option>
+            <ion-option value="REMEDIOS">REMEDIOS</ion-option>
+            <ion-option value="RETIRO">RETIRO</ion-option>
+            <ion-option value="RIONEGRO">RIONEGRO</ion-option>
+            <ion-option value="SABANALARGA">SABANALARGA</ion-option>
+            <ion-option value="SABANETA">SABANETA</ion-option>
+            <ion-option value="SALGAR">SALGAR</ion-option>
+            <ion-option value="SAN ANDRÉS DE CUERQUÍA">SAN ANDRÉS DE CUERQUÍA</ion-option>
+            <ion-option value="SAN CARLOS">SAN CARLOS</ion-option>
+            <ion-option value="SAN FRANCISCO">SAN FRANCISCO</ion-option>
+            <ion-option value="SAN JERÓNIMO">SAN JERÓNIMO</ion-option>
+            <ion-option value="SAN JOSÉ DE LA MONTAÑA">SAN JOSÉ DE LA MONTAÑA</ion-option>
+            <ion-option value="SAN JUAN DE URABÁ">SAN JUAN DE URABÁ</ion-option>
+            <ion-option value="SAN LUIS">SAN LUIS</ion-option>
+            <ion-option value="SAN PEDRO DE LOS MILAGROS">SAN PEDRO DE LOS MILAGROS</ion-option>
+            <ion-option value="SAN PEDRO DE URABÁ">SAN PEDRO DE URABÁ</ion-option>
+            <ion-option value="SAN RAFAEL">SAN RAFAEL</ion-option>
+            <ion-option value="SAN ROQUE">SAN ROQUE</ion-option>
+            <ion-option value="SAN VICENTE FERRER">SAN VICENTE FERRER</ion-option>
+            <ion-option value="SANTA BÁRBARA">SANTA BÁRBARA</ion-option>
+            <ion-option value="SANTA FÉ DE ANTIOQUIA">SANTA FÉ DE ANTIOQUIA</ion-option>
+            <ion-option value="SANTA ROSA DE OSOS">SANTA ROSA DE OSOS</ion-option>
+            <ion-option value="SANTO DOMINGO">SANTO DOMINGO</ion-option>
+            <ion-option value="SEGOVIA">SEGOVIA</ion-option>
+            <ion-option value="SONSÓN">SONSÓN</ion-option>
+            <ion-option value="SOPETRÁN">SOPETRÁN</ion-option>
+            <ion-option value="TÁMESIS">TÁMESIS</ion-option>
+            <ion-option value="TARAZÁ">TARAZÁ</ion-option>
+            <ion-option value="TARSO">TARSO</ion-option>
+            <ion-option value="TITIRIBÍ">TITIRIBÍ</ion-option>
+            <ion-option value="TOLEDO">TOLEDO</ion-option>
+            <ion-option value="TURBO">TURBO</ion-option>
+            <ion-option value="URAMITA">URAMITA</ion-option>
+            <ion-option value="URRAO">URRAO</ion-option>
+            <ion-option value="VALDIVIA">VALDIVIA</ion-option>
+            <ion-option value="VALPARAÍSO">VALPARAÍSO</ion-option>
+            <ion-option value="VEGACHÍ">VEGACHÍ</ion-option>
+            <ion-option value="VENECIA">VENECIA</ion-option>
+            <ion-option value="VIGÍA DEL FUERTE">VIGÍA DEL FUERTE</ion-option>
+            <ion-option value="YALÍ">YALÍ</ion-option>
+            <ion-option value="YARUMAL">YARUMAL</ion-option>
+            <ion-option value="YOLOMBÓ">YOLOMBÓ</ion-option>
+            <ion-option value="YONDÓ">YONDÓ</ion-option>
+            <ion-option value="ZARAGOZA">ZARAGOZA</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label floating> ¿Cuántas noches pasó?  </ion-label>
+          <ion-input formControlName="cuantas_noches_paso" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label> ¿Tipo de alojamiento utilizado?   </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-select formControlName="alojamiento" (ionChange)="changeValue('alojamiento', '40', ['otro_alojamiento' ])"><ion-option value="">-- Seleccione --</ion-option><ion-option value="115">Apartahotel</ion-option><ion-option value="127">Apartamento arrendado</ion-option><ion-option value="131">Camping</ion-option><ion-option value="117">Casa de familiares o amigos</ion-option><ion-option value="128">Casa/Apartamento propio</ion-option><ion-option value="125">Casa/cabaña de vacaciones arrendada</ion-option><ion-option value="124">Casa/cabaña de vacaciones propia </ion-option><ion-option value="123">Centro vacacional/Resort</ion-option><ion-option value="122">Finca agroturística/Alojamiento rural</ion-option><ion-option value="129">Habitación rentada en vivienda familiar</ion-option><ion-option value="130">Habitación sin pagar en vivienda de familia que no es allegada mía</ion-option><ion-option value="121">Hostal/Albergue/Refugio</ion-option><ion-option value="118">Hotel</ion-option><ion-option value="132">Ningún tipo de alojamiento</ion-option><ion-option value="40">Otro</ion-option><ion-option value="119">Posada</ion-option><ion-option value="120">Posada turística</ion-option></ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor_dos.value.alojamiento === '40'">
+          <ion-input formControlName="otro_alojamiento" type="text" placeholder="Otro, ¿Cuál?"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-note>
+          (Las siguientes preguntas lo invitan a registrar los municipios que visitó desde el momento en que llegó a Antioquia hasta su partida. Si durante el recorrido visitó más de dos veces a un mismo municipio, regístrelo una vez y sume todas las noches pasadas allí).
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>De los municipios visitados, ¿Cuál fue el destino principal del viaje a Antioquia?</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-select formControlName="municipio_elegido" placeholder="Seleccionar">
+            <ion-option value="{{elegidos}}" *ngFor="let elegidos of municipioName; let i = 'index'">{{elegidos}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <ion-item>
+        <ion-label>¿Qué actividades realizó en Antioquia?</ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-select formControlName="actividades_realizadas" (ionChange)="validateSelectMultiple('actividades_realizadas', 'opcion_transporte_utilizado', 'showOptionActividadRealizada')" multiple="true">
+            <ion-option value="Asistir a conferencias/Congresos/ferias comerciales">Asistir a conferencias/Congresos/ferias comerciales</ion-option>
+            <ion-option value="Realizar inversiones/Reuniones de negocios">Realizar inversiones/Reuniones de negocios</ion-option>
+            <ion-option value="Actividades religiosas (Procesión, misa, asistencia a representaciones de semana santa)">Actividades religiosas (Procesión, misa, asistencia a representaciones de semana santa)</ion-option>
+            <ion-option value="Compras en almacenes no ubicados en centros comerciales">Compras en almacenes no ubicados en centros comerciales</ion-option>
+            <ion-option value="Visita a centros comerciales">Visita a centros comerciales</ion-option>
+            <ion-option value="Visita a discotecas, bares, karaoke y pistas de baile">Visita a discotecas, bares, karaoke y pistas de baile</ion-option>
+            <ion-option value="Asistencia a competencias o muestras deportivas.">Asistencia a competencias o muestras deportivas.</ion-option>
+            <ion-option value="practica_deportes">Práctica de deportes</ion-option>
+            <ion-option value="Visita a casinos y otros sitios de juegos de azar">Visita a casinos y otros sitios de juegos de azar</ion-option>
+            <ion-option value="visita_haciendas">Visita a haciendas o fábricas donde enseñan el proceso del café, la panela, los dulces etc.</ion-option>
+            <ion-option value="Recorrer las calles y parques del casco urbano">Recorrer las calles y parques del casco urbano</ion-option>
+            <ion-option value="parques_naturales">Visita a parques naturales, Cascadas, ríos, pozos, balnearios, zoológicos y jardines botánicos</ion-option>
+            <ion-option value="parques_tematicos">Visita a parques temáticos/parque de atracciones</ion-option>
+            <ion-option value="visita_museoss">Visita a museos, casas de la cultura, iglesias, santuarios, monumentos</ion-option>
+            <ion-option value="Asistencia a fiestas y ferias de los pueblos o municipios">Asistencia a fiestas y ferias de los pueblos o municipios</ion-option>
+            <ion-option value="Asistencia a festivales artísticos (Música, cine, danzas)">Asistencia a festivales artísticos (Música, cine, danzas)</ion-option>
+            <ion-option value="Asistencia a espectáculos artísticos que no hacen parte de festivales.">Asistencia a espectáculos artísticos que no hacen parte de festivales.</ion-option>
+            <ion-option value="otro"> Otro </ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item *ngIf="showOptionActividadRealizada">
+        <ion-input formControlName="opcion_actividades_realizadas" type="text" placeholder="Otros, ¿Cuales?"></ion-input>
+      </ion-item>
+      <ion-list *ngIf="(receptor_dos.value.actividades_realizadas!= null)?receptor_dos.value.actividades_realizadas.indexOf('visita_museoss') != -1:false">
+         <ion-item>
+          <ion-label> ¿Cuáles? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cual_visita_museoss" placeholder="Seleccionar" (ionChange)="changeValue('cual_visita_museoss', 'otro', 'otro_museo')">
+                <ion-label> ¿Cuáles?</ion-label>
+                <ion-option value="0"> Catedrales, iglesias</ion-option>
+                <ion-option value="1"> Casas de la cultura</ion-option>
+                <ion-option value="2"> Museos de arte</ion-option>
+                <ion-option value="3"> Museos arqueológicos</ion-option>
+                <ion-option value="4"> Haciendas y/o casas históricas</ion-option>
+                <ion-option value="5"> Puentes históricos</ion-option>
+                <ion-option value="6"> Monumentos</ion-option>
+                <ion-option value="7"> Cementerios</ion-option>
+                <ion-option value="8"> Santuarios</ion-option>
+                <ion-option value="9"> Plaza Botero</ion-option>
+                <ion-option value="otro"> Otro</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor_dos.value.cual_visita_museoss == 'otro'">
+          <ion-input formControlName="otro_museo" type="text" placeholder="¿Cuál?"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="(receptor_dos.value.actividades_realizadas!= null)?receptor_dos.value.actividades_realizadas.indexOf('parques_tematicos') != -1:false" >
+        <ion-item>
+          <ion-label> ¿Cuáles? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cual_visita_parques" placeholder="Seleccionar">
+                <ion-label> ¿Cuáles?</ion-label>
+                <ion-option value="1"> Parque Explora</ion-option>
+                <ion-option value="2"> Aeroparque Juan Pablo II</ion-option>
+                <ion-option value="3"> Parque temático Hacienda Nápoles</ion-option>
+                <ion-option value="4"> Parque de las Aguas</ion-option>
+                <ion-option value="5"> Kanaloa Parque Acuático (Santa Fe de Antioquia)</ion-option>
+                <ion-option value="6"> Parque Norte</ion-option>
+                <ion-option value="7"> Planetario de Medellín</ion-option>
+                <ion-option value="8"> Parques recreativos Comfama (Rionegro, Parque Arví, La Estrella, Copacabana, Guatapé)</ion-option>
+                <ion-option value="9"> Parques Comfenalco (Los Tamarindos, Los Encuentros, Guayabal, Gran Avenida, Piedras Blancas, Camping Los Farallones, Ecoparque Mario Aramburo)</ion-option>
+                <ion-option value="10"> Ninguno de los anteriores</ion-option>
+            </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngIf="(receptor_dos.value.actividades_realizadas!= null)?receptor_dos.value.actividades_realizadas.indexOf('parques_naturales') != -1:false" >
+        <ion-item>
+          <ion-label> ¿Cuáles? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cual_visita_parques_naturales" placeholder="Seleccionar" (ionChange)="changeValue('cual_visita_parques_naturales', 'otro', 'otro_parques_naturales')">
+                <ion-label> ¿Cuáles?</ion-label>
+                <ion-option value="1"> Parque Arví</ion-option>
+                <ion-option value="2"> Reservas/Parques naturales</ion-option>
+                <ion-option value="3"> Miradores paisajísticos</ion-option>
+                <ion-option value="4"> Cascadas</ion-option>
+                <ion-option value="5"> Ríos, pozos, balnearios</ion-option>
+                <ion-option value="6"> Parque Zoológico Santa Fe</ion-option>
+                <ion-option value="7"> Jardín Botánico Joaquín Antonio Uribe</ion-option>
+                <ion-option value="8"> Cuevas</ion-option>
+                <ion-option value="9"> Parque ecológico Piedras Blancas</ion-option>
+                <ion-option value="10"> Cerro Nutibara y Pueblito Paisa</ion-option>
+                <ion-option value="11"> Parque Natural Regional Metropolitano Cerro El Volador</ion-option>
+                <ion-option value="otro"> Otro</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor_dos.value.cual_visita_parques_naturales == 'otro'">
+          <ion-input formControlName="otro_parques_naturales" type="text" placeholder="¿Cuál?"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngIf="(receptor_dos.value.actividades_realizadas!= null)?receptor_dos.value.actividades_realizadas.indexOf('visita_haciendas') != -1:false" >
+        <ion-item>
+          <ion-label> ¿Cuáles? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cual_visita_parques_hacienda" placeholder="Seleccionar" (ionChange)="changeValue('cual_visita_parques_hacienda', 'otro', 'otro_cual_visita_parques_hacienda')">
+                <ion-label> ¿Cuáles?</ion-label>
+                <ion-option value="1"> Ruta de los embalses</ion-option>
+                <ion-option value="2"> Ruta del café</ion-option>
+                <ion-option value="3"> Ruta de la panela</ion-option>
+                <ion-option value="4"> Ruta de la leche</ion-option>
+                <ion-option value="5"> Ruta del banano</ion-option>
+                <ion-option value="otro"> Otro</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor_dos.value.cual_visita_parques_hacienda == 'otro'">
+          <ion-input formControlName="otro_cual_visita_parques_hacienda" type="text" placeholder="¿Cuál?"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngIf="(receptor_dos.value.actividades_realizadas!= null)?receptor_dos.value.actividades_realizadas.indexOf('practica_deportes') != -1:false">
+        <ion-item>
+          <ion-label> ¿Cuáles? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cual_practica_deportes" placeholder="Seleccionar" (ionChange)="changeValue('cual_practica_deportes', 'otro', 'otro_cual_practica_deportes')">
+                <ion-label> ¿Cuáles?</ion-label>
+                <ion-option value="1"> Rafting (Canotaje)</ion-option>
+                <ion-option value="2"> Espelelismo (Exploración recreativa de cuevas)</ion-option>
+                <ion-option value="3"> Rappel en cascadas</ion-option>
+                <ion-option value="4"> Parapente</ion-option>
+                <ion-option value="5"> Senderismo (Caminatas)</ion-option>
+                <ion-option value="6"> Escalada en roca</ion-option>
+                <ion-option value="7"> Bungee Jumping</ion-option>
+                <ion-option value="otro"> Otro</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor_dos.value.cual_practica_deportes == 'otro'">
+          <ion-input formControlName="otro_cual_practica_deportes" type="text" placeholder="¿Cuál?"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+    </ion-list>
+    <ion-list>
+
+      <ion-item>
+        <ion-label class="titulo">
+          Parte C. Transporte utilizado
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label> ¿Qué tipo de transporte utilizó para llegar a Antioquia (Seleccione únicamente en el que recorrió la mayor distancia)?</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-select formControlName="transporte" placeholder="Seleccionar" (ionChange)="changeValue('transporte', 'otro', ['opcion_transporte' ])">
+            <ion-option value="480">Transporte terrestre de pasajeros (bus, buseta, taxi, automóvil)</ion-option>
+            <ion-option value="479">Alquiler de vehículo</ion-option>
+            <ion-option value="478">Transporte aéreo</ion-option>
+            <ion-option value="477">Transporte terrestre de excursiones y/o planes turísticos</ion-option>
+            <ion-option value="476">Vehículo de amigos o familiares</ion-option>
+            <ion-option value="475">Vehículo propio</ion-option>
+            <ion-option value="otro">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="receptor_dos.value.transporte == 'otro'">
+        <ion-input formControlName="opcion_transporte" type="text" placeholder="Otro tipo de transporte"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label> ¿Cuál fue el transporte utilizado la mayor parte del tiempo para desplazarse por Antioquia?</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-select formControlName="transporte_utilizado" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('transporte_utilizado', 'opcion_transporte_utilizado', 'showOptionTransport')" multiple="true">
+            <ion-option value="480">Transporte terrestre de pasajeros (bus, buseta, taxi, automóvil)</ion-option>
+            <ion-option value="479">Alquiler de vehículo</ion-option>
+            <ion-option value="478">Transporte aéreo</ion-option>
+            <ion-option value="420">Transporte terrestre intermunicipal</ion-option>
+            <ion-option value="477">Transporte terrestre de excursiones y/o planes turísticos</ion-option>
+            <ion-option value="476">Vehículo de amigos o familiares</ion-option>
+            <ion-option value="475">Vehículo propio</ion-option>
+            <ion-option value="475">Sistema Integrado Metro</ion-option>
+            <ion-option value="otro">Otro</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="showOptionTransport">
+        <ion-input formControlName="opcion_transporte_utilizado" type="text" placeholder="Otro transporte mas utilizado"></ion-input>
+      </ion-item>
+      <!-- Parte D -->
+      <ion-item>
+        <ion-label class="titulo">
+          Parte D. Viaje en grupo
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label floating> ¿Cuántas personas incluyéndose usted, realizaron juntos el viaje desde la llegada hasta la salida de Antioquia?</ion-label>
+        <ion-input type="number" formControlName="numero_personas"> </ion-input>
+      </ion-item>
+      <ion-list *ngIf="receptor_dos.value.numero_personas >= 2 ">
+        <ion-item>
+          <ion-label> Las personas anteriormente mencionadas son:</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-select formControlName="personas_son" (ionChange)="validateSelectMultiple('transporte_utilizado', 'opcion_transporte_utilizado', 'showOptionTransport')" multiple="true">
+              <ion-option  value="Otros turistas (Incluye todas las personas desconocidas o sin ningún vínculo con usted)">Otros turistas (Incluye todas las personas desconocidas o sin ningún vínculo con usted)</ion-option>
+              <ion-option  value="Compañeros de estudio">Compañeros de estudio</ion-option>
+              <ion-option  value="Compañeros de trabajo">Compañeros de trabajo</ion-option>
+              <ion-option  value="Amigo(s)">Amigo(s)</ion-option>
+              <ion-option  value="Otros famiion-optionares">Otros familiares</ion-option>
+              <ion-option  value="Mis Hijos">Mis Hijos</ion-option>
+              <ion-option  value="Mi pareja/Novia(o)/esposa(o)">Mi pareja/Novia(o)/esposa(o)</ion-option>
+              <ion-option  value="otro">Otro</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor_dos.value.personas_son == 'otro'">
+          <ion-input formControlName="opcion_personas_son" type="text" placeholder="Otros, ¿Cuales?"></ion-input>
+        </ion-item>
+      </ion-list>
+
+
+
+
+      <!-- Parte E -->
+      <ion-item>
+        <ion-label class="titulo">
+          Parte E. Gastos de preparación y durante el viaje a Antioquia
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-note>
+          ¿El viaje a Antioquia hizo parte de un paquete/plan turístico o excursión?
+          [Incluye: Planes ofrecidos por hoteles (plan de vacaciones, plan fin de semana, plan noche de bodas, etc.). En general, se refiere a planes que incluyen además de alojamiento, otros servicios complementarios como comidas, bebidas, actividades, etc.)].
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-select formControlName="antioquia_plant" placeholder="Seleccionar"
+        (ionChange)="changeValue('antioquia_plant', 'si', ['otras_ciudades' ])">
+            <ion-label> ¿El viaje a Antioquia hizo parte de un paquete/plan turístico o excursión? </ion-label>
+            <ion-option value="si"> Si </ion-option>
+            <ion-option value="no">No </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list *ngIf="receptor_dos.value.antioquia_plant === 'si'">
+          <ion-item>
+            <ion-label > ¿Que otras ciudades/municipios fuera de Antioquia incluyó el paquete/plan turístico?</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="otras_ciudades" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('otras_ciudades', 'otra_ciudad', 'showOptionCiudadPlan')" multiple="true">
+                <ion-option value="cucuta"> Cucuta </ion-option>
+                <ion-option value="cartagena">Cartagena </ion-option>
+                <ion-option value="bogota">Bogota </ion-option>
+                <ion-option value="barranquilla">Barranquilla </ion-option>
+                <ion-option value="ninguna">Ninguna </ion-option>
+                <ion-option value="otro">Otro </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="showOptionCiudadPlan">
+              <ion-input formControlName="otra_ciudad" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating> ¿Cuánto pagó usted por el paquete turístico o excursión? En COP</ion-label>
+            <ion-input type="number" formControlName="cuanto_pago" > </ion-input>
+            
+          </ion-item>
+          <ion-item *ngIf="receptor_dos.value.cuanto_pago > 0">
+            <ion-label floating> ¿A cuántas personas cubrió?</ion-label>
+            <ion-input type="number" formControlName="cuantas_personas_cubrio"> </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label > El paquete/plan turístico o excursión fue comprado a:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="paquete_comprado" placeholder="Seleccionar" (ionChange)="changeValue('paquete_comprado', 'agencia', ['ubicada_agencia'])">
+                <ion-option value="agencia"> Agencia de viajes/operador turístico </ion-option>
+                <ion-option value="sitio">Sitio de alojamiento (Hotel, hostal, posada ..) </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-list *ngIf="receptor_dos.value.paquete_comprado === 'agencia'">
+            <ion-item>
+              <ion-label > En dónde está ubicada la agencia de viajes/operador turístico:</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="ubicada_agencia" placeholder="Seleccionar">
+                  <ion-option value="antioquia"> Antioquia </ion-option>
+                  <ion-option value="otra">Otra ciudad Colombiana (No incluye las de Antioquia) </ion-option>
+                  <ion-option value="extranjero"> Extranjero </ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <ion-item>
+            <ion-label > ¿Qué productos y servicios incluía el paquete turístico o excursión?
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="productos_incluia" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('productos_incluia', 'otro_productos_incluia', 'showOptionOtroIncluia')" multiple="true">
+                <ion-option value="Transporte aéreo internacional">Transporte aéreo internacional</ion-option>
+                <ion-option value="Transporte aéreo desde una ciudad de Colombia a Antioquia">Transporte aéreo desde una ciudad de Colombia a Antioquia</ion-option>
+                <ion-option value="50">Transporte terrestre de pasajeros desde una ciudad de Colombia a Antioquia</ion-option>
+                <ion-option value="Transporte terrestre de pasajeros para movilizarse dentro de Antioquia">Transporte terrestre de pasajeros para movilizarse dentro de Antioquia</ion-option>
+                <ion-option value="80">Alquiler de vehículo</ion-option>
+                
+                <ion-option value="Alojamiento">Alojamiento</ion-option>
+                <ion-option value="Alimentos y bebidas">Alimentos y bebidas</ion-option>
+                <ion-option value="Actividades recreativas, culturales y deportivas">Actividades recreativas, culturales y deportivas</ion-option>
+                <ion-option value="Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones">Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones</ion-option>
+                <ion-option value="otro">Otros servicios</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="showOptionOtroIncluia">
+            <ion-input formControlName="otro_productos_incluia" type="text" placeholder="Otros servicios, ¿Cuales?"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-note>
+                Seleccione los gastos realizados por usted antes (gastos de preparación del viaje a Antioquia) y durante su viaje a Antioquia [Nota: Si su viaje hizo parte de un paquete/plan turístico o excursión se refiere a otros gastos realizados]
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="gastos_usted" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('gastos_usted', 'opcion_gastos_viaje_empresao', 'showOptionGastosUstedO')" multiple="true">
+                <ion-option value="11"> Transporte aéreo internacional (Incluye ida- vuelta)</ion-option>
+                <ion-option value="despliega"> Transporte aéreo desde una ciudad de Colombia a Antioquia (Incluye ida-vuelta)</ion-option>
+                <ion-option value="13"> Transporte terrestre de pasajeros desde una</ion-option>
+                <ion-option value="14"> Transporte terrestre de pasajeros para movilizarse dentro de Antioquia</ion-option>
+                <ion-option value="alquiler_vehiculo_e"> Alquiler de vehículo</ion-option>
+                <ion-option value="16"> Combustible</ion-option>
+                <ion-option value="17"> Alojamiento </ion-option>
+                <ion-option value="18"> Alimentos y bebidas</ion-option>
+                <ion-option value="19"> Actividades recreativas, culturales y deportivas</ion-option>
+                <ion-option value="20"> Artesanías (incluye ropa y/o calzado artesanal), recuerdos</ion-option>
+                <ion-option value="21"> Objetos valiosos (Joyas, obras de arte)</ion-option>
+                <ion-option value="22"> Bienes de consumo duradero (Ropa, calzado, implementos deportivos, etc)</ion-option>
+                <ion-option value="23"> Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones</ion-option>
+                <ion-option value="24"> Cursos/talleres de enseñanza</ion-option>
+                <ion-option value="25"> Servicios médicos (Incluye la cirugía estética)</ion-option>
+                <ion-option value="otro"> Otros gastos</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-list *ngIf="showOptionGastosUstedO">
+              <ion-item>
+                  <ion-input formControlName="opcion_gastos_viaje_empresao" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+              </ion-item>
+          </ion-list>
+          <ion-list *ngIf="receptor_dos.value.gastos_usted !== '' || receptor_dos.value.gastos_usted !== 'otro'">
+              <ion-item>
+                  <ion-label floating> ¿Cuánto gastó? </ion-label>
+                  <ion-input formControlName="cuanto_gasto" type="number" placeholder=""></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label floating> ¿A cuántas personas cubrió? </ion-label>
+                  <ion-input formControlName="cuentas_personas" type="number" placeholder=""></ion-input>
+              </ion-item>
+          </ion-list>
+
+
+          
+
+
+          <ion-item>
+              <ion-note>
+                  Seleccione los gastos del viaje realizados por otra persona u organización/empresa diferente a usted o a su grupo de viaje:
+              </ion-note>
+          </ion-item>
+          <ion-item>
+              <ion-select formControlName="gastos_viaje_empresa" placeholder="Seleccionar"
+              (ionChange)="validateSelectMultiple('gastos_viaje_empresa', 'opcion_gastos_viaje_empresa', 'showOptionGastosViaje')" multiple="true">
+                  <ion-option value="Servicios médicos (Incluye la cirugía estética)">Servicios médicos (Incluye la cirugía estética)</ion-option>
+                  <ion-option value="Cursos/talleres de enseñanza">Cursos/talleres de enseñanza</ion-option>
+                  <ion-option value="Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones">Asistencia a conferencias, seminarios, congresos, ferias comerciales y exposiciones</ion-option>
+                  <ion-option value="bienes">Bienes de consumo duradero (Ropa, calzado, implementos deportivos, etc)</ion-option>
+                  <ion-option value="Objetos valiosos (Joyas, obras de arte)">Objetos valiosos (Joyas, obras de arte)</ion-option>
+                  <ion-option value="Artesanías (incluye ropa y/o calzado artesanal), recuerdos">Artesanías (incluye ropa y/o calzado artesanal), recuerdos</ion-option>
+                  <ion-option value="Actividades recreativas, culturales y deportivas">Actividades recreativas, culturales y deportivas</ion-option>
+                  <ion-option value="Alimentos y bebidas">Alimentos y bebidas</ion-option>
+                  <ion-option value="Alojamiento">Alojamiento</ion-option>
+                  <ion-option value="Combustible">Combustible</ion-option>
+                  <ion-option value="alquiler_vehiculo_e">Alquiler de vehículo</ion-option>
+                  <ion-option value="Transporte terrestre de pasajeros para movilizarse dentro de Antioquia">Transporte terrestre de pasajeros para movilizarse dentro de Antioquia</ion-option>
+                  <ion-option value="despliega">Transporte terrestre de pasajeros desde una ciudad de Colombia a Antioquia</ion-option>
+                  <ion-option value="Transporte aéreo desde una ciudad de Colombia a Antioquia">Transporte aéreo desde una ciudad de Colombia a Antioquia</ion-option>
+                  <ion-option value="Transporte aéreo internacional">Transporte aéreo internacional</ion-option>
+                    <ion-option value="otro"> Otro</ion-option>
+              </ion-select>
+          </ion-item>
+          <ion-list *ngIf="showOptionGastosViaje">
+              <ion-item>
+                  <ion-input formControlName="opcion_gastos_viaje_empresa" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+              </ion-item>
+          </ion-list>
+
+
+          <ion-item *ngIf="receptor_dos.value.gastos_usted === 'despliega'">
+            <ion-label floating> ¿Cuál es el nombre de la empresa de transporte terrestre de pasajeros utilizado desde una ciudad de Colombia a Antioquia?: </ion-label>
+            <ion-input formControlName="despliega_despliega" type="text" placeholder=""></ion-input>
+          </ion-item>
+          <ion-item *ngIf="receptor_dos.value.gastos_viaje_empresa === 'despliega'">
+            <ion-label floating> ¿Cuál es el nombre de la empresa de transporte terrestre de pasajeros utilizado desde una ciudad de Colombia a Antioquia?: </ion-label>
+            <ion-input formControlName="despliega_despliega_viaje" type="text" placeholder=""></ion-input>
+          </ion-item>
+          <ion-item *ngIf="receptor_dos.value.gastos_usted === 'alquiler_vehiculo_e'">
+            <ion-select placeholder="El alquiler de vehículo fue realizado en:" formControlName="alquiler_vehiculo_despliegue">
+                <ion-label> El alquiler de vehículo fue realizado en: </ion-label>
+                <ion-option value="antioquia">En Antioquia</ion-option>
+                <ion-option value="fuera_antioquia">Fuera de Antioquia</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="receptor_dos.value.gastos_viaje_empresa === 'alquiler_vehiculo'">
+            <ion-select placeholder="El alquiler de vehículo fue realizado en:" formControlName="alquiler_vehiculo_despliegue_dos">
+                <ion-label> El alquiler de vehículo fue realizado en: </ion-label>
+                <ion-option value="antioquia">En Antioquia</ion-option>
+                <ion-option value="fuera_antioquia">Fuera de Antioquia</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-list *ngIf="receptor_dos.value.gastos_viaje_empresa === 'bienes' || receptor_dos.value.gastos_usted === '22'">
+            <ion-item>
+              <ion-label floating> En dónde fue realizado el mayor gasto de productos como ropa, calzado, implementos deportivos, etc. (bienes duraderos) antes y durante el viaje a Antioquia: </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="ropa_calzado">
+                  <ion-option value="60"> En un municipio de Antioquia</ion-option>
+                  <ion-option value="61"> En una ciudad o municipio de Colombia diferente a Antioquia</ion-option>
+                  <ion-option value="62"> En país extranjero</ion-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating> Los gastos de las personas que conformaron el grupo de viaje fueron pagados por: </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="mayor_gasto">
+                  <ion-option value="1"> Por mi</ion-option>
+                  <ion-option value="2"> Por mi pareja/Novia(o)/Esposa(o)</ion-option>
+                  <ion-option value="3"> Cada uno asumió sus gastos</ion-option>
+                  <ion-option value="4"> Se sumaron todos los gastos y se dividió por partes iguales</ion-option>
+                  <ion-option value="5"> Por otro(s) familiares(s)/Amigos(s)</ion-option>
+                  <ion-option value="6"> Cada familia pagó lo que le correspondió</ion-option>
+                  <ion-option value="7"> Por todos pero no se dividió en partes iguales</ion-option>
+                  <ion-option value="8"> Totalmente por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                  <ion-option value="9"> Una parte fue pagada por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                  <ion-option value="10"> Una entidad que no es la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                  <ion-option value="otro"> Otro</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="receptor_dos.value.mayor_gasto === 'otro'">
+              <ion-input formControlName="otro_mayor_gasto" type="text" placeholder="¿Cuál?"></ion-input>
+            </ion-item>
+          </ion-list>
+
+
+
+        <ion-item>
+            <ion-note>
+                Los gastos de las personas que conformaron el grupo de viaje fueron pagados por:
+            </ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="gastos_conformaron" placeholder="Seleccionar"
+            (ionChange)="validateSelectMultiple('gastos_conformaron', 'option_gastos_conformaron', 'showOptionGastosConformaron')" multiple="true">
+                <ion-option value="1"> Por mi</ion-option>
+                  <ion-option value="2"> Por mi pareja/Novia(o)/Esposa(o)</ion-option>
+                  <ion-option value="3"> Cada uno asumió sus gastos</ion-option>
+                  <ion-option value="4"> Se sumaron todos los gastos y se dividió por partes iguales</ion-option>
+                  <ion-option value="5"> Por otro(s) familiares(s)/Amigos(s)</ion-option>
+                  <ion-option value="6"> Cada familia pagó lo que le correspondió</ion-option>
+                  <ion-option value="7"> Por todos pero no se dividió en partes iguales</ion-option>
+                  <ion-option value="8"> Totalmente por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                  <ion-option value="9"> Una parte fue pagada por la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                  <ion-option value="10"> Una entidad que no es la empresa en la que trabajo o trabaja un integrante del grupo</ion-option>
+                  <ion-option value="otro"> Otro</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="showOptionGastosConformaron">
+            <ion-input formControlName="option_gastos_conformaron" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+        </ion-item>
+
+
+
+      </ion-list>
+
+
+      <!-- Parte F -->
+      <ion-item>
+          <ion-label class="titulo">
+              Parte F. Percepción del viaje a Antioquia
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label> ¿Durante su viaje utilizó servicio de alojamiento? </ion-label>
+      </ion-item>
+      <ion-list radio-group formControlName="servicio_alojamiento"
+      (ionChange)="changeValue('servicio_alojamiento', 'si', ['estado_edificio', 'estado_muebles', 'estado_sabana', 'higiene', 'trato_personal', 'servicio_comidas', 'precios_alojamiento'])">
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngIf="receptor_dos.value.servicio_alojamiento === 'si'">
+        <ion-item>
+          <ion-note>
+              En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho valore el siguiente aspecto: Servicios de alojamiento.
+          </ion-note>
+        </ion-item>
+          <ion-item>
+            <ion-label  > Estado del edificio:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="estado_edificio" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label  > Estado de los muebles:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="estado_muebles" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label  > Estado sabana-toallas:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="estado_sabana" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label  > Higiene y limpieza:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="higiene" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label  > Trato del personal:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="trato_personal" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label  > Servicio de comidas:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="servicio_comidas" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label  > Precios de alojamiento:</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="precios_alojamiento" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+              <ion-label> ¿Durante su viaje utilizó servicios de restaurante? </ion-label>
+          </ion-item>
+          <ion-list radio-group formControlName="servicio_restaurante"
+          (ionChange)="changeValue('servicio_restaurante', 'si', ['sabor_platos', 'variedad', 'trato_personal', 'higiene', 'trato_personal', 'limpieza', 'precio_platos'])">
+            <ion-item>
+                <ion-label>Si</ion-label>
+                <ion-radio value="si"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>No</ion-label>
+                <ion-radio value="no"></ion-radio>
+            </ion-item>
+          </ion-list>
+          <ion-list *ngIf="receptor_dos.value.servicio_restaurante === 'si'">
+            <ion-item>
+              <ion-note>
+                  En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho valore el siguiente aspecto: Servicios de alojamiento.
+              </ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label> Sabor de los platos servidos:</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="sabor_platos" placeholder="Seleccionar">
+                  <ion-option value="1"> 1</ion-option>
+                  <ion-option value="2">  2</ion-option>
+                  <ion-option value="3">  3</ion-option>
+                  <ion-option value="4">  4</ion-option>
+                  <ion-option value="5">  5</ion-option>
+                  <ion-option value="6">  6</ion-option>
+                  <ion-option value="7">  7</ion-option>
+                  <ion-option value="8">  8</ion-option>
+                  <ion-option value="9">  9</ion-option>
+                  <ion-option value="10">  10</ion-option>
+                  <ion-option value="no_aplica">  No aplica</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label> Variedad de la oferta gastronómica:</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="variedad" placeholder="Seleccionar">
+                  <ion-option value="1"> 1</ion-option>
+                  <ion-option value="2">  2</ion-option>
+                  <ion-option value="3">  3</ion-option>
+                  <ion-option value="4">  4</ion-option>
+                  <ion-option value="5">  5</ion-option>
+                  <ion-option value="6">  6</ion-option>
+                  <ion-option value="7">  7</ion-option>
+                  <ion-option value="8">  8</ion-option>
+                  <ion-option value="9">  9</ion-option>
+                  <ion-option value="10">  10</ion-option>
+                  <ion-option value="no_aplica">  No aplica</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label> Trato del personal: </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="trato_personal_restaurante" placeholder="Seleccionar">
+                  <ion-option value="1"> 1</ion-option>
+                  <ion-option value="2">  2</ion-option>
+                  <ion-option value="3">  3</ion-option>
+                  <ion-option value="4">  4</ion-option>
+                  <ion-option value="5">  5</ion-option>
+                  <ion-option value="6">  6</ion-option>
+                  <ion-option value="7">  7</ion-option>
+                  <ion-option value="8">  8</ion-option>
+                  <ion-option value="9">  9</ion-option>
+                  <ion-option value="10">  10</ion-option>
+                  <ion-option value="no_aplica">  No aplica</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label> Higiene y Limpieza: </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="limpieza" placeholder="Seleccionar">
+                  <ion-option value="1"> 1</ion-option>
+                  <ion-option value="2">  2</ion-option>
+                  <ion-option value="3">  3</ion-option>
+                  <ion-option value="4">  4</ion-option>
+                  <ion-option value="5">  5</ion-option>
+                  <ion-option value="6">  6</ion-option>
+                  <ion-option value="7">  7</ion-option>
+                  <ion-option value="8">  8</ion-option>
+                  <ion-option value="9">  9</ion-option>
+                  <ion-option value="10">  10</ion-option>
+                  <ion-option value="no_aplica">  No aplica</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label> Precios de los platos: </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="precio_platos" placeholder="Seleccionar">
+                  <ion-option value="1"> 1</ion-option>
+                  <ion-option value="2">  2</ion-option>
+                  <ion-option value="3">  3</ion-option>
+                  <ion-option value="4">  4</ion-option>
+                  <ion-option value="5">  5</ion-option>
+                  <ion-option value="6">  6</ion-option>
+                  <ion-option value="7">  7</ion-option>
+                  <ion-option value="8">  8</ion-option>
+                  <ion-option value="9">  9</ion-option>
+                  <ion-option value="10">  10</ion-option>
+                  <ion-option value="no_aplica">  No aplica</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <ion-item>
+            <ion-note>
+                En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho valore el siguiente aspecto: Factores Ambientales.
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label> Limpieza y aseo en los municipios: </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="aseo_municipios" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label> Hospitalidad: </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="hospitalidad_municipios" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label> Limpieza y conservación de los lugares visitados (parques temáticos, parque naturales, sitios naturales (cascadas, ríos).: </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="conservacion" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho, valore el siguiente aspecto: Ocio, recreación y tiempo libre.
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Actividades culturales
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="actividades_culturales" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Actividades deportivas
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="actividades_deportivas" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Parques
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="parques" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Discotecas, bares, casinos
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="discotecas_bares" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho valore el siguiente aspecto: Infraestructura.
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Estado de carreteras
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="estado_carreteras" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Transporte local
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="transporte_local" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                Seguridad
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="seguridad" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="no_aplica">  No aplica</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                ¿Qué recomendaría para lograr atraer más visitantes a Antioquia (Resalte en detalles aspectos que realmente le disgustaron).
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="recomendacion"> </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                En una escala del 1 al 10, donde 1 es Muy insatisfecho y 10 Muy satisfecho. Valore en general la experiencia de su visita a Antioquia.
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="experiencia" placeholder="Seleccionar">
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                ¿Volvería a visitar Antioquia?
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="volver_visitar" placeholder="Seleccionar">
+                <ion-option value="si"> Si</ion-option>
+                <ion-option value="no">  No</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                ¿Recomendaría a Antioquia como destino turístico?
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="recomendaria_antioquia" placeholder="Seleccionar">
+                <ion-option value="si"> Si</ion-option>
+                <ion-option value="no">  No</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+                ¿Cuántas veces ha venido a Antioquia en los últimos dos años?
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="experiencia" placeholder="Seleccionar">
+                <ion-option value="0"> 0</ion-option>
+                <ion-option value="1"> 1</ion-option>
+                <ion-option value="2">  2</ion-option>
+                <ion-option value="3">  3</ion-option>
+                <ion-option value="4">  4</ion-option>
+                <ion-option value="5">  5</ion-option>
+                <ion-option value="6">  6</ion-option>
+                <ion-option value="7">  7</ion-option>
+                <ion-option value="8">  8</ion-option>
+                <ion-option value="9">  9</ion-option>
+                <ion-option value="10">  10</ion-option>
+                <ion-option value="11">  11</ion-option>
+                <ion-option value="12">  12</ion-option>
+                <ion-option value="13">  13</ion-option>
+                <ion-option value="14">  14</ion-option>
+                <ion-option value="15">  15</ion-option>
+                <ion-option value="16">  16</ion-option>
+                <ion-option value="17">  17</ion-option>
+                <ion-option value="18">  18</ion-option>
+                <ion-option value="19">  19</ion-option>
+                <ion-option value="20">  Mayor de 20</ion-option>
+
+            </ion-select>
+          </ion-item>
+
+
+      </ion-list>
+
+
+
+      <!-- Parte G -->
+      <ion-item>
+          <ion-label class="titulo">
+              Parte G. Como se enteran los visitantes sobre Antioquia
+          </ion-label>
+      </ion-item>
+      <ion-item>
+    <ion-label> ¿Antes de venir a Antioquia, de qué forma se enteró usted de los destinos turísticos visitados?
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-select formControlName="como_entero" placeholder="Seleccionar"
+        (ionChange)="validateSelectMultiple('como_entero', 'opcion_comoentero', 'showOptionComoEntero')" multiple="true">
+             <ion-option value="Blog">Blog</ion-option>
+             <ion-option value="Avisos en internet">Avisos en internet</ion-option>
+             <ion-option value="Correo electrónico">Correo electrónico</ion-option>
+             <ion-option value="Otras redes sociales">Otras redes sociales</ion-option>
+             <ion-option value="Facebook">Facebook</ion-option>
+             <ion-option value="Twitter">Twitter</ion-option>
+             <ion-option value="Guía turística impresa">Guía turística impresa</ion-option>
+             <ion-option value="Agencia de viajes">Agencia de viajes</ion-option>
+             <ion-option value="Medios de comunicación masiva (prensa, radio, televisión.)">Medios de comunicación masiva (prensa, radio, televisión.)</ion-option>
+             <ion-option value="Búsquedas en internet">Búsquedas en internet</ion-option>
+             <ion-option value="Amigos y/o familiares">Amigos y/o familiares</ion-option>
+             <ion-option value="Ya los conocía">Ya los conocía</ion-option>
+              <ion-option value="otro"> Otro</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="showOptionComoEntero">
+        <ion-input formControlName="opcion_comoentero" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label> ¿Durante la permanencia en Antioquia, de qué forma usted buscó más información sobre destinos turísticos?
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-select formControlName="durante_permanencia" placeholder="Seleccionar"
+        (ionChange)="validateSelectMultiple('durante_permanencia', 'opcion_permanencia', 'showOptionDurante')" multiple="true">
+            <ion-option value="No busqué más información">No busqué más información</ion-option>
+             <ion-option value="Conductores de servicio público (De taxi, bus, buseta)">Conductores de servicio público (De taxi, bus, buseta)</ion-option>
+             <ion-option value=" Guías de turismo impresas, revistas"> Guías de turismo impresas, revistas</ion-option>
+             <ion-option value="Habitantes de los municipios visitados">Habitantes de los municipios visitados</ion-option>
+             <ion-option value="Agencias de viajes o agencias operadoras">Agencias de viajes o agencias operadoras</ion-option>
+             <ion-option value="Guías de turismo (persona)">Guías de turismo (persona)</ion-option>
+             <ion-option value="Amigos">Amigos</ion-option>
+             <ion-option value="Blog">Blog</ion-option>
+             <ion-option value="Redes sociales">Redes sociales</ion-option>
+             <ion-option value="Busqué en internet">Busqué en internet</ion-option>
+             <ion-option value="Otros turistas">Otros turistas</ion-option>
+             <ion-option value="Hotel">Hotel</ion-option>
+             <ion-option value="Familiares">Familiares</ion-option>
+            <ion-option value="otro"> Otro</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="showOptionDurante">
+        <ion-input formControlName="opcion_permanencia" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label> ¿Después del viaje a Antioquia en que redes sociales compartió su experiencia de viaje(Comentarios, fotos, etc)?
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-select formControlName="despues_redes" placeholder="Seleccionar"
+        (ionChange)="validateSelectMultiple('despues_redes', 'opcion_despues_redes', 'showOptionDespuesRedes')" multiple="true">
+            <ion-option value="Instagram"> Instagram</ion-option>
+             <ion-option value="Mensajería (Skype, Whatsapp, messenger)"> Mensajería (Skype, Whatsapp, messenger)</ion-option>
+             <ion-option value="Flickr"> Flickr</ion-option>
+             <ion-option value="Youtube"> Youtube</ion-option>
+             <ion-option value="Google+"> Google+</ion-option>
+             <ion-option value="TripAdvisor"> TripAdvisor</ion-option>
+             <ion-option value="Pinterest"> Pinterest</ion-option>
+             <ion-option value="Linkedin"> Linkedin</ion-option>
+             <ion-option value="Twitter"> Twitter</ion-option>
+             <ion-option value="Facebook"> Facebook</ion-option>
+             <ion-option value="no_comparti"> No compartí en redes sociales</ion-option>
+            <ion-option value="otro"> Otro</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="showOptionDespuesRedes">
+        <ion-input formControlName="opcion_despues_redes" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+          ¿Le gustaría que le enviáramos información sobre Antioquia a su correo electrónico?
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-select formControlName="enviar_info" placeholder="Seleccionar">
+          <ion-option value="si"> Si </ion-option>
+          <ion-option value="no">No </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-note>
+          ¿Le gustaría que le enviáramos una invitación por redes sociales para seguir a Antioquia?
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-select formControlName="enviar_invitacion" placeholder="Seleccionar" (ionChange)="changeValue('enviar_invitacion', 'si', ['como_facebook', 'como_twitter'])">
+          <ion-option value="si"> Si </ion-option>
+          <ion-option value="no">No </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-list *ngIf="receptor_dos.value.enviar_invitacion === 'si'">
+        <ion-item>
+          <ion-input formControlName="como_facebook" placeholder="¿Cómo podemos buscarlo en Facebook?"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="como_twitter" placeholder="¿Cómo podemos buscarlo en Twitter?"></ion-input>
+        </ion-item>
+    </ion-list>
+
+
+
+
+      <!-- Parte H -->
+      <ion-item>
+          <ion-label class="titulo">
+              Parte H. Preguntas complementarias
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-label> ¿Cuál de los siguientes medios utilizó para reservar?
+          </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-select formControlName="medios_reserva" placeholder="Seleccionar">
+              <ion-label> ¿Cuál de los siguientes medios utilizó para reservar? </ion-label>
+              <ion-option value="directo"> Directo (viajando por su propia cuenta)</ion-option>
+              <ion-option value="agencia"> Agencia </ion-option>
+              <ion-option value="excursion"> Excursión </ion-option>
+              <ion-option value="internet"> Internet </ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label> ¿Cuál fue su medio de pago? </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-select formControlName="medio_pago" placeholder="Seleccionar" multiple="true">
+              <ion-label> ¿Cuál fue su medio de pago? </ion-label>
+              <ion-option value="efectivo"> Efectivo </ion-option>
+              <ion-option value="tarjeta_credito"> Tarjeta de crédito </ion-option>
+              <ion-option value="tarjeta_debito"> Tarjeta débito </ion-option>
+              <ion-option value="cheque"> Cheque </ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-note>
+          ¿Considera que los precios de los productos en los siguientes establecimientos fueron competitivos (precio establecido por el mercado)?
+        </ion-note>
+      </ion-item>
+      <ion-item>
+          <ion-label> Hoteles </ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-select formControlName="hoteles" placeholder="Seleccionar">
+              <ion-label> Hoteles </ion-label>
+              <ion-option value="si"> Si </ion-option>
+              <ion-option value="no"> No </ion-option>
+              <ion-option value="no_aplica"> No aplica </ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating> ¿Por qué?</ion-label>
+        <ion-input type="text" formControlName="porque_hoteles"> </ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label> Medios de transporte </ion-label>
+      </ion-item>
+          <ion-item>
+              <ion-select formControlName="medios_transporte" placeholder="Seleccionar">
+                  <ion-label> Medios de transporte </ion-label>
+                  <ion-option value="si"> Si </ion-option>
+                  <ion-option value="no"> No </ion-option>
+                  <ion-option value="no_aplica"> No aplica </ion-option>
+              </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating> ¿Por qué?</ion-label>
+            <ion-input type="text" formControlName="porque_medios_transporte"> </ion-input>
+          </ion-item>
+        <ion-item>
+            <ion-label> Bares y Restaurantes </ion-label>
+        </ion-item>
+            <ion-item>
+                <ion-select formControlName="bares_restaurantes" placeholder="Seleccionar">
+                    <ion-label> Bares y Restaurantes </ion-label>
+                    <ion-option value="si"> Si </ion-option>
+                    <ion-option value="no"> No </ion-option>
+                    <ion-option value="no_aplica"> No aplica </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating> ¿Por qué?</ion-label>
+              <ion-input type="text" formControlName="porque_bares_restaurantes"> </ion-input>
+            </ion-item>
+
+        <ion-item>
+            <ion-label> Discotecas </ion-label>
+        </ion-item>
+            <ion-item>
+                <ion-select formControlName="discotecas" placeholder="Seleccionar">
+                    <ion-label> Discotecas </ion-label>
+                    <ion-option value="si"> Si </ion-option>
+                    <ion-option value="no"> No </ion-option>
+                    <ion-option value="no_aplica"> No aplica </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating> ¿Por qué?</ion-label>
+              <ion-input type="text" formControlName="porque_discotecas"> </ion-input>
+            </ion-item>
+
+        <ion-item>
+            <ion-label> Tours </ion-label>
+        </ion-item>
+            <ion-item>
+                <ion-select formControlName="tours" placeholder="Seleccionar">
+                    <ion-label> Tours </ion-label>
+                    <ion-option value="si"> Si </ion-option>
+                    <ion-option value="no"> No </ion-option>
+                    <ion-option value="no_aplica"> No aplica </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating> ¿Por qué?</ion-label>
+              <ion-input type="text" formControlName="porque_tours"> </ion-input>
+            </ion-item>
+
+        <ion-item>
+          <ion-label floating> Otro, ¿Cuál? </ion-label>
+          <ion-input type="text" formControlName="otro_cual"> </ion-input>
+        </ion-item>
+            <ion-item>
+                <ion-select formControlName="otro_precio" placeholder="Seleccionar">
+                    <ion-label> Otro </ion-label>
+                    <ion-option value="si"> Si </ion-option>
+                    <ion-option value="no"> No </ion-option>
+                    <ion-option value="no_aplica"> No aplica </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating> ¿Por qué?</ion-label>
+              <ion-input type="text" formControlName="porque_otro_precio"> </ion-input>
+            </ion-item>
+        <ion-item>
+            <ion-label> ¿Qué cree usted que le hace falta a para ser un destino atractivo para el turista vacacional?
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="falta_atractivo" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('falta_atractivo', 'opcion_atractivo', 'showOptionAtractivo')" multiple="true">
+                <ion-label> ¿Qué cree usted que le hace falta a para ser un destino atractivo para el turista vacacional? </ion-label>
+                <ion-option value="medios_transporte"> Medios de transporte</ion-option>
+                <ion-option value="mayor_informacion"> Mayor información turística</ion-option>
+                <ion-option value="aventura"> Aventura </ion-option>
+                <ion-option value="tours"> Tours</ion-option>
+                <ion-option value="guia_profesional"> Guía profesional de turismo</ion-option>
+                <ion-option value="otro"> Otro</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="showOptionAtractivo">
+            <ion-input formControlName="opcion_atractivo" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label> ¿Qué tours quiso encontrar ? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="encontrar_tours" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('encontrar_tours', 'opcion_tours', 'showOptionTours')" multiple="true">
+                <ion-label> ¿Qué tours quiso encontrar ? </ion-label>
+                <ion-option value="tour_gastronomico"> Tour gastronómico </ion-option>
+                <ion-option value="tour_transformacion"> Tour de transformación urbana</ion-option>
+                <ion-option value="tour_ecologico"> Tour ecológico</ion-option>
+                <ion-option value="tour_religioso"> Tour religioso</ion-option>
+                <ion-option value="tour_cultural"> Tour histórico / cultural</ion-option>
+                <ion-option value="tour_compras"> Tour de compras</ion-option>
+                <ion-option value="otro"> Otro </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="showOptionTours">
+            <ion-input formControlName="opcion_tours" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label> ¿Cuáles actividades turísticas quisiera que se realizaran? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cuales_actividades" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('cuales_actividades', 'opcion_cuales_actividades', 'showOptionActividades')" multiple="true">
+               <ion-option value="Convenciones y de negocios ">Convenciones y de negocios </ion-option>
+               <ion-option value="Visitas a mercados tradicionales y artesanales">Visitas a mercados tradicionales y artesanales</ion-option>
+               <ion-option value="Eventos deportivos">Eventos deportivos</ion-option>
+               <ion-option value="Recorrido histórico/cultural">Recorrido histórico/cultural</ion-option>
+               <ion-option value="Actividades ecoturísticas">Actividades ecoturísticas</ion-option>
+               <ion-option value="Visita a museos">Visita a museos</ion-option>
+               <ion-option value="Encuentros religiosos">Encuentros religiosos</ion-option>
+                <ion-option value="otro"> Otro </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="showOptionActividades">
+            <ion-input formControlName="opcion_cuales_actividades" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label> ¿Cuáles características son importantes para usted a la hora de elegir un destino?
+             </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="cuales_caracteristicas" placeholder="Seleccionar" (ionChange)="validateSelectMultiple('cuales_caracteristicas', 'opcion_cuales_actividades', 'showOptionCaracteristicas')" multiple="true">
+               <ion-option value="200 ">Calidad del servicio </ion-option>
+               <ion-option value="300">Precio</ion-option>
+               <ion-option value="400">Lugares a visitar</ion-option>
+               <ion-option value="500">Incluya transporte</ion-option>
+               <ion-option value="600">Incluya alimentación</ion-option>
+               <ion-option value="700">Incluya hospedaje</ion-option>
+               <ion-option value="800">Itinerarios cumplidos</ion-option>
+                <ion-option value="otro"> Otro </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="showOptionCaracteristicas">
+            <ion-input formControlName="opcion_cuales_caracteristicas" type="text" placeholder="Otros, ¿Cuál?"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label> Teniendo en cuenta la escala de calificaciones de Muy Buena, Buena, Ni buena/ni mala, Mala, Muy mala; ¿cómo percibía la imagen de la ciudad antes de visitarla?
+             </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="calificacion" placeholder="Seleccionar">
+                <ion-option value="muybuena"> 5- Muy Buena</ion-option>
+                <ion-option value="buena"> 4- Buena</ion-option>
+                <ion-option value="nibuena_nimala"> 3- Ni buena / Ni mala</ion-option>
+                <ion-option value="mala"> 2- Mala </ion-option>
+                <ion-option value="muymala"> 1- Muy mala </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> ¿Por qué? </ion-label>
+            <ion-input formControlName="porque_calificacion"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label>
+              Continuando con la misma escala, ¿cómo percibe la imagen de la ciudad después de visitarla?
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="escala_imagen" placeholder="Seleccionar">
+                <ion-label>
+                  Continuando con la misma escala, ¿cómo percibe la imagen de la ciudad después de visitarla?
+                </ion-label>
+                <ion-option value="muybuena"> 5- Muy Buena</ion-option>
+                <ion-option value="buena"> 4- Buena</ion-option>
+                <ion-option value="nibuena_nimala"> 3- Ni buena / Ni mala</ion-option>
+                <ion-option value="mala"> 2- Mala </ion-option>
+                <ion-option value="muymala"> 1- Muy mala </ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating> ¿Por qué? </ion-label>
+            <ion-input type="text" formControlName="pq_despues"> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> ¿Qué fue lo que más le gustó de en su estadía? </ion-label>
+            <ion-input type="text" formControlName="gusto_estadia"> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> Observaciones </ion-label>
+            <ion-input type="text" formControlName="observaciones"> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+              Señor(a), ya para terminar, le solicito su autorización para que Fenalco Antioquia comparta sus respuestas con las entidades que contrataron el proyecto, ¿Está de acuerdo?
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="autorizacion" placeholder="Seleccionar">
+                <ion-label>
+                  Señor(a), ya para terminar, le solicito su autorización para que Fenalco Antioquia comparta sus respuestas con las entidades que contrataron el proyecto, ¿Está de acuerdo?
+                </ion-label>
+                <ion-option value="si"> Si</ion-option>
+                <ion-option value="no"> No </ion-option>
+            </ion-select>
+        </ion-item>
+
+
+
+
+
+
+    </ion-list>
+    <ion-list>
+      <ion-item class="text_cent">
+        <button ion-button color="dark" (click)="offlineForm()" type="button">Guardar</button>
+        <button ion-button class="send" type="submit">Crear</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

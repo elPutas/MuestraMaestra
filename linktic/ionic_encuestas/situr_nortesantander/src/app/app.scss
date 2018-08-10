@@ -1,0 +1,242 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/*Header*/
+body{
+	font-family: "Roboto";
+}
+.logo{
+	width: 100%;
+	contain: none;
+	background-color: $white;
+}
+.logo img{
+	display: block !important;
+	margin: 0 auto;
+}
+.toolbar-background, .scroll-content{
+	background-image: url("../assets/imgs/img_login.jpg");
+}
+.list{
+    border: none;
+    border-radius: 0;
+    background: #fff;
+    margin-bottom: 0;
+    padding: 0 16px;
+    margin: 0;
+}
+.toolbar-title{
+	color: $white;
+  font-size: 3rem;
+}
+.ion-md-menu:before{
+  color: $white;
+  font-size: 3rem;
+}
+.toolbar-title-md{
+	font-size: 2.2rem;
+    font-weight: 500;
+}
+.header-md::after{
+	display:none;
+}
+.text_cent{
+	text-align: center;
+}
+p{
+	color: $black;
+}
+.item .note{
+	color: $black;
+	line-height: 28px;
+	text-align: justify;
+	margin: 25px 0;
+	width: 100%;
+}
+.item-md, .label{
+	padding: 5px 15px;
+  min-height: auto;
+  border: none;
+
+}
+.select{
+	width: 100%;
+	max-width: 100%;
+	padding: 0 2px 0 0;
+}
+.text-input-md{
+	margin-right: 0;
+	margin-left: 0;
+}
+.input-wrapper .datetime-md{
+	padding-left: 0;
+}
+button.button.item-button{
+	padding: 16px 20px;
+	font-size: 14px;
+}
+.send{
+	background: $primary;
+}
+.menu-inner .scroll-content{
+	background: #f7f8fb;
+}
+.menu-inner ion-icon{
+  color: color($colors,primary);
+  padding-right: 25px;
+}
+.menu-inner .item-md{
+  background: transparent;
+}
+.menu-inner .list-md .item-block .item-inner{
+  border-bottom: none;
+}
+.success .toast-container{
+  background: #32db64;
+  color: #fff;
+}
+
+.danger .toast-container{
+  background: #f53d3d;
+  color: #fff;
+}
+ion-img{
+  background: transparent;
+  contain: inherit;
+  display: block;
+}
+ion-img.logoSitur img{
+  width: 200px;
+  display: block;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.cerrar_sesion{
+  bottom: 0;
+  width: 100%;
+  background: #e2e2e2;
+  color: #8c8c8c;
+  font-size: 15px;
+  padding: 14px 0;
+  font-weight: 500;
+}
+.cerrar_sesion ion-icon{
+  padding-right: 10px;
+  color: #8c8c8c;
+}
+.textop{
+  padding: 16px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+.list{
+  border-bottom: none;
+  padding: 0;
+}
+.header .button-md{
+  background: transparent;
+  box-shadow: none;
+  padding: 34.3px 22px;
+  display: inline-block;
+  vertical-align: middle;
+  border: none;
+  margin: 0;
+}
+.header .title{
+  display: inline-block;
+  vertical-align: middle;
+}
+page-home.ion-page ion-content.content div.scroll-content{
+  padding-top: 80px;
+  margin-top: 0 !important;
+}
+ion-label.label{
+  white-space: normal !important;
+  max-width: none !important;
+  width: 100%;
+  text-align: justify;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+.item-md.item-block div.item-inner{
+  padding-right: 0;
+  border: none;
+}
+.item-select ion-select {
+    border: 1px solid #a49999;
+    padding: 13px;
+    font-size: 16px;
+}
+ion-label.titulo{
+  font-weight: bold;
+  color: color($colors, primary);
+  font-size: 18px;
+}
+.item-input-has-focus .label-md[floating], .input-has-focus ion-label.label-md[floating], .item-input-has-value .label-md[floating], .input-has-value .label-md[floating]{
+  transform: none;
+}
+ion-input{
+  border-bottom: 1px solid #ccc;
+  &.ng-touched.ng-invalid{
+    border-color: crimson;
+  }
+}
+ion-textarea{
+  border: 1px solid #ccc;
+}
+.botones{
+  text-align: center;
+}
+.botones button{
+  display: block;
+  margin: 0 auto;
+}
+.no_border{
+  border-bottom: none;
+}
+.ng-invalid.error-field{
+  border-bottom: 1px solid red;
+}
+.input-wrapper .datetime-md{
+  border: 1px solid #a49999;
+  padding: 13px;
+  font-size: 16px !important;
+  width: 100%;
+}
+ion-select.ng-invalid.ng-touched, ion-datetime.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+/*POPUPS SELECTS*/
+.alert-md {
+  .alert-checkbox-label,
+  .alert-radio-label {
+      white-space: pre-line !important;
+  }
+  .alert-title {
+    display: none;
+  }
+  .alert-head {
+    &:before {
+      content: "Seleccione";
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+}

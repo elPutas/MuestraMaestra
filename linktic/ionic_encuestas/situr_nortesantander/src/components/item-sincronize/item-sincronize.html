@@ -1,0 +1,18 @@
+  <ion-list margin-bottom>
+    <ion-item>
+      <p>
+        Nombre del formulario: <span text-uppercase><strong>{{data.name}}</strong></span>
+      </p>
+    </ion-item>
+    <ion-item>
+      <p>
+        Cantidad en Local: <strong>{{count}}</strong>
+      </p>
+    </ion-item>
+    <!--<button ion-item color="cards" class="buttonSin" (click)="sendFormToCloud()" *ngIf="flagShowButton">
+      Click para Sincronizar <ion-spinner *ngIf="flagSincronazing" name="bubbles" float-right color="light"></ion-spinner>
+    </button>-->
+    <button ion-item color="cards" class="buttonSin" (click)="sendFormToCloud()" *ngIf="flagShowButton">
+      Click para Sincronizar <ion-spinner *ngIf="flagSincronazing" name="bubbles" float-right color="light"></ion-spinner>
+    </button>
+  </ion-list>

@@ -1,0 +1,258 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Encuesta Receptor</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="receptor" (ngSubmit)="formReceptor()">
+    <ion-list>
+        <ion-item>
+            <ion-icon name="person" item-start></ion-icon>
+            <ion-input formControlName="nombre" type="text" placeholder="Nombre" disabled class="no_border"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="calendar" item-start></ion-icon>
+            <ion-input formControlName="fechaencuesta" type="text" placeholder="Fecha elaboración de la encuenta" disabled class="no_border"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-note item-start>
+                El Ministerio de Comercio, Industria y Turismo y el Sistema de Información Turística de Antioquia, agradece su aporte al conocimiento de los viajeros que llegan al departamento.
+            </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label> Lugar de la encuesta </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="lugar_encuesta" placeholder="Seleccionar" (ionChange)="changeValue('lugar_encuesta', 'otro', 'otro_lugar')">
+                <ion-label> Lugar de la encuesta</ion-label>
+                <ion-option value="0"> Seleccionar</ion-option>
+                <ion-option value="810">Municipio de Santa Fé de Antioquia.</ion-option>
+                <ion-option value="809">Municipio de Rionegro</ion-option>
+                <ion-option value="808">Municipio de Jericó</ion-option>
+                <ion-option value="807">Municipio de Jardín</ion-option>
+                <ion-option value="806">Municipio de Guatapé</ion-option>
+                <ion-option value="805">Sector Estadio - La 70</ion-option>
+                <ion-option value="804">Cerro Nutibara (Pueblito Paisa)</ion-option>
+                <ion-option value="803">Parque del Poblado</ion-option>
+                <ion-option value="802">Parque Lleras</ion-option>
+                <ion-option value="801">Ruta N</ion-option>
+                <ion-option value="800">Parque Arví</ion-option>
+                <ion-option value="799">Plaza Botero</ion-option>
+                <ion-option value="798">Terminal del sur</ion-option>
+                <ion-option value="797">Terminal del Norte</ion-option>
+                <ion-option value="796">Aeropuerto Olaya Herrera</ion-option>
+                <ion-option value="795">Aeropuerto José María Córdova</ion-option>
+                <ion-option value="otro">Otro</ion-option>
+            </ion-select>
+        </ion-item>
+          <ion-item *ngIf="receptor.value.lugar_encuesta === 'otro'">
+            <ion-input formControlName="otro_lugar" type="text" placeholder="¿Cuál?"></ion-input>
+          </ion-item>
+        <ion-item>
+            <ion-label > Fecha de llegada a Antioquia: </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fecha_llegada_antioquia" placeholder="Seleccionar fecha" [(ngModel)]="myDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label> Fecha de salida de Antioquia: </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-datetime displayFormat="YYYY-MM-DD" min="{{myDate}}"
+                          formControlName="fecha_salida_antioquia"
+                          placeholder="Seleccionar fecha"
+                          [disabled]="myDate === ''"
+            ></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label class="titulo">
+                Datos administrativos:
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> NP: </ion-label>
+            <ion-input formControlName="np" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> CG: </ion-label>
+            <ion-input formControlName="cg" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> CE: </ion-label>
+            <ion-input formControlName="ce" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> EN: </ion-label>
+            <ion-input formControlName="en" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label> País: </ion-label>
+        </ion-item>
+       <ion-item>
+            <ion-select formControlName="pais" (ngModelChange)="changeCity($event)" placeholder="Seleccionar"> 
+              <ion-option *ngFor="let city of cities.countries; let i = index" value="{{i}}">{{city.name}}</ion-option> 
+            </ion-select> 
+      </ion-item>
+        <ion-item>
+            <ion-label> Departamento: </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="departamento" placeholder="Seleccionar" (ngModelChange)="changeCiudad($event)"> 
+                <ion-option *ngFor="let departament of states; let i = index" value="{{i}}">{{departament.name}}</ion-option> 
+            </ion-select> 
+        </ion-item>
+        <ion-item>
+            <ion-label> Ciudad/Municipio de residencia: </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="ciudad" placeholder="Seleccionar">
+                <ion-option *ngFor="let ciudades of allcities" value="{{ciudades.id}}">{{ciudades.name}}</ion-option> 
+            </ion-select> 
+        </ion-item>
+        <ion-item>
+            <ion-label> ¿Cuál fue el motivo principal para venir a Antioquia? (Marque un solo motivo) </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="motivo_venir_antioquia" placeholder="Seleccionar" (ionChange)="changeValue('motivo_venir_antioquia', 'otros', 'otro_motivo'); changeValue('motivo_venir_antioquia', '84', 'duracion_parada', 'opcionsalud')">
+                <ion-label> Cuál fue el motivo principal para venir a Antioquia? </ion-label>
+                <ion-option value="">Seleccionar</ion-option>
+                <ion-option value="82">Vacaciones, recreo y ocio</ion-option>
+                <ion-option value="83" selected="selected">Visitar a familiares y/o amigos</ion-option>
+                <ion-option value="84">En tránsito a otro destino</ion-option>
+                <ion-option value="85">Educación/Formación</ion-option>
+                <ion-option value="86">Salud y atención médica (incluye la cirugía estética)</ion-option>
+                <ion-option value="87">Asistir a eventos religiosos/peregrinaciones</ion-option>
+                <ion-option value="88">Compras para uso personal o para regalo</ion-option>
+                <ion-option value="89">Realizar inversión y/o asistir a reunión de negocios</ion-option>
+                <ion-option value="90">Asistir a conferencia, congreso, feria comercial o exposición</ion-option>
+                <ion-option value="91"> Dictar conferencia, ponente en congreso, feria comercial o exposición</ion-option>
+                <ion-option value="92">Artista de espectáculo (concierto, obra de teatro, danza, etc.)</ion-option>
+                <ion-option value="93">Competir en actividad deportiva</ion-option>
+                <ion-option value="94">Investigación académica o científica</ion-option>
+                <ion-option value="95">Comprar bienes o servicios para empresa que no es de Antioquia o como independiente</ion-option>
+                <ion-option value="96">Vender bienes o prestar servicios como representante de empresa que no es de Antioquia o como independiente</ion-option>
+                <ion-option value="97">Trabajar en una empresa ubicada en Antioquia</ion-option>
+                <ion-option value="793">Realizar funciones propias de personal de embajada, consulado y militares en el departamento.</ion-option>
+                <ion-option value="otros">Otros</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor.value.motivo_venir_antioquia === 'otros'">
+          <ion-input formControlName="otro_motivo" type="text" placeholder="Otros Motivos"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="receptor.value.motivo_venir_antioquia === '84'">
+            <ion-label floating> ¿ Cuántas horas durará/duró la parada más larga en Antioquia?</ion-label>
+            <ion-input type="number" formControlName="duracion_parada"> </ion-input>
+        </ion-item>
+        <ion-item *ngIf="receptor.value.motivo_venir_antioquia === '86'" >
+            <ion-select placeholder="La finalidad del servicio médico es:" formControlName="opcionsalud"> 
+                <ion-option value="1"> Sólo opinión (asesoría) médica</ion-option>
+                <ion-option value="2"> Chequeo médico o exámenes de rutina</ion-option>
+                <ion-option value="3"> Tratamiento médico sin intervención quirúrgica </ion-option>
+                <ion-option value="4"> Tratamiento médico con intervención quirúrgica</ion-option>
+            </ion-select>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label> ¿En dónde nació? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="donde_nacio" placeholder="Seleccionar">
+                <ion-label> ¿En dónde nació? </ion-label>
+                <ion-option value="">Seleccionar</ion-option><ion-option value="225">Antioquia</ion-option><ion-option value="226" selected="selected">Otra ciudad Colombiana (No incluye las de Antioquia)</ion-option><ion-option value="227">Extranjero</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                Genero:
+            </ion-label>
+        </ion-item>
+        <ion-list radio-group formControlName="genero">
+          <ion-item>
+              <ion-icon name="woman" item-start></ion-icon>
+              <ion-label>Mujer</ion-label>
+              <ion-radio value="F"></ion-radio>
+          </ion-item>
+          <ion-item>
+              <ion-icon name="man" item-start></ion-icon>
+              <ion-label>Hombre</ion-label>
+              <ion-radio name="genero" value="M"></ion-radio>
+          </ion-item>
+        </ion-list>
+        <ion-item>
+            <ion-label floating> Edad </ion-label>
+            <ion-input formControlName="edad" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label> ¿Conoce usted la oferta turística de su destino? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="oferta_turistica_destino" placeholder="Seleccionar">
+                <ion-label> ¿Conoce usted la oferta turística de su destino? </ion-label>
+                <ion-option value="si"> Si </ion-option>
+                <ion-option value="no">No </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>¿Ha visitado antes ese municipio o destino? </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-select formControlName="visto_antes_municipio" placeholder="Seleccionar" (ionChange)="changeValue('visto_antes_municipio', 'si', 'cuantas_veces')">
+                <ion-label>¿Ha visitado antes ese municipio o destino? </ion-label>
+                <ion-option value="si"> Si</ion-option>
+                <ion-option value="no"> No </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="receptor.value.visto_antes_municipio === 'si'">
+            <ion-label floating > ¿Cuántas veces? </ion-label>
+            <ion-input formControlName="cuantas_veces"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-note item-start>
+                Al llegar a su residencia le estaremos enviando una encuesta a su correo electrónico para conocer sobre su viaje a Antioquia.
+            </ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> Nombre completo: </ion-label>
+            <ion-input formControlName="nombre_completo"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> Email: </ion-label>
+            <ion-input formControlName="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> Indicativo: </ion-label>
+            <ion-input formControlName="indicativo"> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> Celular: </ion-label>
+            <ion-input formControlName="celular"> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating> Teléfono fijo: </ion-label>
+            <ion-input formControlName="telefono_fijo"> </ion-input>
+        </ion-item>
+      <ion-item>
+        <ion-label> ¿Dando cumplimiento a la ley de Protección de datos Personales, solicito su autorización para que FENALCO pueda contactarlo nuevamente, ¿está usted de acuerdo? </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-select formControlName="fenalco" placeholder="Seleccionar">
+            <ion-label> ¿Dando cumplimiento a la ley de Protección de datos Personales, solicito su autorización para que FENALCO pueda contactarlo nuevamente, ¿está usted de acuerdo? </ion-label>
+          <ion-option value="si"> Si</ion-option>
+          <ion-option value="no"> No </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="text_cent">
+        <button ion-button color="dark" (click)="offlineForm()" type="button">Guardar</button>
+        <button ion-button class="send" type="submit" [disabled]="!receptor.valid">Siguiente</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

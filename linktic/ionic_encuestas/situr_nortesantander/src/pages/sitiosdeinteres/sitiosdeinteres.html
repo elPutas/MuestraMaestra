@@ -1,0 +1,294 @@
+<!--
+   Generated template for the SitiosdeinteresPage page.
+   
+   See http://ionicframework.com/docs/components/#navigation for more info on
+   Ionic pages and navigation.
+   -->
+<ion-header>
+   <ion-navbar>
+      <button ion-button menuToggle>
+         <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Sitios de interes</ion-title>
+   </ion-navbar>
+</ion-header>
+<ion-content padding>
+   <form [formGroup]="sitios" (ngSubmit)="logForm()">
+      <ion-item>
+           <ion-icon name="person" item-start></ion-icon>
+           <ion-input formControlName="nombre" type="text" placeholder="Nombre" disabled class="no_border"></ion-input>
+       </ion-item>
+      <ion-item>
+         <ion-note item-start>
+            La información suministrada es clave para el diseño de los planes de desarrollo para la industria turística del departamento y la inversión pública y privada.   
+         </ion-note>
+      </ion-item>
+       
+       <ion-item>
+           <ion-label floating> Prestador</ion-label>
+       </ion-item>
+       <ion-item>
+           <ion-select formControlName="prestador" placeholder="Seleccionar">
+               <ion-label> Prestador </ion-label>
+               <ion-option value="agencia">Agencia de viajes y turismo AVIATUR</ion-option>
+               <ion-option value="falta">Aviatur Villanueva</ion-option>
+           </ion-select>
+       </ion-item>
+
+       <ion-item>
+           <ion-label class="titulo"> Parte A. Datos del establecimiento </ion-label>
+       </ion-item>
+      <ion-item>
+         <ion-label floating> Año de fundación: </ion-label>
+         <ion-input type="number" formControlName="ano_fundacion"></ion-input>
+      </ion-item>
+      <ion-item>
+         <ion-label floating> Tipo de establecimiento:</ion-label>
+      </ion-item>
+      <ion-item>
+         <ion-select formControlName="tipo_establecimiento" placeholder="Seleccionar">
+            <ion-label> Tipo de establecimiento:</ion-label>
+            <ion-option>Parque recreativo / educativo</ion-option>
+            <ion-option>Museo</ion-option>
+            <ion-option>Teatro</ion-option>
+            <ion-option>Centro Comercial</ion-option>
+            <ion-option>Discoteca</ion-option>
+            <ion-option>Parque temático</ion-option>
+            <ion-option>Parque de atracciones</ion-option>
+            <ion-option>Parque zoológico</ion-option>
+            <ion-option>Parque natural</ion-option>
+            <ion-option value="otro"> Otros</ion-option>
+         </ion-select>
+      </ion-item>
+      <ion-item *ngIf="sitios.value.tipo_establecimiento == 'otro'">
+            <ion-label floating> Otro tipo de establecimiento</ion-label>
+           <ion-input formControlName="otro" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+         <ion-label floating>
+            ¿Tiene capacidad para acoger cuántas personas?
+         </ion-label>
+         <ion-input type="text" formControlName="capacidad"></ion-input>
+      </ion-item>
+      <ion-item>
+         <ion-label floating>¿Cuál es el horario al público?:</ion-label>
+      </ion-item>
+      <ion-item>
+         <ion-select placeholder="Hora" formControlName="hora">
+            <ion-label>Hora</ion-label>
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+            <ion-option value="4">4</ion-option>
+            <ion-option value="5">5</ion-option>
+            <ion-option value="6">6</ion-option>
+            <ion-option value="7">7</ion-option>
+            <ion-option value="8">8</ion-option>
+            <ion-option value="9">9</ion-option>
+            <ion-option value="10">10</ion-option>
+            <ion-option value="11">11</ion-option>
+            <ion-option value="12">12</ion-option>
+         </ion-select>
+         <ion-select placeholder="AM / PM" formControlName="formato_hora">
+            <ion-option value="am">AM</ion-option>
+            <ion-option value="pm">PM</ion-option>
+         </ion-select>
+      </ion-item>
+      <ion-item>
+         <ion-label floating>
+            ¿Cuál es la tarifa promedio que maneja? (1000 a 50000)
+         </ion-label>
+      </ion-item>
+      <ion-item>
+         <ion-range min="-200" max="200" formControlName="tarifa" color="secondary">
+               <ion-label range-left>-200</ion-label>
+               <ion-label range-right>200</ion-label>
+          </ion-range>
+      </ion-item>
+      <ion-item>
+           <ion-label class="titulo"> Parte B. Actividad Comercial </ion-label>
+       </ion-item>
+      <ion-item>
+         <ion-note item-start>
+            El objetivo de conocer la actividad comercial por mes es para establecer la disponibilidad del servicio de los operadores turísticos.
+         </ion-note>
+      </ion-item>
+      <ion-list radio-group formControlName="actividad_comercial">
+        <ion-item>
+            <ion-label>
+                ¿En el mes de el establecimiento estuvo en actividad comercial?
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+         <ion-item *ngIf="sitios.value.actividad_comercial == 'si'">
+               <ion-label floating> ¿ Cuántos días al mes ? </ion-label>
+              <ion-input formControlName="otro" type="text"></ion-input>
+          </ion-item>
+      </ion-list>
+      <ion-item>
+           <ion-label class="titulo"> Parte C. Servicios complementarios </ion-label>
+       </ion-item>
+
+      <ion-item>
+           <ion-label> ¿ Cuáles servicios complementartios ofrece la empresa ? </ion-label>
+       </ion-item>
+      <ion-list radio-group formControlName="ningun_servicio">
+        <ion-item>
+            <ion-label>
+                Ninguno
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group formControlName="instructor">
+        <ion-item>
+            <ion-label>
+                Instructor
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group formControlName="transporte">
+        <ion-item>
+            <ion-label>
+                Transporte
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group formControlName="alimentacion">
+        <ion-item>
+            <ion-label>
+                Alimentación
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group formControlName="guia">
+        <ion-item>
+            <ion-label>
+                Guía turístico
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group formControlName="recorridos">
+        <ion-item>
+            <ion-label>
+                Recorridos turísticos
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group formControlName="otros">
+        <ion-item>
+            <ion-label>
+                Alimentación
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item *ngIf="sitios.value.otros == 'si'">
+               <ion-label floating> Otro servicio </ion-label>
+              <ion-input formControlName="otro" type="text"></ion-input>
+          </ion-item>
+      </ion-list>
+      <ion-item>
+           <ion-label class="titulo"> Parte D. Convenios </ion-label>
+       </ion-item>
+      <ion-list radio-group formControlName="convenios">
+        <ion-item>
+            <ion-label>
+                ¿ Tiene convenios con otros establecimientos ?
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Si</ion-label>
+            <ion-radio value="si"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio value="no"></ion-radio>
+        </ion-item>
+        <ion-item *ngIf="sitios.value.covenios == 'si'">
+               <ion-label floating> ¿ Con que tipo de establecimiento tiene convenio ? </ion-label>
+              <ion-select formControlName="tipo_convenio" multiple="true" placeholder="Seleccionar">
+                <ion-option value="1">Atracciones turísticas </ion-option>
+                <ion-option value="female">Café Bar</ion-option>
+                <ion-option value="female">Hospedaje</ion-option>
+                <ion-option value="female">Restaurante - heladería</ion-option>
+                <ion-option value="female">Transporte fluvial</ion-option>
+                <ion-option value="female">Transporte terrestre</ion-option>
+                <ion-option value="female">Aerolíneas</ion-option>
+                <ion-option value="otro">Otro</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="sitios.value.tipo_convenio == 'otro'">
+               <ion-label floating> Otro establecimiento </ion-label>
+               <ion-input type="text"> </ion-input>
+         </ion-item>
+      </ion-list>
+   
+
+       <ion-list>
+           <ion-item class="botones">
+               <button ion-button type="submit" [disabled]="sitios.valid">Enviar </button>
+           </ion-item>
+       </ion-list>
+   </form>
+</ion-content>
