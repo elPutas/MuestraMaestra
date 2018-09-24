@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sections.FormActivity">
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_app"
+    >
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="20dp"
+            android:src="@drawable/bt_back"
+            android:layout_height="20dp" />
+        <ImageView
+            app:layout_constraintRight_toRightOf="@id/header"
+            android:id="@+id/btn_cam"
+            android:layout_width="20dp"
+            android:src="@drawable/ic_cam"
+            android:layout_height="20dp" />
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/padding_app"
+        app:layout_constraintTop_toBottomOf="@id/btn_cam"
+        android:weightSum="100"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:layout_marginRight="@dimen/padding_btn"
+            android:textStyle="bold"
+            android:textColor="@color/colorTitle"
+            android:layout_width="100dp"
+            android:layout_weight="50"
+            android:text="Número de RNT\nEstado\nDepartamento\nCiudad"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"></FrameLayout>
+        <TextView
+            android:id="@+id/allInfo_txt"
+            android:layout_width="100dp"
+            android:layout_marginLeft="@dimen/padding_btn"
+            android:layout_weight="49"
+            android:text="123565\nACTIVO\nBogotá D.C.\nBogotá"
+            android:layout_height="wrap_content"
+             />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/marginItemsLinear"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:checked="true"
+            android:id="@+id/check"
+            android:text="Correcto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:text=""
+            android:id="@+id/name_field"
+            android:hint="Nombre del establecimiento"
+            android:enabled="false"
+            android:paddingStart="@dimen/padding_btn"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_edittext_white"
+            android:textSize="@dimen/normal_txt"
+            android:layout_width="match_parent" />
+
+
+        <EditText
+            android:text=""
+            android:id="@+id/address_field"
+            android:layout_marginTop="@dimen/marginItemsLinear"
+            android:hint="Dirección del Establecimiento"
+            android:enabled="false"
+            android:paddingStart="@dimen/padding_btn"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_edittext_white"
+            android:textSize="@dimen/normal_txt"
+            android:layout_width="match_parent" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/mini_padding"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <Spinner
+
+                android:id="@+id/spinnerAddress"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/address_field_1"
+                android:hint="00"
+                android:enabled="false"
+                android:paddingStart="@dimen/padding_btn"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_edittext_white"
+                android:textSize="@dimen/normal_txt"
+                android:layout_width="@dimen/width_dir_num" />
+            <TextView
+                android:layout_marginLeft="@dimen/padding_btn"
+                android:text="#"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/address_field_2"
+                android:layout_marginLeft="@dimen/padding_btn"
+                android:hint="00"
+                android:enabled="false"
+                android:paddingStart="@dimen/padding_btn"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_edittext_white"
+                android:textSize="@dimen/normal_txt"
+                android:layout_width="@dimen/width_dir_num" />
+            <TextView
+                android:layout_marginLeft="@dimen/padding_btn"
+                android:text="-"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/address_field_3"
+                android:layout_marginLeft="@dimen/padding_btn"
+                android:hint="00"
+                android:enabled="false"
+                android:paddingStart="@dimen/padding_btn"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_edittext_white"
+                android:textSize="@dimen/normal_txt"
+                android:layout_width="@dimen/width_dir_num" />
+
+
+        </LinearLayout>
+        <EditText
+            android:id="@+id/info_addres"
+            android:layout_marginTop="@dimen/mini_padding"
+            android:hint="Oficina 701"
+            android:enabled="false"
+            android:paddingStart="@dimen/padding_btn"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_edittext_white"
+            android:textSize="@dimen/normal_txt"
+            android:layout_width="match_parent" />
+
+
+        <Spinner
+            android:background="@drawable/bg_edittext_white"
+            android:id="@+id/spinnerCat"
+            android:layout_marginTop="@dimen/marginItemsLinear"
+            android:layout_height="30dp"
+            android:textSize="@dimen/normal_txt"
+            android:layout_width="match_parent" />
+
+
+        <Spinner
+            android:background="@drawable/bg_edittext_white"
+            android:id="@+id/spinnerSubCat"
+            android:layout_marginTop="@dimen/marginItemsLinear"
+            android:layout_height="30dp"
+            android:layout_width="match_parent" />
+
+        <EditText
+            android:id="@+id/news_txt"
+            android:gravity="left|top"
+            android:layout_marginTop="@dimen/marginItemsLinear"
+            android:hint="Novedades"
+            android:paddingStart="@dimen/padding_btn"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_edittext_white"
+            android:textSize="@dimen/normal_txt"
+            android:layout_width="match_parent" />
+
+
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_marginTop="@dimen/marginItemsLinear"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:paddingBottom="@dimen/padding_btn"
+            android:paddingTop="@dimen/padding_btn"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center|bottom"
+            android:textAlignment="center"
+            android:text="Guardar"
+            android:layout_width="@dimen/width_btn"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+    </ScrollView>

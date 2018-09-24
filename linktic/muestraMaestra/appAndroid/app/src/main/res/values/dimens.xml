@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_btn">10dp</dimen>
+    <dimen name="width_btn">250dp</dimen>
+    <dimen name="marginItemsLinear">10dp</dimen>
+    <dimen name="padding_app">20dp</dimen>
+    <dimen name="miniSizeText">8sp</dimen>
+    <dimen name="padding_header_app">230dp</dimen>
+    <dimen name="normal_txt">10sp</dimen>
+    <dimen name="mini_padding">5dp</dimen>
+    <dimen name="height_Logo_login">275dp</dimen>
+    <dimen name="width_dir_txt">80dp</dimen>
+    <dimen name="width_dir_num">40dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
