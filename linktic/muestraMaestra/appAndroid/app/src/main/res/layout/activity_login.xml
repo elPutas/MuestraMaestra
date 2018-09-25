@@ -45,6 +45,7 @@
             android:layout_width="1dp"
             android:layout_height="15dp"></FrameLayout>
         <EditText
+            android:singleLine="true"
             android:textSize="@dimen/normal_txt"
             android:id="@+id/user_txt"
             android:hint="Nombre de usuario"
@@ -70,6 +71,7 @@
             android:layout_width="1dp"
             android:layout_height="15dp"></FrameLayout>
         <EditText
+            android:inputType="textPassword"
             android:textSize="@dimen/normal_txt"
             android:id="@+id/pass_txt"
             android:layout_width="@dimen/width_btn"

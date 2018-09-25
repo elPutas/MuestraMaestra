@@ -71,6 +71,7 @@
         <activity
             android:name=".sections.SincActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".sections.SearchActivity"></activity>
     </application>
 
 </manifest>

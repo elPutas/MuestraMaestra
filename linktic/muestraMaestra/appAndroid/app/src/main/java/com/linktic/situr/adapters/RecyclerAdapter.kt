@@ -47,6 +47,7 @@ class RecyclerAdapter(val _names:ArrayList<String>, val context: Context) : Recy
         override fun onClick(_view: View?) {
             BaseActivity.numBlock = this.position
             var i = Intent(_view!!.context, MapsActivity::class.java)
+            i.putExtra("key", "gotoBlock")
             _view!!.context.startActivity(i)
         }
 

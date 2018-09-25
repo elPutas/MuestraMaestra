@@ -22,6 +22,7 @@ class LoginActivity : BaseActivity()
 
 
     val client = OkHttpClient()
+    private lateinit var loading_pb:ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -53,18 +54,22 @@ class LoginActivity : BaseActivity()
                 .post(requestBody)
                 .build()
 
-        val loading = findViewById<ProgressBar>(R.id.loading)
-        loading.visibility = View.VISIBLE
+        loading_pb = findViewById<ProgressBar>(R.id.loading)
+        loading_pb.visibility = View.VISIBLE
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException)
             {
                 println(e)
+                runOnUiThread {
+                    openAlert()
+                }
+
                // loading.visibility = View.GONE
             }
             override fun onResponse(call: Call?, response: Response) {
                 if (!response.isSuccessful) {
-                    loading.visibility = View.GONE
+                    loading_pb.visibility = View.GONE
                     System.err.println("Response not successful")
                     return
                 }
@@ -87,7 +92,9 @@ class LoginActivity : BaseActivity()
     {
         val user_txt = findViewById<EditText>(R.id.user_txt)
         val pass_txt = findViewById<EditText>(R.id.pass_txt)
-        LogMe("http://beta.citur.linktic.com/admin/users/loginapi", user_txt.text.toString(), pass_txt.text.toString())
+
+        if(user_txt.text.toString() != "" && pass_txt.text.toString() != "")
+            LogMe("http://beta.citur.linktic.com/admin/users/loginapi", user_txt.text.toString(), pass_txt.text.toString())
         //LogMe("http://muestramaestra.linktic.co/admin/users/loginapi", user_txt.text.toString(), pass_txt.text.toString())
     }
 
@@ -98,6 +105,7 @@ class LoginActivity : BaseActivity()
 
         val parser = Parser()
         val json = parser.parse(jsonString) as JsonObject
+        val jsonCities = parser.parse(jsonString) as JsonObject
 
 
 
@@ -107,7 +115,19 @@ class LoginActivity : BaseActivity()
             println("Data = $realData")
 
             idUser = realData["id"].toString()
+            fullnameUser = realData["fullname"].toString()
+            usernameUser = realData["username"].toString()
+            stateUser = realData["department"].toString()
+            imgUser = realData["image"].toString()
+            groupUser = realData["group_id"].toString()
+
+            val _cityUser = realData["cities"] as JsonArray<*>
+
+            cityUser = _cityUser["title"].toList() as ArrayList<String>
+
             gotoMap()
+        }else{
+            openAlert()
         }
 
 
@@ -123,27 +143,12 @@ class LoginActivity : BaseActivity()
 
     private fun openAlert()
     {
-        // Initialize a new instance of
+        loading_pb.visibility = View.GONE
         val builder = AlertDialog.Builder(this@LoginActivity)
+        builder.setTitle("Algo salió mal")
+        builder.setMessage("El usuario y contraseña no coinciden")
 
-        // Set the alert dialog title
-        builder.setTitle("App background color")
-
-        // Display a message on alert dialog
-        builder.setMessage("Are you want to set the app background color to RED?")
-
-        // Set a positive button and its click listener on alert dialog
-        builder.setPositiveButton("OK"){dialog, which ->
-            // Do something when user press the positive button
-
-        }
-
-
-
-        // Finally, make the alert dialog using builder
         val dialog: AlertDialog = builder.create()
-
-        // Display the alert dialog on app interface
         dialog.show()
     }
 

@@ -55,12 +55,14 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
     private var arrState:ArrayList<String> = ArrayList()
     private var arrStatus:ArrayList<String> = ArrayList()
     private var arrIds:ArrayList<String> = ArrayList()
-
-
-
+    private var arrImg:ArrayList<String> = ArrayList()
+    private var arrUpdate:ArrayList<String> = ArrayList()
 
     private var locationManager : LocationManager? = null
     private var mPrefs:SharedPreferences? = null
+
+    private var gotoBlock:Boolean = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -73,13 +75,19 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
         mPrefs = getPreferences(Context.MODE_PRIVATE)
 
         val user_txt = findViewById (R.id.user_txt) as TextView
+
+
         val btn_menu = findViewById(R.id.btn_menu) as ImageView
         val btn_new = findViewById<ImageView>(R.id.btn_new)
         val btn_logout = findViewById<LinearLayout>(R.id.btn_logout)
         val btn_blocks = findViewById<LinearLayout>(R.id.btn_blocks)
         val btn_sinc = findViewById<LinearLayout>(R.id.btn_sinc)
+        val btn_search = findViewById<LinearLayout>(R.id.btn_search)
+
+        val user_txt_menu = findViewById<TextView>(R.id.user_txt_menu)
 
         println("idUser: $idUser")
+        gotoBlock = intent.hasExtra("key")
 
 
 
@@ -93,10 +101,12 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
                 R.id.btn_logout -> openLogout()
                 R.id.btn_blocks -> openBlocks()
                 R.id.btn_sinc -> openSinc()
+                R.id.btn_search -> openSearch()
             }
         }
 
-        user_txt.text = usernameUser
+        user_txt.text = fullnameUser
+        user_txt_menu.text = fullnameUser
 
         user_txt.setOnClickListener(onClickListener)
         btn_menu.setOnClickListener(onClickListener)
@@ -104,6 +114,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
         btn_logout.setOnClickListener(onClickListener)
         btn_blocks.setOnClickListener(onClickListener)
         btn_sinc.setOnClickListener(onClickListener)
+        btn_search.setOnClickListener(onClickListener)
 
         // Create persistent LocationManager reference
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?;
@@ -151,16 +162,16 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
 
                 if(visited_places.isEmpty())
                 {
-                    mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]))
+                    mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]+"|"+arrImg[i]))
                 }
                 for (j in 0 until visited_places.size)
                 {
                     if(arrRnts[i]== visited_places[j])
                     {
 
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]))
+                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]+"|"+arrImg[i]))
                     }else{
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]))
+                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]+"|"+arrImg[i]))
                     }
                 }
 
@@ -181,13 +192,26 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
 
 
 
-        val cameraPosition = CameraPosition.Builder()
-                //.target(LatLng(arrPlaceLat[0].toDouble(), arrPlaceLon[0].toDouble()))      // Sets the center of the map to location user
-                .target(LatLng(myLat, myLon))      // Sets the center of the map to location user
-                .zoom(16f)                   // Sets the zoom
-                //.bearing(90f)                // Sets the orientation of the camera to east
-                //.tilt(40f)                   // Sets the tilt of the camera to 30 degrees
-                .build()
+        var cameraPosition:CameraPosition
+
+        mMap.addMarker(MarkerOptions().position(LatLng(myLat, myLon)))
+
+        if(gotoBlock)
+        {
+            cameraPosition = CameraPosition.Builder()
+                    .target(LatLng(arrPlaceLat[numBlock].toDouble(), arrPlaceLon[numBlock].toDouble()))      // Sets the center of the map to location user
+                    //.target(LatLng(myLat, myLon))
+                    .zoom(16f)
+                    .build()
+        }
+        else
+        {
+            cameraPosition = CameraPosition.Builder()
+                    //.target(LatLng(arrPlaceLat[0].toDouble(), arrPlaceLon[0].toDouble()))      // Sets the center of the map to location user
+                    .target(LatLng(myLat, myLon))
+                    .zoom(16f)
+                    .build()
+        }
 
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
@@ -203,10 +227,12 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
         statusSelected = _arr[4]
         nameSelected = _arr[5]
         idSelected = _arr[6]
+        imgSelected = _arr[7]
 
 
         //goto form
         val i = Intent(this, FormActivity::class.java)
+        i.putExtra("isNew", false)
         startActivity(i)
         finish()
         println("click $_mark")
@@ -296,45 +322,34 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
 
 
 
-        val jArrayLat = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("LATITUD")
-        val jArrayLon = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("LONGITUD")
-        val jArrayName = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("nombre")
-        val jArrayRnt = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("rnt")
-        val jArrayAddres = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("direccion")
-        val jArrayCity = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("ciudad")
-        val jArrayState = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("departamento")
-        val jArrayStatus = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("estado")
-        val jArrayId = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("id")
+        arrNames    = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "nombre" } as ArrayList
+        arrPlaceLat = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "LATITUD" } as ArrayList
+        arrPlaceLon = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "LONGITUD" } as ArrayList
+        arrRnts     = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "rnt" } as ArrayList
+        arrAddres   = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "direccion" } as ArrayList
+        arrCity     = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "ciudad" } as ArrayList
+        arrState    = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "departamento" } as ArrayList
+        arrStatus   = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "estado" } as ArrayList
+        arrIds      = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "id" } as ArrayList
+        arrImg      = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "foto" } as ArrayList
+        arrUpdate   = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "actualizado" } as ArrayList
 
 
-        for (i in 0 until jArrayLat.size)
-        {
-            var strPlaceLat:String = jArrayLat[i] as String
-            var strPlaceLon:String = jArrayLon[i] as String
-            var strPlaceName:String = jArrayName[i] as String
-            var strPlaceRnt:String = jArrayRnt[i] as String
-            var strPlaceAddress:String = jArrayAddres[i] as String
-            var strPlaceCity:String = jArrayCity[i] as String
-            var strPlaceState:String = jArrayState[i] as String
-            var strPlaceStatus:String = jArrayStatus[i] as String
-            var strPlaceId:String = jArrayId[i].toString()
-
-            arrPlaceLat.add(strPlaceLat)
-            arrPlaceLon.add(strPlaceLon)
-            arrNames.add(strPlaceName)
-            arrRnts.add(strPlaceRnt)
-            arrAddres.add(strPlaceAddress)
-            arrCity.add(strPlaceCity)
-            arrState.add(strPlaceState)
-            arrStatus.add(strPlaceStatus)
-            arrIds.add(strPlaceId)
-        }
+        val _temparr = json["prestadores"]["nombre"]
+        arrNamePlaces = _temparr.toList() as ArrayList<String>
 
         //map
         val mapFragment = findViewById<MapView>(R.id.map)
         mapFragment.onCreate(savedIS)
         mapFragment.onResume()
         mapFragment.getMapAsync(this)
+    }
+
+
+    private fun openSearch()
+    {
+        val i = Intent(this, SearchActivity::class.java)
+        startActivity(i)
     }
 
     private fun openLogout()
@@ -371,6 +386,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
     {
         //goto form
         val i = Intent(this, FormActivity::class.java)
+                i.putExtra("isNew", true)
         startActivity(i)
     }
 }
