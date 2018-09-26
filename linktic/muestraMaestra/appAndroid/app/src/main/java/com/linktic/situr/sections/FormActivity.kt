@@ -196,7 +196,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             address_field_2.isEnabled = true
             address_field_3.isEnabled = true
 
-            idSelected = ""
+            idSelected = 0
             rntSelected = ""
             nameSelected = ""
             addressSelected = ""

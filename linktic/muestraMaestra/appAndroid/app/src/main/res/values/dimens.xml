@@ -13,4 +13,5 @@
     <dimen name="width_dir_num">40dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="size_icon_search_item">35dp</dimen>
+    <dimen name="pading_percent_layout">60dp</dimen>
 </resources>

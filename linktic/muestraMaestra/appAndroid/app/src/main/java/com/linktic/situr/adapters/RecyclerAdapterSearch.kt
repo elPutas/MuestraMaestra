@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.linktic.situr.BaseActivity
 import com.linktic.situr.R
@@ -16,21 +17,27 @@ import java.util.*
 /**
  * Created by Gio on 13/06/18.
  */
-class RecyclerAdapterSearch(val _names:ArrayList<String>, val _context: Context) : RecyclerView.Adapter<RecyclerAdapterSearch.MyHolder>()
+class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<String>, val _context: Context) : RecyclerView.Adapter<RecyclerAdapterSearch.MyHolder>()
 {
     //Passing Values to Local Variables
 
     var arrayList = _names
+    var arrUpdate = _update
     var context = _context
 
     //Store image and arraylist in Temp Array List we Required it later
     var tempNameList = ArrayList(arrayList)
+    var tempUpdateList = ArrayList(arrUpdate)
 
 
 
     override fun onBindViewHolder(holder: MyHolder, position: Int)
     {
         holder.name_txt?.text = _names.get(position)
+        if(_update.get(position)=="1")
+            holder.icon_place?.setImageResource(R.drawable.ic_place_green)
+        else
+            holder.icon_place?.setImageResource(R.drawable.ic_place_black)
 
     }
 
@@ -54,6 +61,7 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _context: Context)
 
         //Here We Clear Both ArrayList because We update according to Search query.
         _names.clear()
+        _update.clear()
 
 
         if (text.length == 0) {
@@ -65,6 +73,8 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _context: Context)
             */
 
             _names.addAll(tempNameList)
+            _update.addAll(tempUpdateList)
+
 
 
         } else {
@@ -80,6 +90,7 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _context: Context)
                 if (tempNameList.get(i)!!.toLowerCase(Locale.getDefault()).contains(text)) {
 
                     arrayList.add(tempNameList.get(i))
+                    arrUpdate.add(tempUpdateList.get(i))
 
                 }
 
@@ -96,6 +107,7 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _context: Context)
     class MyHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener
     {
         val name_txt = v.findViewById<TextView>(R.id.name_txt)
+        val icon_place = v.findViewById<ImageView>(R.id.icon_place)
 
 
         init {

@@ -9,9 +9,10 @@
     android:layout_height="80dp">
 
     <ImageView
+        android:id="@+id/icon_place"
         android:layout_marginRight="@dimen/padding_btn"
         android:layout_marginLeft="@dimen/padding_btn"
-        android:src="@drawable/ic_place_red"
+        android:src="@drawable/ic_place_black"
         android:layout_width="@dimen/size_icon_search_item"
         android:layout_height="35dp" />
     <FrameLayout

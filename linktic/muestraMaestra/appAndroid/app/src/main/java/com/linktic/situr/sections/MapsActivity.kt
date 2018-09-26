@@ -123,7 +123,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
             try {
                 // Request location updates
                 locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
-            } catch(ex: SecurityException) {
+            } catch(e: SecurityException) {
                 Log.d(TAG, "Security Exception, no location available");
             }
 
@@ -162,16 +162,22 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
 
                 if(visited_places.isEmpty())
                 {
-                    mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]+"|"+arrImg[i]))
+                    if(arrUpdate[i]=="1")
+                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_green_sm)).position(pl).title(_title).snippet(arrNames[i]+"|"+i.toString() ))
+                    else
+                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_sm)).position(pl).title(_title).snippet(arrNames[i]+"|"+i.toString() ))
                 }
                 for (j in 0 until visited_places.size)
                 {
                     if(arrRnts[i]== visited_places[j])
                     {
 
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]+"|"+arrImg[i]))
+                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_sm)).position(pl).title(_title).snippet(arrNames[i]+"|"+i.toString() ))
                     }else{
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black)).position(pl).title(_title).snippet(arrRnts[i]+"|"+arrState[i]+"|"+arrCity[i]+"|"+arrAddres[i]+"|"+arrStatus[i]+"|"+arrNames[i]+"|"+arrIds[i]+"|"+arrImg[i]))
+                        if(arrUpdate[i]=="1")
+                            mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_green_sm)).position(pl).title(_title).snippet(arrNames[i]+"|"+i.toString() ))
+                        else
+                            mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_sm)).position(pl).title(_title).snippet(arrNames[i]+"|"+i.toString() ))
                     }
                 }
 
@@ -220,14 +226,17 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
     {
         var _arr:ArrayList<String> =  _mark?.snippet.toString().split("|") as ArrayList<String>
 
-        rntSelected = _arr[0]
-        stateSelected = _arr[1]
-        citySelected = _arr[2]
-        addressSelected = _arr[3]
-        statusSelected = _arr[4]
-        nameSelected = _arr[5]
-        idSelected = _arr[6]
-        imgSelected = _arr[7]
+        val num:Int = _arr[1].toInt()
+
+        rntSelected = arrRnts[num]
+        stateSelected = arrState[num]
+        citySelected = arrCity[num]
+        addressSelected = arrAddres[num]
+        statusSelected = arrStatus[num]
+        nameSelected = arrNames[num]
+        idSelected = arrIds[num] as Int
+        imgSelected = ""//arrImg[num]
+        updateSelected = arrUpdate[num]
 
 
         //goto form
@@ -320,29 +329,90 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClick
 
         arrPoly = _strPoly.split(",") as ArrayList<String>
 
+        arrUpdateAll = json["prestadores"].get("actualizado").toList() as ArrayList<String>
+        formsDone = json["prestadores"].get("actualizado").filter { s -> s == "1" }.size
+
+        val numTotal = json["prestadores"].get("actualizado").toList().size
+        val numDone = json["prestadores"].get("actualizado").filter { s -> s == "1" }.size
+        val numLeft = json["prestadores"].get("actualizado").filter { s -> s == "0" }.size
+
+        formsDone = ((numDone/numTotal.toDouble()) * 100).toInt()
+        formsLeft = ((numLeft/numTotal.toDouble()) * 100).toInt()
+
+        val done_percent = findViewById<TextView>(R.id.done_percent)
+        val left_percent = findViewById<TextView>(R.id.left_percent)
+
+        left_percent.text = formsLeft.toString() + "%"
+        done_percent.text = formsDone.toString() + "%"
 
 
-        arrNames    = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "nombre" } as ArrayList
-        arrPlaceLat = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "LATITUD" } as ArrayList
-        arrPlaceLon = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "LONGITUD" } as ArrayList
-        arrRnts     = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "rnt" } as ArrayList
-        arrAddres   = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "direccion" } as ArrayList
-        arrCity     = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "ciudad" } as ArrayList
-        arrState    = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "departamento" } as ArrayList
-        arrStatus   = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "estado" } as ArrayList
-        arrIds      = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "id" } as ArrayList
-        arrImg      = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "foto" } as ArrayList
-        arrUpdate   = ((json[numBlock] as JsonObject).map["prestadores"] as Iterable<*>).map { "actualizado" } as ArrayList
+
+        arrNames    = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("nombre").value as ArrayList<String>
+        arrPlaceLat = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LATITUD").value as ArrayList<String>
+        arrPlaceLon = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LONGITUD").value as ArrayList<String>
+        arrRnts     = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("rnt").value as ArrayList<String>
+        arrAddres   = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("direccion").value as ArrayList<String>
+        arrCity     = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("ciudad").value as ArrayList<String>
+        arrState    = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("departamento").value as ArrayList<String>
+        arrStatus   = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("estado").value as ArrayList<String>
+        arrIds      = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("id").value as ArrayList<String>
+        arrImg      = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("foto").value as ArrayList<String>
+        arrUpdate   = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("actualizado").value as ArrayList<String>
 
 
-        val _temparr = json["prestadores"]["nombre"]
-        arrNamePlaces = _temparr.toList() as ArrayList<String>
+        /*
+        val jArrayLat = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("LATITUD")
+        val jArrayLon = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("LONGITUD")
+        val jArrayName = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("nombre")
+        val jArrayRnt = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("rnt")
+        val jArrayAddres = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("direccion")
+        val jArrayCity = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("ciudad")
+        val jArrayState = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("departamento")
+        val jArrayStatus = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("estado")
+        val jArrayId = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("id")
+        val jArrayImg = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("foto")
+        val jArrayUpdate = ((json[numBlock] as JsonObject).get("prestadores") as JsonArray<*>).get("actualizado")
+
+
+        for (i in 0 until jArrayLat.size)
+        {
+            var strPlaceLat:String = jArrayLat[i] as String
+            var strPlaceLon:String = jArrayLon[i] as String
+            var strPlaceName:String = jArrayName[i] as String
+            var strPlaceRnt:String = jArrayRnt[i] as String
+            var strPlaceAddress:String = jArrayAddres[i] as String
+            var strPlaceCity:String = jArrayCity[i] as String
+            var strPlaceState:String = jArrayState[i] as String
+            var strPlaceStatus:String = jArrayStatus[i] as String
+            var strImg:String = jArrayImg[i].toString()
+            var strPlaceId:String = jArrayId[i].toString()
+            var strUpdate:String = jArrayUpdate[i].toString()
+
+            arrPlaceLat.add(strPlaceLat)
+            arrPlaceLon.add(strPlaceLon)
+            arrNames.add(strPlaceName)
+            arrRnts.add(strPlaceRnt)
+            arrAddres.add(strPlaceAddress)
+            arrCity.add(strPlaceCity)
+            arrState.add(strPlaceState)
+            arrStatus.add(strPlaceStatus)
+            arrIds.add(strPlaceId)
+            arrImg.add(strImg)
+            arrUpdate.add(strUpdate)
+        }
+        */
 
         //map
         val mapFragment = findViewById<MapView>(R.id.map)
         mapFragment.onCreate(savedIS)
         mapFragment.onResume()
         mapFragment.getMapAsync(this)
+
+        //array to search by names
+        val _temparr = json["prestadores"]["nombre"]
+        arrNamePlaces = _temparr.toList() as ArrayList<String>
+
+
     }
 
 
