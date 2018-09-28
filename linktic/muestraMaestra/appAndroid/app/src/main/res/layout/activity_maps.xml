@@ -105,7 +105,7 @@
 
             <FrameLayout
                 android:background="@android:color/black"
-                android:layout_marginStart="@dimen/padding_app"
+                android:layout_marginStart="@dimen/padding_btn"
                 android:layout_width="1dp"
                 android:layout_height="20dp"></FrameLayout>
 
@@ -388,7 +388,16 @@
                     android:src="@drawable/bt_signout"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
+
+
             </LinearLayout>
+            <TextView
+                android:padding="5dp"
+                android:layout_gravity="right"
+                android:textSize="7sp"
+                android:text="v.1.0.0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>

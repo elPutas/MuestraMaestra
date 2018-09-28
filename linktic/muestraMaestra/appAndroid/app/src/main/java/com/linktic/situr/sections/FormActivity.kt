@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_form.*
 import okhttp3.*
 import java.io.IOException
 import android.widget.AdapterView
+import com.linktic.situr.assets.AppPreferences
 import kotlinx.android.synthetic.main.activity_form.view.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -79,6 +80,8 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
+
+        AppPreferences.init(this)
 
         spinnerAddress = findViewById(R.id.spinnerAddress)//this.spinnerAddress
         spinnerCat = findViewById(R.id.spinnerCat)//this.spinnerCat
@@ -176,6 +179,9 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             name_field.setText(nameSelected)
             address_field.setText(addressSelected)
 
+            if(updateSelected=="1")
+                btnSave.visibility = View.GONE
+
 
         }else{
 
@@ -196,7 +202,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             address_field_2.isEnabled = true
             address_field_3.isEnabled = true
 
-            idSelected = 0
+            idSelected = ""
             rntSelected = ""
             nameSelected = ""
             addressSelected = ""
@@ -307,7 +313,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     private fun saveMe(_myLat:Double, _myLon:Double)
     {
         loading_pb.visibility = View.VISIBLE
-        visited_places.add(rntSelected)
+
 
         val news_txt:EditText = findViewById(R.id.news_txt)
         val newsInfo = news_txt.text
@@ -342,6 +348,10 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             }
             """.trimIndent()
 
+
+
+
+
         val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)
         val request = Request.Builder()
                 .url(" http://beta.citur.linktic.com/api/bibliotecaapi/save/"+ idUser)
@@ -352,9 +362,14 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException)
             {
-                loading_pb.visibility = View.GONE
+                //loading_pb.visibility = View.GONE
                 println(e)
-                openAlertAfterSave(false)
+                runOnUiThread {
+                    visited_places.add(idSelected)
+                    AppPreferences.spJsonSaved += json +"|"
+                    AppPreferences.spPlaceVisited = visited_places.toString()
+                    openAlertAfterSave(false)
+                }
             }
             override fun onResponse(call: Call?, response: Response) {
                 if (!response.isSuccessful) {
@@ -383,10 +398,14 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         val json = parser.parse(jsonString) as JsonObject
 
         if(json["status"].toString() == "Successful")
+        {
             openAlertAfterSave(true)
+        }
         else
-            openAlertAfterSave(false)
+        {
 
+            openAlertAfterSave(false)
+        }
 
 
 
@@ -477,9 +496,9 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         builder.setTitle("¡Bien!")
         if(isSaved)
         {
-            builder.setMessage("El formulario fue guradado con exito")
+            builder.setMessage("El formulario fue guardado con exito")
         }else{
-            builder.setMessage("El formulario no fue guradado, está en la sección Sincronizar")
+            builder.setMessage("El formulario no fue guardado, está en la sección Sincronizar")
         }
 
         builder.setNeutralButton("OK"){dialog, which ->
@@ -490,8 +509,10 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             finish()
         }
 
-        val dialog: android.app.AlertDialog = builder.create()
-        dialog.show()
+        runOnUiThread {
+            val dialog: android.app.AlertDialog = builder.create()
+            dialog.show()
+        }
     }
 
     override fun onNothingSelected(arg0: AdapterView<*>) {

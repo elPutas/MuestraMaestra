@@ -41,6 +41,10 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-places:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+
     implementation("com.google.android.gms:play-services-maps:15.0.1") {
         exclude group: "com.google.android.gms", module: "support-media-compat"
         exclude group: "com.android.support", module: "support-v4"

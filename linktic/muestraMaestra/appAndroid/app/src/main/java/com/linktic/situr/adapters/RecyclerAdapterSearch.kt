@@ -13,21 +13,26 @@ import com.linktic.situr.BaseActivity
 import com.linktic.situr.R
 import com.linktic.situr.sections.MapsActivity
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Gio on 13/06/18.
  */
-class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<String>, val _context: Context) : RecyclerView.Adapter<RecyclerAdapterSearch.MyHolder>()
+class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<String>, val _lat:ArrayList<String>, val _lon:ArrayList<String>, val _context: Context) : RecyclerView.Adapter<RecyclerAdapterSearch.MyHolder>()
 {
     //Passing Values to Local Variables
 
     var arrayList = _names
     var arrUpdate = _update
+    var arrLat = _lat
+    var arrLon = _lon
     var context = _context
 
     //Store image and arraylist in Temp Array List we Required it later
     var tempNameList = ArrayList(arrayList)
     var tempUpdateList = ArrayList(arrUpdate)
+    var tempLatList = ArrayList(arrLat)
+    var tempLonList = ArrayList(arrLon)
 
 
 
@@ -35,9 +40,24 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
     {
         holder.name_txt?.text = _names.get(position)
         if(_update.get(position)=="1")
+        {
             holder.icon_place?.setImageResource(R.drawable.ic_place_green)
+        }
         else
-            holder.icon_place?.setImageResource(R.drawable.ic_place_black)
+        {
+            var _visited:Boolean = false
+            for (j in 0 until BaseActivity.visited_places.size)
+            {
+                if(BaseActivity.arrIdsAll[position].toString()== BaseActivity.visited_places[j])
+                    _visited = true
+            }
+
+            if(_visited)
+                holder.icon_place?.setImageResource(R.drawable.ic_place_blue)
+            else
+                holder.icon_place?.setImageResource(R.drawable.ic_place_black)
+
+        }
 
     }
 
@@ -62,6 +82,8 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
         //Here We Clear Both ArrayList because We update according to Search query.
         _names.clear()
         _update.clear()
+        _lat.clear()
+        _lon.clear()
 
 
         if (text.length == 0) {
@@ -74,6 +96,8 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
 
             _names.addAll(tempNameList)
             _update.addAll(tempUpdateList)
+            _lat.addAll(tempLatList)
+            _lon.addAll(tempLonList)
 
 
 
@@ -91,6 +115,8 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
 
                     arrayList.add(tempNameList.get(i))
                     arrUpdate.add(tempUpdateList.get(i))
+                    arrLat.add(tempLatList.get(i))
+                    arrLon.add(tempLonList.get(i))
 
                 }
 
@@ -115,10 +141,14 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
         }
 
         @Suppress("DEPRECATION")
-        override fun onClick(_view: View?) {
-            BaseActivity.numBlock = this.position
+        override fun onClick(_view: View?)
+        {
+            //BaseActivity.numBlock = this.position
             var i = Intent(_view!!.context, MapsActivity::class.java)
-            i.putExtra("key", "gotoBlock")
+            i.putExtra("key", "gotoPlace")
+            i.putExtra("lat", BaseActivity.arrPlaceLatAll[position].toString())
+            i.putExtra("lon", BaseActivity.arrPlaceLonAll[position].toString())
+
             _view!!.context.startActivity(i)
         }
 

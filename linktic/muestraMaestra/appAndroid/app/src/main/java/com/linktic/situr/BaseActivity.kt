@@ -16,9 +16,13 @@ open class BaseActivity : AppCompatActivity()
 {
     companion object {
         val TAG             = "GIO"
+        val path            = "http://35.168.2.170/citur_2016/"
+
+
         //user
         var idUser          = ""
         var numBlock        = 0
+        var numPosition     = 0
         var jsonStr         = ""
         var usernameUser    = ""
         var fullnameUser    = ""
@@ -30,7 +34,7 @@ open class BaseActivity : AppCompatActivity()
         var ccUser          = ""
 
         //selected
-        var idSelected      = 0
+        var idSelected      = ""
         var rntSelected     = ""
         var stateSelected   = ""
         var citySelected    = ""
@@ -40,11 +44,11 @@ open class BaseActivity : AppCompatActivity()
         var imgSelected     = ""
         var updateSelected  = ""
 
-        var myLat           :Double = 4.62
-        var myLon           :Double = -74.06
+        var myLat           :Double = 0.0
+        var myLon           :Double = 0.0
 
         var visited_places  :ArrayList<String> = ArrayList()
-        var saved_places    = arrayOf("")
+        var visited_placeStr= ""
 
         var arrNamePlaces   :ArrayList<String> = ArrayList()
 
@@ -59,13 +63,16 @@ open class BaseActivity : AppCompatActivity()
         var arrCityAll      :ArrayList<String> = ArrayList()
         var arrStateAll     :ArrayList<String> = ArrayList()
         var arrStatusAll    :ArrayList<String> = ArrayList()
-        var arrIdsAll       :ArrayList<String> = ArrayList()
+        var arrIdsAll       :ArrayList<Int> = ArrayList()
         var arrImgAll       :ArrayList<String> = ArrayList()
         var arrUpdateAll    :ArrayList<String> = ArrayList()
 
-        //percent todo
+        //percent todoForm
         var formsDone       :Int = 0
         var formsLeft       :Int = 0
+
+        //offline
+        var isModeOnline   :Boolean = true
 
 
     }

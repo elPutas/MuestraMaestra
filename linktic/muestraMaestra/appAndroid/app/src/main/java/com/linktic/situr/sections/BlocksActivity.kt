@@ -31,7 +31,8 @@ class BlocksActivity : BaseActivity()
         setContentView(R.layout.activity_blocks)
 
         //start("http://beta.citur.linktic.com/api/bibliotecaapi/poligonos/"+idUser)
-        setTable(jsonStr)
+        if(jsonStr!="")
+            setTable(jsonStr)
 
 
         val btn_back = findViewById<ImageView>(R.id.btn_back)
@@ -67,7 +68,7 @@ class BlocksActivity : BaseActivity()
 
         for (i in 0 until json.size)
         {
-            var _id:Int = ((json[i] as JsonObject).map["poligono"] as JsonObject).get("id") as Int
+            var _id = ((json[i] as JsonObject).map["poligono"] as JsonObject).get("block_code")
 
             _arrNames.add("Bloque " + _id.toString())
         }

@@ -57,7 +57,7 @@ class SearchActivity : BaseActivity() {
 
         val linearLayoutManager = LinearLayoutManager(this)
 
-        val adapter = RecyclerAdapterSearch(arrNamePlaces, arrUpdateAll, this)
+        val adapter = RecyclerAdapterSearch(arrNamePlaces, arrUpdateAll, arrPlaceLatAll, arrPlaceLonAll, this)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = linearLayoutManager
 
