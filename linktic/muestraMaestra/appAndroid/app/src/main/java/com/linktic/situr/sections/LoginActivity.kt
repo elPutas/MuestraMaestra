@@ -25,8 +25,7 @@ import android.util.Log
 class LoginActivity : BaseActivity()
 {
 
-    private val serviceForgotPass   :String = "admin/users/enviaremail"
-    private val serviceLogin        :String = "admin/users/loginapi"
+
     private val client              = OkHttpClient()
     private lateinit var loading_pb :ProgressBar
     private var m_Text              :String = ""

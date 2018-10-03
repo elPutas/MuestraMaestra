@@ -31,6 +31,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.*
 import com.google.android.gms.location.*
 import com.linktic.situr.assets.AppPreferences
+import com.linktic.situr.utils.InternetCheck
 
 
 open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
@@ -89,6 +90,16 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         AppPreferences.init(this)
         mPrefs = getPreferences(Context.MODE_PRIVATE)
 
+        InternetCheck(object : InternetCheck.Consumer
+        {
+            override fun accept(internet: Boolean?)
+            {
+                isModeOnline = internet!!
+            }
+        })
+
+
+
         val user_txt = findViewById (R.id.user_txt) as TextView
 
 
@@ -98,6 +109,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val btn_blocks = findViewById<LinearLayout>(R.id.btn_blocks)
         val btn_sinc = findViewById<LinearLayout>(R.id.btn_sinc)
         val btn_search = findViewById<LinearLayout>(R.id.btn_search)
+        val btn_pstNoPlace = findViewById<LinearLayout>(R.id.btn_pstNoPlace)
 
         val user_txt_menu = findViewById<TextView>(R.id.user_txt_menu)
 
@@ -119,6 +131,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 R.id.btn_blocks -> openBlocks()
                 R.id.btn_sinc -> openSinc()
                 R.id.btn_search -> openSearch()
+                R.id.btn_pstNoPlace -> openPSTNoPlace()
             }
         }
 
@@ -132,6 +145,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         btn_blocks.setOnClickListener(onClickListener)
         btn_sinc.setOnClickListener(onClickListener)
         btn_search.setOnClickListener(onClickListener)
+        btn_pstNoPlace.setOnClickListener(onClickListener)
 
         // Create persistent LocationManager reference
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?;
@@ -143,7 +157,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             }
 
         if(isModeOnline)
-            start("http://35.168.2.170/citur_2016/api/bibliotecaapi/poligonos/"+idUser)
+            start(path + serviceMaps + idUser)
         else{
             setMap(AppPreferences.spData)
         }
@@ -172,33 +186,38 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 val _title = arrNamePlaces[i]
 
 
+                var _icon = R.drawable.ic_place_black_sm
+
                 if(visited_places.isEmpty())
                 {
                     if(arrUpdateAll[i]=="1")
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_green_sm)).position(pl).title(_title).snippet(arrNamePlaces[i]+"|"+i.toString() ))
-                    else
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_sm)).position(pl).title(_title).snippet(arrNamePlaces[i]+"|"+i.toString() ))
+                        _icon = R.drawable.ic_place_green_sm
                 }
 
                 var _visited:Boolean = false
                 for (j in 0 until visited_places.size)
                 {
-                    if(arrIdsAll[i].toString()== visited_places[j])
+                    if(arrIdsAll[i].toString() == visited_places[j].toString().replace(" ",""))
                         _visited = true
                 }
 
                 if(arrUpdateAll[i]=="1")
                 {
-                    mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_green_sm)).position(pl).title(_title).snippet(arrNamePlaces[i]+"|"+i.toString() ))
-                }
-                else
-                {
-                    if(_visited)
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_sm)).position(pl).title(_title).snippet(arrNamePlaces[i]+"|"+i.toString() ))
-                    else
-                        mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_sm)).position(pl).title(_title).snippet(arrNamePlaces[i]+"|"+i.toString() ))
+                    _icon = R.drawable.ic_place_green_sm
                 }
 
+                else
+                {
+                    _icon = R.drawable.ic_place_black_sm
+
+                    if(_visited)
+                        _icon = R.drawable.ic_place_blue_sm
+
+
+
+                }
+
+                mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(_icon)).position(pl).title(_title).snippet(arrNamePlaces[i]+"|"+i.toString()+"|"+_visited.toString() ))
 
             }
 
@@ -270,29 +289,88 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     //MARKER CLICK
     override fun onMarkerClick(_mark: Marker?):Boolean
     {
-        var _arr:ArrayList<String> =  _mark?.snippet.toString().split("|") as ArrayList<String>
+        //check is a PST
+        if(_mark?.snippet != null)
+        {
 
-        val num:Int = _arr[1].toInt()
+            var _arr:ArrayList<String> =  _mark?.snippet.split("|") as ArrayList<String>
 
-        val idToString = arrIdsAll[num]
+            val num:Int = _arr[1].toInt()
+            val idToString = arrIdsAll[num]
 
-        rntSelected = arrRntsAll[num]
-        stateSelected = arrStateAll[num]
-        citySelected = arrCityAll[num]
-        addressSelected = arrAddresAll[num]
-        statusSelected = arrStatusAll[num]
-        nameSelected = arrNamesAll[num]
-        idSelected = idToString.toString()
-        imgSelected = ""//arrImgAll[num]
-        updateSelected = arrUpdateAll[num]
+            var isToUpdate = false
 
 
-        //goto form
-        val i = Intent(this, FormActivity::class.java)
-        i.putExtra("isNew", false)
-        startActivity(i)
-        finish()
-        println("click $_mark")
+            var jsonSavedToShow: JsonObject? = null
+
+            //is a PST to update?
+            if(_arr[2] == "true")
+            {
+                if(AppPreferences.spJsonSaved != "")
+                {
+                    val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
+                    val totalToSave = totalString.size
+
+
+                    for (i in 0 until totalToSave-1)
+                    {
+                        val _contains = arrIdsAll[num].toString()
+                        val _strJsonSaved = totalString[i].toString()
+                        val isBlue = _strJsonSaved.contains(_contains)
+                        isToUpdate = isBlue
+
+                        if(isToUpdate)
+                        {
+                            val jsonString = StringBuilder(_strJsonSaved)
+
+                            val parser = Parser()
+                            val json = parser.parse(jsonString) as JsonObject
+                            jsonSavedToShow = json
+                        }
+
+
+                    }
+
+
+                }
+            }
+
+            if(isToUpdate)
+            {
+                rntSelected     = ""
+                stateSelected   = jsonSavedToShow!!["departamento"].toString()
+                citySelected    = jsonSavedToShow!!["ciudad"].toString()
+                addressSelected = jsonSavedToShow!!["direccion"].toString()
+                statusSelected  = ""
+                nameSelected    = jsonSavedToShow!!["nombre"].toString()
+                idSelected      = jsonSavedToShow!!["idanterior"].toString()
+                imgSelected     = ""//arrImgAll[num]
+                updateSelected  = "1"
+                catSelected     = jsonSavedToShow["categoria"].toString()
+                subCatSelected  = jsonSavedToShow["subcategoria"].toString()
+            }else{
+                rntSelected     = arrRntsAll[num]
+                stateSelected   = arrStateAll[num]
+                citySelected    = arrCityAll[num]
+                addressSelected = arrAddresAll[num]
+                statusSelected  = arrStatusAll[num]
+                nameSelected    = arrNamesAll[num]
+                idSelected      = idToString.toString()
+                imgSelected     = ""//arrImgAll[num]
+                updateSelected  = arrUpdateAll[num]
+                catSelected     = arrCatAll[num]
+                subCatSelected  = arrSubCatAll[num]
+            }
+
+
+
+            //goto form
+            val i = Intent(this, FormActivity::class.java)
+            i.putExtra("isNew", false)
+            startActivity(i)
+            finish()
+        }
+
 
         return false
     }
@@ -385,16 +463,18 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
             arrPoly = _strPoly.split(",") as ArrayList<String>
 
-            arrPlaceLatAll = json["prestadores"].get("LATITUD").toList() as ArrayList<String>
-            arrPlaceLonAll = json["prestadores"].get("LONGITUD").toList() as ArrayList<String>
-            arrRntsAll = json["prestadores"].get("rnt").toList() as ArrayList<String>
-            arrAddresAll = json["prestadores"].get("direccion").toList() as ArrayList<String>
-            arrCityAll = json["prestadores"].get("ciudad").toList() as ArrayList<String>
-            arrStateAll = json["prestadores"].get("departamento").toList() as ArrayList<String>
-            arrStatusAll= json["prestadores"].get("estado").toList() as ArrayList<String>
-            arrIdsAll = json["prestadores"].get("id").toList() as ArrayList<Int>
-            arrImgAll = json["prestadores"].get("foto").toList() as ArrayList<String>
-            arrUpdateAll = json["prestadores"].get("actualizado").toList() as ArrayList<String>
+            arrPlaceLatAll  = json["prestadores"].get("LATITUD").toList() as ArrayList<String>
+            arrPlaceLonAll  = json["prestadores"].get("LONGITUD").toList() as ArrayList<String>
+            arrRntsAll      = json["prestadores"].get("rnt").toList() as ArrayList<String>
+            arrAddresAll    = json["prestadores"].get("direccion").toList() as ArrayList<String>
+            arrCityAll      = json["prestadores"].get("ciudad").toList() as ArrayList<String>
+            arrStateAll     = json["prestadores"].get("departamento").toList() as ArrayList<String>
+            arrStatusAll    = json["prestadores"].get("estado").toList() as ArrayList<String>
+            arrIdsAll       = json["prestadores"].get("id").toList() as ArrayList<Int>
+            arrImgAll       = json["prestadores"].get("foto").toList() as ArrayList<String>
+            arrUpdateAll    = json["prestadores"].get("actualizado").toList() as ArrayList<String>
+            arrCatAll       = json["prestadores"].get("categoria").toList() as ArrayList<String>
+            arrSubCatAll    = json["prestadores"].get("subcategoria").toList() as ArrayList<String>
 
 
 
@@ -465,6 +545,13 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val i = Intent(this, SincActivity::class.java)
         startActivity(i)
         finish()
+    }
+
+    private fun openPSTNoPlace()
+    {
+        val i = Intent(this, PSTNoPlaceActivity::class.java)
+        startActivity(i)
+
     }
 
     private fun openMenu()
@@ -585,7 +672,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun checkPermission() : Boolean {
         if (ContextCompat.checkSelfPermission(this , android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true;
+            return true
         } else {
             requestPermissions()
             return false

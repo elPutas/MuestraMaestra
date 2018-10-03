@@ -3,11 +3,9 @@ package com.linktic.situr.sections
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
@@ -15,37 +13,40 @@ import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.linktic.situr.BaseActivity
 import com.linktic.situr.R
-import kotlinx.android.synthetic.main.activity_form.*
 import okhttp3.*
 import java.io.IOException
 import android.widget.AdapterView
 import com.linktic.situr.assets.AppPreferences
-import kotlinx.android.synthetic.main.activity_form.view.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import okhttp3.OkHttpClient
+import kotlin.concurrent.schedule
 
 
 class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 {
 
-    var addresType_arr = arrayOf("Carrera", "Calle", "Transversal", "Avenida", "Avenida carrera", "Avenida calle", "Circular", "Circunvalar", "Diaginal", "Manzana", "Via")
-    val cat_arr = arrayOf("AGENCIA DE VIAJES", "ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL", "CONCESIONARIOS DE SERVICIOS TURÍSTICOS EN PARQUE", "EMPRESA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA DE TRANSPORTE TERRESTRE AUTOMOTOR", "EMPRESAS CAPTADORAS DE AHORRO PARA VIAJES Y DE SERVICIOS TURÍSTICOS", "ESTABLECIMIENTO DE ALOJAMIENTO Y HOSPEDAJE", "ESTABLECIMIENTO DE GASTRONOMÍA Y SIMILARES", "GUIA DE TURISMO", "OFICINA DE REPRESENTACION TURÍSTICA", "OPERADORES PROFESIONALES DE CONGRESOS, FERIAS Y CONVENCIONES", "PARQUES TEMATICOS", "USUARIOS OPERADORES, DESARROLLADORES E INDUSTRIALES EN ZONA FRACA")
-    val subcat_arr_1 = arrayOf("AGENCIAS DE VIAJES MAYORISTAS", "AGENCIAS DE VIAJES OPERADORAS", "AGENCIAS DE VIAJES Y DE TURISMO" )
-    val subcat_arr_2 = arrayOf("ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL" )
-    val subcat_arr_3 = arrayOf("CONCESIONARIOS DE SERVICIOS TURÍSTICOS EN PARQUE" )
-    val subcat_arr_4 = arrayOf("EMPRESA COMERCIALIZADORA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA PROMOTORA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA PROMOTORA Y COMERCIALIZADORA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD" )
-    val subcat_arr_5 = arrayOf("OPERADOR DE CHIVAS" )
-    val subcat_arr_6 = arrayOf("EMPRESAS CAPTADORAS DE AHORRO PARA VIAJES Y DE SERVICIOS TURÍSTICOS" )
-    val subcat_arr_7 = arrayOf("ALBERGUE (HOSPEDAJE NO PERMANENTE)", "ALOJAMIENTO RURAL (HOSPEDAJE NO PERMANENTE)", "APARTAHOTEL (HOSPEDAJE NO PERMANENTE)", "CENTRO VACACIONAL", "HOSTAL (HOSPEDAJE NO PERMANENTE)", "HOTEL", "REFUGIO (HOSPEDAJE NO PERMANENTE)", "VIVIENDA TURISTICA", "CAMPAMENTO" )
-    val subcat_arr_8 = arrayOf("BAR", "BAR Y RESTAURANTE" )
-    val subcat_arr_9 = arrayOf("GUIA DE TURISMO" )
-    val subcat_arr_10 = arrayOf("OFICINA DE REPRESENTACION TURÍSTICA" )
-    val subcat_arr_11 = arrayOf("OPERADORES PROFESIONALES DE CONGRESOS, FERIAS Y CONVENCIONES" )
-    val subcat_arr_12 = arrayOf("PARQUE TEMATICO" )
-    val subcat_arr_13 = arrayOf("USUARIOS OPERADORES, DESARROLLADORES E INDUSTRIALES EN ZONAS FRANCAS" )
+    private val addresType_arr = arrayOf("Carrera", "Calle", "Transversal", "Avenida", "Avenida carrera", "Avenida calle", "Circular", "Circunvalar", "Diaginal", "Manzana", "Via")
+    private val cat_arr = arrayOf("AGENCIA DE VIAJES", "ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL", "CONCESIONARIOS DE SERVICIOS TURÍSTICOS EN PARQUE", "EMPRESA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA DE TRANSPORTE TERRESTRE AUTOMOTOR", "EMPRESAS CAPTADORAS DE AHORRO PARA VIAJES Y DE SERVICIOS TURÍSTICOS", "ESTABLECIMIENTO DE ALOJAMIENTO Y HOSPEDAJE", "ESTABLECIMIENTO DE GASTRONOMÍA Y SIMILARES", "GUIA DE TURISMO", "OFICINA DE REPRESENTACION TURÍSTICA", "OPERADORES PROFESIONALES DE CONGRESOS, FERIAS Y CONVENCIONES", "PARQUES TEMATICOS", "USUARIOS OPERADORES, DESARROLLADORES E INDUSTRIALES EN ZONA FRACA")
+
+    private val subcat_arr_1 = arrayOf("AGENCIAS DE VIAJES MAYORISTAS", "AGENCIAS DE VIAJES OPERADORAS", "AGENCIAS DE VIAJES Y DE TURISMO" )
+    private val subcat_arr_2 = arrayOf("ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL" )
+    private val subcat_arr_3 = arrayOf("CONCESIONARIOS DE SERVICIOS TURÍSTICOS EN PARQUE" )
+    private val subcat_arr_4 = arrayOf("EMPRESA COMERCIALIZADORA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA PROMOTORA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA PROMOTORA Y COMERCIALIZADORA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD" )
+    private val subcat_arr_5 = arrayOf("OPERADOR DE CHIVAS" )
+    private val subcat_arr_6 = arrayOf("EMPRESAS CAPTADORAS DE AHORRO PARA VIAJES Y DE SERVICIOS TURÍSTICOS" )
+    private val subcat_arr_7 = arrayOf("ALBERGUE (HOSPEDAJE NO PERMANENTE)", "ALOJAMIENTO RURAL (HOSPEDAJE NO PERMANENTE)", "APARTAHOTEL (HOSPEDAJE NO PERMANENTE)", "CENTRO VACACIONAL", "HOSTAL (HOSPEDAJE NO PERMANENTE)", "HOTEL", "REFUGIO (HOSPEDAJE NO PERMANENTE)", "VIVIENDA TURISTICA", "CAMPAMENTO" )
+    private val subcat_arr_8 = arrayOf("BAR", "BAR Y RESTAURANTE" )
+    private val subcat_arr_9 = arrayOf("GUIA DE TURISMO" )
+    private val subcat_arr_10 = arrayOf("OFICINA DE REPRESENTACION TURÍSTICA" )
+    private val subcat_arr_11 = arrayOf("OPERADORES PROFESIONALES DE CONGRESOS, FERIAS Y CONVENCIONES" )
+    private val subcat_arr_12 = arrayOf("PARQUE TEMATICO" )
+    private val subcat_arr_13 = arrayOf("USUARIOS OPERADORES, DESARROLLADORES E INDUSTRIALES EN ZONAS FRANCAS" )
+
+    private val subcat_arr_all = arrayOf(subcat_arr_1 + subcat_arr_2 + subcat_arr_3 + subcat_arr_4 + subcat_arr_5 + subcat_arr_6 + subcat_arr_7 + subcat_arr_8 + subcat_arr_9 + subcat_arr_10 + subcat_arr_11 + subcat_arr_12 + subcat_arr_13)
 
     private var posCat = ""
     private var posSubCat = ""
@@ -72,6 +73,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     private lateinit var address_field_3:EditText
 
     private lateinit var loading_pb:ProgressBar
+    private var photoToSave:File? = null
 
     var imgToSave:String = ""
 
@@ -89,7 +91,6 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         spinnerCityNew = findViewById(R.id.spinnerCityNew)//this.spinnerCityNew
         //this.spinnerCat
 
-        spinnerCat.setOnItemSelectedListener(this)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
@@ -124,7 +125,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
         label_citySpinner = findViewById(R.id.label_citySpinner)
 
-        loading_pb = findViewById<ProgressBar>(R.id.loading)
+        loading_pb = findViewById(R.id.loading)
 
 
 
@@ -170,11 +171,24 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             spinnerCityNew.visibility = View.GONE
             label_citySpinner.visibility = View.GONE
 
-            spinnerCat.isEnabled=false
-            spinnerSubCat.isEnabled=false
-            spinnerAddress.isEnabled=false
+            spinnerCat.isEnabled        = false
+            spinnerSubCat.isEnabled     = false
+            spinnerAddress.isEnabled    = false
 
             imgToSave = imgSelected
+
+            spinnerCat.setSelection(catSelected.toInt()-1)
+            val _subCatArr = subCatSelected.split("-")
+            val _sCat = _subCatArr[1].toInt()-1
+
+
+            val aaSubCat = ArrayAdapter(this, R.layout.custom_spinner_text, subcat_arr_all[0])
+            aaSubCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
+            spinnerSubCat.setAdapter(aaSubCat)
+
+
+
+            spinnerSubCat.setSelection(_sCat)
 
             name_field.setText(nameSelected)
             address_field.setText(addressSelected)
@@ -186,31 +200,34 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         }else{
 
 
+
             check.visibility = View.GONE
             name_field.setText("")
             address_field.setText("")
 
-            spinnerCat.isEnabled=true
-            spinnerSubCat.isEnabled=true
-            spinnerAddress.isEnabled=true
+            spinnerCat.isEnabled        = true
+            spinnerSubCat.isEnabled     = true
+            spinnerAddress.isEnabled    = true
 
-            name_field.isEnabled = true
-            address_field.isEnabled = true
-            name_field.isEnabled = true
-            info_addres.isEnabled = true
-            address_field_1.isEnabled = true
-            address_field_2.isEnabled = true
-            address_field_3.isEnabled = true
+            address_field.isEnabled     = true
+            name_field.isEnabled        = true
+            info_addres.isEnabled       = true
+            address_field_1.isEnabled   = true
+            address_field_2.isEnabled   = true
+            address_field_3.isEnabled   = true
 
-            idSelected = ""
-            rntSelected = ""
-            nameSelected = ""
-            addressSelected = ""
-            statusSelected = ""
+            idSelected                  = ""
+            rntSelected                 = ""
+            nameSelected                = ""
+            addressSelected             = ""
+            statusSelected              = ""
 
 
-            stateSelected = stateUser
-            citySelected = ""
+            stateSelected               = stateUser
+            citySelected                = ""
+
+
+
 
         }
 
@@ -222,22 +239,33 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
                 citySelected
 
 
+        Timer("SettingUp", false).schedule(1000) { setSpinner() }
+
+
 
     }
+
+    private fun setSpinner()
+    {
+        spinnerCat.setOnItemSelectedListener(this)
+    }
+
 
 
     private fun toogleEnabled()
     {
         isChecked = !isChecked
 
-        name_field.isEnabled=isChecked
-        info_addres.isEnabled=isChecked
-        address_field_1.isEnabled=isChecked
-        address_field_2.isEnabled=isChecked
-        address_field_3.isEnabled=isChecked
-        spinnerAddress.isEnabled=isChecked
-        spinnerCat.isEnabled=isChecked
-        spinnerSubCat.isEnabled=isChecked
+        name_field.isEnabled        = isChecked
+        info_addres.isEnabled       = isChecked
+        address_field_1.isEnabled   = isChecked
+        address_field_2.isEnabled   = isChecked
+        address_field_3.isEnabled   = isChecked
+        spinnerAddress.isEnabled    = isChecked
+        spinnerCat.isEnabled        = isChecked
+        spinnerSubCat.isEnabled     = isChecked
+
+
 
     }
 
@@ -285,7 +313,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
                     arrayOf(f.getPath()),
                     arrayOf("image/jpeg"), null)
             fo.close()
-
+            savePhoto(f, imgToSave)
 
             return f.getAbsolutePath()
         }
@@ -354,7 +382,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
         val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)
         val request = Request.Builder()
-                .url(" http://beta.citur.linktic.com/api/bibliotecaapi/save/"+ idUser)
+                .url(path + serviceSaveForm + idUser)
                 .post(body)
                 .build()
 
@@ -389,6 +417,48 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
     }
 
+
+    private fun savePhoto(_photo:File, _name:String)
+    {
+        val MEDIA_TYPE_PNG = MediaType.parse("image/png");
+
+        val req =  MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("userid", idUser)
+                .addFormDataPart("file",_name+".png", RequestBody.create(MEDIA_TYPE_PNG, _photo)).build();
+
+
+        val request = Request.Builder()
+                .url(path + serviceSavePhoto)
+                .post(req)
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException)
+            {
+                //loading_pb.visibility = View.GONE
+                println(e)
+                runOnUiThread {
+                }
+            }
+            override fun onResponse(call: Call?, response: Response) {
+                if (!response.isSuccessful) {
+                    System.err.println("Response not successful")
+                    return
+                }
+
+
+                val json = response.body()!!.string()
+                runOnUiThread {
+
+                }
+            }
+            //override fun onResponse(call: Call, response: Response) = gotoLog(response)
+        })
+
+
+    }
+
+
+
     private fun infoLog(_str:String)
     {
         loading_pb.visibility = View.GONE
@@ -407,9 +477,8 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             openAlertAfterSave(false)
         }
 
-
-
     }
+
 
     private fun gotoBack()
     {

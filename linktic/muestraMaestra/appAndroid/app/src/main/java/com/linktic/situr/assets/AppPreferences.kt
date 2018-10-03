@@ -4,16 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object AppPreferences {
-    private const val NAME = "MuestraMaestra"
-    private const val MODE = Context.MODE_PRIVATE
-    private lateinit var preferences: SharedPreferences
+    private const val NAME              = "MuestraMaestra"
+    private const val MODE              = Context.MODE_PRIVATE
+    private lateinit var preferences    : SharedPreferences
 
     // list of app specific preferences
-    private val IS_LOG = Pair("is_log", false)
-    private val SP_DATA_LOGIN = Pair("sp_data_login", "")
-    private val SP_DATA = Pair("sp_data", "")
-    private val SP_JSON_SAVED = Pair("sp_json_saved", "")
-    private val SP_PLACE_SAVED = Pair("sp_place_saved", "")
+    private val IS_LOG                  = Pair("is_log", false)
+    private val SP_DATA_LOGIN           = Pair("sp_data_login", "")
+    private val SP_DATA                 = Pair("sp_data", "")
+    private val SP_JSON_SAVED           = Pair("sp_json_saved", "")
+    private val SP_PLACE_SAVED          = Pair("sp_place_saved", "")
+    private val SP_SPT_NO_PLACE         = Pair("sp_spt_no_place", "")
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(NAME, MODE)
@@ -28,6 +29,13 @@ object AppPreferences {
         operation(editor)
         editor.apply()
     }
+
+    var spSptNoPlace:String
+        get() = preferences.getString(SP_SPT_NO_PLACE.first, SP_SPT_NO_PLACE.second)
+        set(value) = preferences.edit {
+            it.putString(SP_SPT_NO_PLACE.first, value)
+        }
+
 
     var spPlaceVisited:String
         get() = preferences.getString(SP_PLACE_SAVED.first, SP_PLACE_SAVED.second)
