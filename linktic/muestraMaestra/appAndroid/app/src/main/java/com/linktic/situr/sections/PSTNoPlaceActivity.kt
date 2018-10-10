@@ -12,8 +12,11 @@ import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Parser
 import com.linktic.situr.BaseActivity
 import com.linktic.situr.R
+import com.linktic.situr.adapters.RecyclerAdapter
+import com.linktic.situr.adapters.RecyclerAdapterBasic
 import com.linktic.situr.adapters.RecyclerAdapterSearch
 import com.linktic.situr.assets.AppPreferences
+import com.linktic.situr.utils.InternetCheck
 import okhttp3.*
 import java.io.IOException
 
@@ -23,6 +26,16 @@ class PSTNoPlaceActivity : BaseActivity() {
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pstno_place)
+
+        //check internet
+        InternetCheck(object : InternetCheck.Consumer
+        {
+            override fun accept(internet: Boolean?)
+            {
+                isModeOnline = internet!!
+            }
+        })
+
 
 
         val btn_back = findViewById<ImageView>(R.id.btn_back)
@@ -51,7 +64,7 @@ class PSTNoPlaceActivity : BaseActivity() {
         //val loading = findViewById<ProgressBar>(R.id.loading)
         //loading.visibility = View.VISIBLE
 
-        if(AppPreferences.spSptNoPlace == "")
+        if(isModeOnline)
         {
             val client = OkHttpClient()
             client.newCall(request).enqueue(object : Callback {
@@ -79,7 +92,8 @@ class PSTNoPlaceActivity : BaseActivity() {
             })
         }
         else{
-            setTable(AppPreferences.spSptNoPlace)
+            if(AppPreferences.spSptNoPlace != "")
+                setTable(AppPreferences.spSptNoPlace)
         }
     }
 
@@ -91,6 +105,8 @@ class PSTNoPlaceActivity : BaseActivity() {
 
     private fun setTable(_str:String)
     {
+
+        AppPreferences.spSptNoPlace = _str
         val jsonString = StringBuilder(_str)
 
         val parser = Parser()
@@ -99,28 +115,53 @@ class PSTNoPlaceActivity : BaseActivity() {
 
         val linearLayoutManager = LinearLayoutManager(this)
 
-        val adapter = RecyclerAdapterSearch(arrNamePlaces, arrUpdateAll, arrPlaceLatAll, arrPlaceLonAll, this)
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = linearLayoutManager
+        if(json.size > 0)
+        {
+            val _arrName    = json["prestadores"]["nombre"].toList()
+            val _arrRnt     = json["prestadores"]["rnt"].toList()
+            val _arrId      = json["prestadores"]["id"].toList()
+            val _arrAddress = json["prestadores"]["direccion"].toList()
+            val _arrCat     = json["prestadores"]["categoria"].toList()
+            val _arrSubcat  = json["prestadores"]["subcategoria"].toList()
+            val _arrCity    = json["prestadores"]["ciudad"].toList()
+            val _arrState   = json["prestadores"]["departamento"].toList()
+            val _arrStatus  = json["prestadores"]["estado"].toList()
 
-        recyclerView.adapter = adapter
+            val adapter = RecyclerAdapterBasic(
+                    _arrName as ArrayList<String>,
+                    _arrRnt as ArrayList<String>,
+                    _arrId as ArrayList<String>,
+                    _arrAddress as ArrayList<String>,
+                    _arrCat as ArrayList<String>,
+                    _arrSubcat as ArrayList<String>,
+                    _arrCity as ArrayList<String>,
+                    _arrState as ArrayList<String>,
+                    _arrStatus as ArrayList<String>,
+                    this)
+            val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+            recyclerView.layoutManager = linearLayoutManager
+
+            recyclerView.adapter = adapter
 
 
-        val search_txt : EditText = findViewById(R.id.search_txt)
-        search_txt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            val search_txt : EditText = findViewById(R.id.search_txt)
+            search_txt.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
-            }
+                }
 
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                //SEARCH FILTER
-                adapter.filter(charSequence.toString())
-            }
+                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                    //SEARCH FILTER
+                    adapter.filter(charSequence.toString())
+                }
 
-            override fun afterTextChanged(editable: Editable) {
+                override fun afterTextChanged(editable: Editable) {
 
-            }
-        })
+                }
+            })
+
+        }
+
 
     }
 }

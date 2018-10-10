@@ -15,12 +15,12 @@ import com.linktic.situr.sections.MapsActivity
 /**
  * Created by Gio on 13/06/18.
  */
-class RecyclerAdapter(val _names:ArrayList<String>, val context: Context) : RecyclerView.Adapter<RecyclerAdapter.MyHolder>()
+class RecyclerAdapter(val _names:ArrayList<String>,  val context: Context) : RecyclerView.Adapter<RecyclerAdapter.MyHolder>()
 {
     override fun onBindViewHolder(holder: MyHolder, position: Int)
     {
-        holder.name_txt?.text = _names.get(position)
-
+        val _str = _names.get(position)
+        holder.name_txt?.text = _str
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.MyHolder

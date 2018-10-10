@@ -38,6 +38,7 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
 
     override fun onBindViewHolder(holder: MyHolder, position: Int)
     {
+
         holder.name_txt?.text = _names.get(position)
         if(_update.get(position)=="1")
         {
@@ -140,7 +141,7 @@ class RecyclerAdapterSearch(val _names:ArrayList<String>, val _update:ArrayList<
             v.setOnClickListener(this)
         }
 
-        @Suppress("DEPRECATION")
+
         override fun onClick(_view: View?)
         {
             //BaseActivity.numBlock = this.position

@@ -16,7 +16,7 @@ open class BaseActivity : AppCompatActivity()
 {
     companion object {
         val TAG             = "GIO"
-        val path            = "http://35.168.2.170/citur_2016/"
+        val path                = "http://35.168.2.170/citur_2016/"
         val serviceForgotPass   :String = "admin/users/enviaremail"
         val serviceLogin        :String = "admin/users/loginapi"
         val serviceMaps         :String = "api/bibliotecaapi/poligonos/"
@@ -50,6 +50,7 @@ open class BaseActivity : AppCompatActivity()
         var updateSelected  = ""
         var catSelected     = ""
         var subCatSelected  = ""
+        var newsSelected    = ""
 
         var myLat           :Double = 0.0
         var myLon           :Double = 0.0
@@ -75,6 +76,7 @@ open class BaseActivity : AppCompatActivity()
         var arrUpdateAll    :ArrayList<String> = ArrayList()
         var arrCatAll       :ArrayList<String> = ArrayList()
         var arrSubCatAll    :ArrayList<String> = ArrayList()
+        var arrNewsAll      :ArrayList<String> = ArrayList()
 
         //percent todoForm
         var formsDone       :Int = 0

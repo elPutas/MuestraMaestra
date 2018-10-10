@@ -37,13 +37,13 @@ import com.linktic.situr.utils.InternetCheck
 open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 {
 
-    protected var mLocationRequest: LocationRequest? = null
-    protected val UPDATE_INTERVAL = (10 * 1000).toLong()  /* 10 secs */
-    protected val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
+    protected var mLocationRequest  : LocationRequest? = null
+    protected val UPDATE_INTERVAL   = (10 * 1000).toLong()  /* 10 secs */
+    protected val FASTEST_INTERVAL  : Long = 2000 /* 2 sec */
 
 
 
-    protected  lateinit var mMap       : GoogleMap
+    protected  lateinit var mMap    : GoogleMap
     lateinit var myDrawer           : DrawerLayout
 
     var savedIS                     :Bundle? = null
@@ -51,15 +51,6 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private var arrPoly             :ArrayList<String> = ArrayList()
     private var arrPlaceLat         :ArrayList<String> = ArrayList()
     private var arrPlaceLon         :ArrayList<String> = ArrayList()
-    private var arrNames            :ArrayList<String> = ArrayList()
-    private var arrRnts             :ArrayList<String> = ArrayList()
-    private var arrAddres           :ArrayList<String> = ArrayList()
-    private var arrCity             :ArrayList<String> = ArrayList()
-    private var arrState            :ArrayList<String> = ArrayList()
-    private var arrStatus           :ArrayList<String> = ArrayList()
-    private var arrIds              :ArrayList<String> = ArrayList()
-    private var arrImg              :ArrayList<String> = ArrayList()
-    private var arrUpdate           :ArrayList<String> = ArrayList()
 
     private var locationManager     : LocationManager? = null
     private var mPrefs              :SharedPreferences? = null
@@ -67,18 +58,20 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private var isGoto              :Boolean = false
     private var gotoWhere           :String = ""
 
-    protected var isCameraFollow      :Boolean = true
+    protected var isCameraFollow    :Boolean = true
 
-    protected var myMarkPos  :MarkerOptions = MarkerOptions()
-    protected var mrk:Marker? = null
-    // MAP READY
-    var _new = 0
-    var _new2 = 1
+    protected var myMarkPos         :MarkerOptions = MarkerOptions()
+    protected var mrk               :Marker? = null
 
-    override fun onStart() {
-        super.onStart()
+    private var _new                = 0
+    private var _new2               = 1
 
-    }
+    private var numNoPlace          = 0
+    private var jsonToShowBlue      :JsonArray<String>? = null
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -90,6 +83,8 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         AppPreferences.init(this)
         mPrefs = getPreferences(Context.MODE_PRIVATE)
 
+
+        //check internet
         InternetCheck(object : InternetCheck.Consumer
         {
             override fun accept(internet: Boolean?)
@@ -113,11 +108,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         val user_txt_menu = findViewById<TextView>(R.id.user_txt_menu)
 
-        println("idUser: $idUser")
-
-        isGoto = intent.hasExtra("key")
-        if(isGoto)
-            gotoWhere = intent.getStringExtra("key")
+        //println("idUser: $idUser")
 
 
         //listeners
@@ -156,10 +147,26 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 Log.d(TAG, "Security Exception, no location available");
             }
 
+
+
+
+        //MY POS OR BLOCK
+        isGoto = intent.hasExtra("key")
+        if(isGoto)
+            gotoWhere = intent.getStringExtra("key")
+
+
+
+        //MODE
         if(isModeOnline)
-            start(path + serviceMaps + idUser)
+        {
+            start(path + serviceMaps + idUser) //call map service
+            checkNoPlacePST(path + servicePSTNoPlace + idUser) // call no place service
+        }
         else{
             setMap(AppPreferences.spData)
+            if(AppPreferences.spSptNoPlace == "")
+                getNoPlace(AppPreferences.spSptNoPlace)
         }
 
     }
@@ -168,6 +175,52 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
 
+    //GET NO PLACE SPT JUST FOR PERCENT VALUE
+    private fun checkNoPlacePST(_url:String)
+    {
+        val request = Request.Builder()
+                .url(_url)
+                .build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object : Callback
+            {
+                override fun onFailure(call: Call, e: IOException)
+                {
+                    println(e)
+                }
+                override fun onResponse(call: Call?, response: Response)
+                {
+                    if (!response.isSuccessful) {
+                        System.err.println("Response not successful")
+                        return
+                    }
+
+                    val json = response.body()!!.string()
+                    runOnUiThread {
+                        getNoPlace(json)
+                    }
+                }
+            })
+
+    }
+
+    private fun getNoPlace(_str:String)
+    {
+
+        AppPreferences.spSptNoPlace = _str
+        val jsonString = StringBuilder(_str)
+
+        val parser = Parser()
+        val json = parser.parse(jsonString) as JsonArray<*>
+        numNoPlace = json.size
+    }
+
+
+
+
+
+    //MAP READY
     override fun onMapReady(googleMap: GoogleMap)
     {
         mMap = googleMap
@@ -176,6 +229,8 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         startLocationUpdates()
 
+
+        // SET SERVICE POINTS INTO THE MAP
         for (i in 0 until arrPlaceLatAll.size)
         {
             if(arrPlaceLatAll[i]!="")
@@ -194,7 +249,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         _icon = R.drawable.ic_place_green_sm
                 }
 
-                var _visited:Boolean = false
+                var _visited = false
                 for (j in 0 until visited_places.size)
                 {
                     if(arrIdsAll[i].toString() == visited_places[j].toString().replace(" ",""))
@@ -211,9 +266,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     _icon = R.drawable.ic_place_black_sm
 
                     if(_visited)
-                        _icon = R.drawable.ic_place_blue_sm
-
-
+                        _icon = R.drawable.ic_place_blue_sm_alpha
 
                 }
 
@@ -223,6 +276,9 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         }
 
+
+
+        //SET POLY
         val po = PolylineOptions()
 
         for(i in 0 until arrPoly.size/2)
@@ -246,8 +302,9 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
 
-        var cameraPosition:CameraPosition
 
+        //SET CAMERA POSITION
+        var cameraPosition:CameraPosition
 
         if(isGoto)
         {
@@ -281,85 +338,157 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     .build()
         }
 
+        //SET BLUE PST
+        offLinePST()
+
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
+
+
+    //set blue points into the map
+    private fun offLinePST()
+    {
+        if(AppPreferences.spJsonSaved != "")
+        {
+            val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
+            val totalToSave = totalString.size
+
+            val jsonString = StringBuilder("[" + AppPreferences.spJsonSaved.replace("|", ",").substring(0, AppPreferences.spJsonSaved.length-1) + "]")
+
+            val parser = Parser()
+            val json = parser.parse(jsonString) as JsonArray<String>
+
+
+
+
+            jsonToShowBlue = json
+
+
+            val _arrLats    = json["latitud"]
+            val _arrLons    = json["longitud"]
+            val _arrName    = json["nombre"]
+
+            for (i in 0 until totalToSave-1)
+            {
+
+                val _lat = _arrLats[i].toString().toDouble()
+                val _lon = _arrLons[i].toString().toDouble()
+                val pl = LatLng(_lat, _lon)
+                val _title = _arrName[i].toString()
+
+                mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_sm)).position(pl).title(_title).snippet(_title+"|"+i.toString() ))
+            }
+        }
+    }
+
+
 
 
 
     //MARKER CLICK
     override fun onMarkerClick(_mark: Marker?):Boolean
     {
-        //check is a PST
+        //check is a PST or my location
         if(_mark?.snippet != null)
         {
 
             var _arr:ArrayList<String> =  _mark?.snippet.split("|") as ArrayList<String>
 
             val num:Int = _arr[1].toInt()
-            val idToString = arrIdsAll[num]
+            var idToString = ""
+            if(arrIdsAll.size > 0)
+                idToString = arrIdsAll[num].toString()
 
             var isToUpdate = false
 
 
             var jsonSavedToShow: JsonObject? = null
 
-            //is a PST to update?
-            if(_arr[2] == "true")
+            if(_arr.size ==2)
             {
-                if(AppPreferences.spJsonSaved != "")
+                val _arrState   = jsonToShowBlue!!["departamento"]
+                val _arrCity    = jsonToShowBlue!!["ciudad"]
+                val _arrAddress = jsonToShowBlue!!["direccion"]
+                val _arrId      = jsonToShowBlue!!["idanterior"]
+                val _arrName    = jsonToShowBlue!!["nombre"]
+                val _arrCat     = jsonToShowBlue!!["categoria"]
+                val _arrSubCat  = jsonToShowBlue!!["subcategoria"]
+                val _arrNews    = jsonToShowBlue!!["novedad"]
+
+                rntSelected     = ""
+                stateSelected   = _arrState[num].toString()
+                citySelected    = _arrCity[num].toString()
+                addressSelected = _arrAddress[num].toString()
+                statusSelected  = ""
+                nameSelected    = _arrName[num].toString()
+                idSelected      = _arrId[num].toString()
+                imgSelected     = ""//arrImgAll[num]
+                updateSelected  = "1"
+                catSelected     = _arrCat[num].toString()
+                subCatSelected  = _arrSubCat[num].toString()
+                newsSelected    = _arrNews[num].toString()
+
+            }else{
+                //is a PST to update?
+                if(_arr[2] == "true")
                 {
-                    val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
-                    val totalToSave = totalString.size
-
-
-                    for (i in 0 until totalToSave-1)
+                    if(AppPreferences.spJsonSaved != "")
                     {
-                        val _contains = arrIdsAll[num].toString()
-                        val _strJsonSaved = totalString[i].toString()
-                        val isBlue = _strJsonSaved.contains(_contains)
-                        isToUpdate = isBlue
+                        val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
+                        val totalToSave = totalString.size
 
-                        if(isToUpdate)
+
+                        for (i in 0 until totalToSave-1)
                         {
-                            val jsonString = StringBuilder(_strJsonSaved)
+                            val _contains = arrIdsAll[num].toString()
+                            val _strJsonSaved = totalString[i].toString()
+                            val isBlue = _strJsonSaved.contains(_contains)
+                            isToUpdate = isBlue
 
-                            val parser = Parser()
-                            val json = parser.parse(jsonString) as JsonObject
-                            jsonSavedToShow = json
+                            if(isToUpdate)
+                            {
+                                val jsonString = StringBuilder(_strJsonSaved)
+
+                                val parser = Parser()
+                                val json = parser.parse(jsonString) as JsonObject
+                                jsonSavedToShow = json
+                            }
+
+
                         }
 
 
                     }
-
-
                 }
-            }
 
-            if(isToUpdate)
-            {
-                rntSelected     = ""
-                stateSelected   = jsonSavedToShow!!["departamento"].toString()
-                citySelected    = jsonSavedToShow!!["ciudad"].toString()
-                addressSelected = jsonSavedToShow!!["direccion"].toString()
-                statusSelected  = ""
-                nameSelected    = jsonSavedToShow!!["nombre"].toString()
-                idSelected      = jsonSavedToShow!!["idanterior"].toString()
-                imgSelected     = ""//arrImgAll[num]
-                updateSelected  = "1"
-                catSelected     = jsonSavedToShow["categoria"].toString()
-                subCatSelected  = jsonSavedToShow["subcategoria"].toString()
-            }else{
-                rntSelected     = arrRntsAll[num]
-                stateSelected   = arrStateAll[num]
-                citySelected    = arrCityAll[num]
-                addressSelected = arrAddresAll[num]
-                statusSelected  = arrStatusAll[num]
-                nameSelected    = arrNamesAll[num]
-                idSelected      = idToString.toString()
-                imgSelected     = ""//arrImgAll[num]
-                updateSelected  = arrUpdateAll[num]
-                catSelected     = arrCatAll[num]
-                subCatSelected  = arrSubCatAll[num]
+                if(isToUpdate)
+                {
+                    rntSelected     = ""
+                    stateSelected   = jsonSavedToShow!!["departamento"].toString()
+                    citySelected    = jsonSavedToShow!!["ciudad"].toString()
+                    addressSelected = jsonSavedToShow!!["direccion"].toString()
+                    statusSelected  = ""
+                    nameSelected    = jsonSavedToShow!!["nombre"].toString()
+                    idSelected      = jsonSavedToShow!!["idanterior"].toString()
+                    imgSelected     = ""//arrImgAll[num]
+                    updateSelected  = "1"
+                    catSelected     = jsonSavedToShow["categoria"].toString()
+                    subCatSelected  = jsonSavedToShow["subcategoria"].toString()
+                    newsSelected    = jsonSavedToShow["novedad"].toString()
+                }else{
+                    rntSelected     = arrRntsAll[num]
+                    stateSelected   = arrStateAll[num]
+                    citySelected    = arrCityAll[num]
+                    addressSelected = arrAddresAll[num]
+                    statusSelected  = arrStatusAll[num]
+                    nameSelected    = arrNamesAll[num]
+                    idSelected      = idToString.toString()
+                    imgSelected     = arrImgAll[num]
+                    updateSelected  = arrUpdateAll[num]
+                    catSelected     = arrCatAll[num]
+                    subCatSelected  = arrSubCatAll[num]
+                    newsSelected    = arrNewsAll[num]
+                }
             }
 
 
@@ -445,8 +574,6 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             val parser = Parser()
             val json = parser.parse(jsonString) as JsonArray<*>
 
-
-
             //save json in sharedPreference
             /*
             val prefsEditor = mPrefs?.edit()
@@ -455,7 +582,6 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             prefsEditor?.putString("MyObject", jsonSave)
             prefsEditor?.commit()
             */
-
 
             var _strPoly:String = ((json[numBlock] as JsonObject).map["poligono"] as JsonObject).get("geometry") as String
             _strPoly = _strPoly.replace("[","")
@@ -475,12 +601,25 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             arrUpdateAll    = json["prestadores"].get("actualizado").toList() as ArrayList<String>
             arrCatAll       = json["prestadores"].get("categoria").toList() as ArrayList<String>
             arrSubCatAll    = json["prestadores"].get("subcategoria").toList() as ArrayList<String>
+            arrNewsAll      = json["prestadores"].get("novedad").toList() as ArrayList<String>
 
 
 
             val numTotal = json["prestadores"].get("actualizado").toList().size
             val numDone = json["prestadores"].get("actualizado").filter { s -> s == "1" }.size
             val numLeft = json["prestadores"].get("actualizado").filter { s -> s == "0" }.size
+
+            if(AppPreferences.spJsonSaved!="")
+            {
+                val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
+                val totalToSave = totalString.size
+
+                // plus to Sinc forms
+                numDone + totalToSave
+            }
+
+            //plus no place PST
+            numLeft + numNoPlace
 
             formsDone = ((numDone/numTotal.toDouble()) * 100).toInt()
             formsLeft = ((numLeft/numTotal.toDouble()) * 100).toInt()
@@ -494,8 +633,6 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
             arrPlaceLat = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LATITUD").value as ArrayList<String>
             arrPlaceLon = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LONGITUD").value as ArrayList<String>
-
-
 
 
             //array to search by names
@@ -512,7 +649,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
 
-    //OPEN
+    //OPEN'S
 
     private fun openSearch()
     {
@@ -567,7 +704,8 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     {
         //goto form
         val i = Intent(this, FormActivity::class.java)
-                i.putExtra("isNew", true)
+        i.putExtra("isNew", true)
+
         startActivity(i)
     }
 
@@ -578,19 +716,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    //define the listener
+    //define the listener location
     val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             //thetext.setText("" + location.longitude + ":" + location.latitude);

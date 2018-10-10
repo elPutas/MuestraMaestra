@@ -70,12 +70,13 @@ class BlocksActivity : BaseActivity()
         {
             var _id = ((json[i] as JsonObject).map["poligono"] as JsonObject).get("block_code")
 
-            _arrNames.add("Bloque " + _id.toString())
+            if(_id != "INFORMALES")
+                _arrNames.add("Bloque " + _id.toString())
         }
 
         linearLayoutManager = LinearLayoutManager(this)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
-        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = linearLayoutManager as LinearLayoutManager
 
         recyclerView.adapter = RecyclerAdapter(_arrNames, this)
 

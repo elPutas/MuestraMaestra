@@ -19,6 +19,7 @@ import com.beust.klaxon.Parser
 import com.linktic.situr.BaseActivity
 import com.linktic.situr.R
 import com.linktic.situr.adapters.RecyclerAdapter
+import com.linktic.situr.adapters.RecyclerAdapterSinc
 import com.linktic.situr.assets.AppPreferences
 import kotlinx.android.synthetic.main.activity_form.*
 
@@ -29,6 +30,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SincActivity : BaseActivity()
 {
@@ -36,9 +38,9 @@ class SincActivity : BaseActivity()
     private lateinit var loading_pb     : ProgressBar
     val client                          = OkHttpClient()
     private var numSinc                 = 0
-    private lateinit var totalString    :ArrayList<String>
+    private var totalString             :ArrayList<String> = ArrayList()
     private var totalToSave             :Int = 0
-    private lateinit var btn_save        :TextView
+    private lateinit var btn_save       :TextView
     private val GALLERY                 = 1
 
 
@@ -47,7 +49,7 @@ class SincActivity : BaseActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sinc)
 
-        setTable(visited_places.toString())
+
 
         loading_pb = findViewById(R.id.loading)
 
@@ -70,8 +72,13 @@ class SincActivity : BaseActivity()
         btn_savePhoto.setOnClickListener( onClickListener )
 
 
-        totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
-        totalToSave = totalString.size
+        if(AppPreferences.spJsonSaved!="")
+        {
+            totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
+            totalToSave = totalString.size
+            setTable(visited_places.toString())
+        }
+
 
     }
 
@@ -186,12 +193,12 @@ class SincActivity : BaseActivity()
 
     private fun setTable(_str:String)
     {
-        var _arr = _str.split(",")
+        var _arr = _str.replace("[", "").replace("]", "").split(",")
         var _arrlist:ArrayList<String> = ArrayList()
 
         for (i in 0 until _arr.size)
         {
-            _arrlist.add("ID: "+_arr[i])
+            _arrlist.add("ID:"+_arr[i])
 
         }
 
@@ -200,7 +207,7 @@ class SincActivity : BaseActivity()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = linearLayoutManager
 
-        recyclerView.adapter = RecyclerAdapter(_arrlist, this)
+        recyclerView.adapter = RecyclerAdapterSinc(_arrlist, totalString, this)
 
     }
 
