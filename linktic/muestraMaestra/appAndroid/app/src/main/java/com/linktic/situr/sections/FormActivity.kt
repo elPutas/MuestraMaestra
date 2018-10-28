@@ -33,7 +33,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
 
     private val addresType_arr      = arrayOf("Tipo","Carrera", "Calle", "Transversal", "Avenida", "Avenida carrera", "Avenida calle", "Circular", "Circunvalar", "Diaginal", "Manzana", "Via")
-    private val cat_arr             = arrayOf("AGENCIA DE VIAJES", "ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL", "CONCESIONARIOS DE SERVICIOS TURÍSTICOS EN PARQUE", "EMPRESA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA DE TRANSPORTE TERRESTRE AUTOMOTOR", "EMPRESAS CAPTADORAS DE AHORRO PARA VIAJES Y DE SERVICIOS TURÍSTICOS", "ESTABLECIMIENTO DE ALOJAMIENTO Y HOSPEDAJE", "ESTABLECIMIENTO DE GASTRONOMÍA Y SIMILARES", "GUIA DE TURISMO", "OFICINA DE REPRESENTACION TURÍSTICA", "OPERADORES PROFESIONALES DE CONGRESOS, FERIAS Y CONVENCIONES", "PARQUES TEMATICOS", "USUARIOS OPERADORES, DESARROLLADORES E INDUSTRIALES EN ZONA FRACA")
+    private val cat_arr             = arrayOf("Selecciona","AGENCIA DE VIAJES", "ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL", "CONCESIONARIOS DE SERVICIOS TURÍSTICOS EN PARQUE", "EMPRESA DE TIEMPO COMPARTIDO Y MULTIPROPIEDAD", "EMPRESA DE TRANSPORTE TERRESTRE AUTOMOTOR", "EMPRESAS CAPTADORAS DE AHORRO PARA VIAJES Y DE SERVICIOS TURÍSTICOS", "ESTABLECIMIENTO DE ALOJAMIENTO Y HOSPEDAJE", "ESTABLECIMIENTO DE GASTRONOMÍA Y SIMILARES", "GUIA DE TURISMO", "OFICINA DE REPRESENTACION TURÍSTICA", "OPERADORES PROFESIONALES DE CONGRESOS, FERIAS Y CONVENCIONES", "PARQUES TEMATICOS", "USUARIOS OPERADORES, DESARROLLADORES E INDUSTRIALES EN ZONA FRACA")
 
     private val subcat_arr_1        = arrayOf("AGENCIAS DE VIAJES MAYORISTAS", "AGENCIAS DE VIAJES OPERADORAS", "AGENCIAS DE VIAJES Y DE TURISMO" )
     private val subcat_arr_2        = arrayOf("ARRENDADORES DE VEHÍCULOS PARA TURISMO NACIONAL E INTERNACIONAL" )
@@ -52,6 +52,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     private val subcat_arr_all      = arrayOf(subcat_arr_1 + subcat_arr_2 + subcat_arr_3 + subcat_arr_4 + subcat_arr_5 + subcat_arr_6 + subcat_arr_7 + subcat_arr_8 + subcat_arr_9 + subcat_arr_10 + subcat_arr_11 + subcat_arr_12 + subcat_arr_13)
 
     private var posCat              = "1"
+    private var posSubCatNoNew      = 0
 
     private val client              = OkHttpClient()
 
@@ -60,10 +61,13 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
     private var isChecked           = false
     private var isNew               = false
+    private var isAddressToShow     = false
     private var imgToSave           :String = ""
     private var typeAddres          :String = ""
     private var posCatToSend        :String = ""
     private var posSubCatToSend     :String = ""
+
+
 
     //lateinit
     private lateinit var label_citySpinner  :TextView
@@ -83,6 +87,8 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     private lateinit var spinnerSubCat      :Spinner
     private lateinit var spinnerCityNew     :Spinner
 
+    private var addOnce = true
+
 
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -99,6 +105,8 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         //this.spinnerCat
 
 
+
+
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
 
@@ -107,8 +115,12 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         val aaAddress = ArrayAdapter(this, R.layout.custom_spinner_text, addresType_arr)
         aaAddress.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
 
+
         val aaCat = ArrayAdapter(this, R.layout.custom_spinner_text, cat_arr)
         aaCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
+
+        if(cityUser.get(0)!="Selecciona")
+            cityUser.add(0,"Selecciona")
 
         val aaCity = ArrayAdapter(this, R.layout.custom_spinner_text, cityUser)
         aaCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
@@ -119,6 +131,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
         spinnerCityNew.setOnItemSelectedListener(this)
         spinnerAddress.setOnItemSelectedListener(this)
+
 
 
 
@@ -143,7 +156,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                setRealAddress()
+                setRealAddress(isAddressToShow)
             }
 
         })
@@ -151,14 +164,14 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                setRealAddress()
+                setRealAddress(isAddressToShow)
             }
         })
         address_field_3.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                setRealAddress()
+                setRealAddress(isAddressToShow)
             }
 
         })
@@ -166,7 +179,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                setRealAddress()
+                setRealAddress(isAddressToShow)
             }
 
         })
@@ -214,26 +227,47 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
             imgToSave = imgSelected
 
+            if(catSelected == "")
+                catSelected = "2"
+
+            val gotoCat = catSelected.toInt()
+            spinnerCat.setSelection(gotoCat)
             posCatToSend = catSelected
-            posSubCatToSend = subCatSelected
 
-            spinnerCat.setSelection(catSelected.toInt()-1)
-            val _subCatArr = subCatSelected.split("-")
-            val _sCat = _subCatArr[1].toInt()-1
+            if(subCatSelected !="")
+            {
+                posSubCatToSend = subCatSelected
+                val _subCatArr = subCatSelected.split("-")
+                val _sCat = _subCatArr[1].toInt()
+                posSubCatNoNew = _sCat
+                var toGo = (setSpinnerSubCat(gotoCat))
+                var _goTo = 0
+                toGo = toGo - _sCat
+                if(toGo<0)
+                    _goTo = toGo* -1
 
-            posCat = (catSelected.toInt()-1).toString()
+                spinnerSubCat.setSelection(_goTo-1)
+            }
 
 
-            val aaSubCat = ArrayAdapter(this, R.layout.custom_spinner_text, subcat_arr_all[0])
-            aaSubCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
-            spinnerSubCat.setAdapter(aaSubCat)
+
+
+
+
+
+            posCat = (gotoCat).toString()
+
+
+            //val aaSubCat = ArrayAdapter(this, R.layout.custom_spinner_text, subcat_arr_all[0])
+            //aaSubCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
+            //spinnerSubCat.setAdapter(aaSubCat)
 
 
 
             // SET ::::::::
-            spinnerSubCat.setSelection(_sCat)
+
             name_field.setText(nameSelected)
-            address_field.setText(addressSelected)
+            info_addres.setText(addressSelected)
             news_txt.setText(newsSelected)
 
             if(updateSelected=="1")
@@ -290,13 +324,61 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
     private fun sendToSave()
     {
-
+        var addressAcept:Boolean = false
         nameSelected = name_field.text.toString()
         addressSelected = address_field.text.toString()
         newsSelected = news_txt.text.toString()
 
-        //ask for cords first
-        openAlert()
+        if(isAddressToShow)
+        {
+            if(address_field_1.text.toString() != "" && address_field_3.text.toString() != "" && address_field_3.text.toString() != "" )
+                addressAcept = true
+            else
+                addressAcept = false
+        }else{
+            if(addressSelected != "")
+                addressAcept = true
+            else
+                addressAcept = false
+        }
+
+
+
+        if(nameSelected != "")
+        {
+            if(addressAcept)
+            {
+
+                if(posCatToSend != "" && posCatToSend != "2")
+                {
+
+                    if (isNew)
+                    {
+                        if(citySelected != "Selecciona" && citySelected != "")
+                        {
+                            //ask for cords first
+                            openAlert()
+                        }else{
+                            openAlertError("Espera", "Falta que escojas una ciudad")
+                        }
+
+                    }else{
+                        //ask for cords first
+                        openAlert()
+                    }
+
+                }else{
+                    openAlertError("Espera", "Falta que escojas una categoría")
+                }
+            }else{
+                openAlertError("Espera", "Falta que escribas una dirección")
+            }
+
+        }else{
+            openAlertError("Espera", "Falta que escribas un nombre")
+        }
+
+
     }
 
 
@@ -320,6 +402,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             {
                 "idanterior":"${idSelected}",
                 "rnt":"${rntSelected}",
+                "estado":"${statusSelected}",
                 "nombre":"${nameSelected}",
                 "direccion":"${addressSelected}",
                 "categoria":"${posCatToSend}",
@@ -380,10 +463,10 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
     private fun savePhoto(_photo:File, _name:String)
     {
-        val MEDIA_TYPE_PNG = MediaType.parse("image/png");
+        val MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
 
         val req =  MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("userid", idUser)
-                .addFormDataPart("file",_name+".png", RequestBody.create(MEDIA_TYPE_PNG, _photo)).build();
+                .addFormDataPart("file",_name, RequestBody.create(MEDIA_TYPE_PNG, _photo)).build();
 
 
         val request = Request.Builder()
@@ -463,6 +546,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         spinnerSubCat.isEnabled     = isChecked
 
 
+        /*
         if(!isNew)
         {
 
@@ -472,6 +556,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
             spinnerSubCat.setAdapter(aaSubCat)
         }
+        */
     }
 
 
@@ -557,184 +642,230 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
 
 
-    //category item selected
+    //spiiners item selected
     override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long)
     {
 
-
-
         if(arg0.id == R.id.spinnerCityNew)
         {
-            citySelected = cityUser[position]
+            if(position>0)
+                citySelected = cityUser[position]
+            if(position==0)
+                citySelected = ""
+
         }
         else if(arg0.id == R.id.spinnerAddress)
         {
             typeAddres = addresType_arr[position]
             if(position > 0)
-                setRealAddress()
+                isAddressToShow = true
+            else
+                isAddressToShow = false
+
+            setRealAddress(isAddressToShow)
         }
         else if(arg0.id == R.id.spinnerCat)
         {
-            posCatToSend = (position+1).toString()
 
-            var useIt = arrayOf("")
-            var numFix = 0
-            if(position==0)
-            {
-                useIt = subcat_arr_1
-            }
-            if(position==1)
-            {
-                useIt = subcat_arr_2
-                numFix = subcat_arr_1.size
-            }
-            if(position==2)
-            {
-                useIt = subcat_arr_3
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size
-            }
-            if(position==3)
-            {
-                useIt = subcat_arr_4
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size
-            }
-            if(position==4)
-            {
-                useIt = subcat_arr_5
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size
-            }
-            if(position==5)
-            {
-                useIt = subcat_arr_6
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size
-            }
-            if(position==6)
-            {
-                useIt = subcat_arr_7
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size
-            }
-            if(position==7)
-            {
-                useIt = subcat_arr_8
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size +
-                        subcat_arr_7.size
-            }
-            if(position==8)
-            {
-                useIt = subcat_arr_9
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size +
-                        subcat_arr_7.size +
-                        subcat_arr_8.size
-            }
-            if(position==9)
-            {
-                useIt = subcat_arr_10
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size +
-                        subcat_arr_7.size +
-                        subcat_arr_8.size +
-                        subcat_arr_9.size
-            }
-            if(position==10)
-            {
-                useIt = subcat_arr_11
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size +
-                        subcat_arr_7.size +
-                        subcat_arr_8.size +
-                        subcat_arr_9.size +
-                        subcat_arr_10.size
-            }
-            if(position==11)
-            {
-                useIt = subcat_arr_12
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size +
-                        subcat_arr_7.size +
-                        subcat_arr_8.size +
-                        subcat_arr_9.size +
-                        subcat_arr_10.size +
-                        subcat_arr_11.size
-            }
-            if(position==12)
-            {
-                useIt = subcat_arr_13
-                numFix = subcat_arr_1.size +
-                        subcat_arr_2.size +
-                        subcat_arr_3.size +
-                        subcat_arr_4.size +
-                        subcat_arr_5.size +
-                        subcat_arr_6.size +
-                        subcat_arr_7.size +
-                        subcat_arr_8.size +
-                        subcat_arr_9.size +
-                        subcat_arr_10.size +
-                        subcat_arr_11.size +
-                        subcat_arr_12.size
-            }
+            posCatToSend = (position).toString()
+            setSpinnerSubCat(position)
 
-
-            val aaSubCat = ArrayAdapter(this, R.layout.custom_spinner_text, useIt)
-            aaSubCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
-
-            spinnerSubCat.setAdapter(aaSubCat)
-            spinnerSubCat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
-                    posSubCatToSend = posCatToSend + "-" + ((position+1)+(numFix+1))
-                }
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
-
-            }
         }
 
     }
 
-    //setReal Address
-    private fun setRealAddress()
+
+
+    private fun setSpinnerSubCat(position:Int):Int
     {
-        address_field.setText(typeAddres + " " + address_field_1.text.toString() + " # " + address_field_2.text.toString() + "-" + address_field_3.text.toString() + " " + info_addres.text.toString())
+        var useIt = arrayOf("")
+        var numFix = 0
+
+
+        if(position==0)
+        {
+            useIt = arrayOf("")
+        }
+        if(position==1)
+        {
+            useIt = subcat_arr_1
+        }
+        if(position==2)
+        {
+            useIt = subcat_arr_2
+            numFix = subcat_arr_1.size
+        }
+        if(position==3)
+        {
+            useIt = subcat_arr_3
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size
+        }
+        if(position==4)
+        {
+            useIt = subcat_arr_4
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size
+        }
+        if(position==5)
+        {
+            useIt = subcat_arr_5
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size
+        }
+        if(position==6)
+        {
+            useIt = subcat_arr_6
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size
+        }
+        if(position==7)
+        {
+            useIt = subcat_arr_7
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size
+        }
+        if(position==8)
+        {
+            useIt = subcat_arr_8
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size +
+                    subcat_arr_7.size
+        }
+        if(position==9)
+        {
+            useIt = subcat_arr_9
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size +
+                    subcat_arr_7.size +
+                    subcat_arr_8.size
+        }
+        if(position==10)
+        {
+            useIt = subcat_arr_10
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size +
+                    subcat_arr_7.size +
+                    subcat_arr_8.size +
+                    subcat_arr_9.size
+        }
+        if(position==11)
+        {
+            useIt = subcat_arr_11
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size +
+                    subcat_arr_7.size +
+                    subcat_arr_8.size +
+                    subcat_arr_9.size +
+                    subcat_arr_10.size
+        }
+        if(position==12)
+        {
+            useIt = subcat_arr_12
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size +
+                    subcat_arr_7.size +
+                    subcat_arr_8.size +
+                    subcat_arr_9.size +
+                    subcat_arr_10.size +
+                    subcat_arr_11.size
+        }
+        if(position==13)
+        {
+            useIt = subcat_arr_13
+            numFix = subcat_arr_1.size +
+                    subcat_arr_2.size +
+                    subcat_arr_3.size +
+                    subcat_arr_4.size +
+                    subcat_arr_5.size +
+                    subcat_arr_6.size +
+                    subcat_arr_7.size +
+                    subcat_arr_8.size +
+                    subcat_arr_9.size +
+                    subcat_arr_10.size +
+                    subcat_arr_11.size +
+                    subcat_arr_12.size
+        }
+
+
+        val aaSubCat = ArrayAdapter(this, R.layout.custom_spinner_text, useIt)
+        aaSubCat.setDropDownViewResource(R.layout.custom_spinner_dropdpwn_item)
+
+        spinnerSubCat.setAdapter(aaSubCat)
+
+
+
+        spinnerSubCat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+
+                posSubCatToSend = posCatToSend + "-" + ((position+1)+(numFix))
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        }
+
+        return numFix
     }
 
+    //setReal Address
+    private fun setRealAddress(_isToShow:Boolean)
+    {
+        if(_isToShow)
+            address_field.setText(typeAddres + " " + address_field_1.text.toString() + " # " + address_field_2.text.toString() + "-" + address_field_3.text.toString() + " " + info_addres.text.toString())
+        else
+            address_field.setText(""+ info_addres.text.toString())
+    }
+
+    //Alert use cords
+    private fun openAlertError(_title:String, _msg:String)
+    {
+        loading_pb.visibility = View.GONE
+
+        val builder = android.app.AlertDialog.Builder(this@FormActivity)
+        builder.setTitle(_title)
+        builder.setMessage(_msg)
+
+        builder.setNeutralButton("OK"){dialog, which ->
+            dialog.dismiss()
+        }
+
+        runOnUiThread {
+            val dialog: android.app.AlertDialog = builder.create()
+            dialog.show()
+        }
+    }
 
     //Alert use cords
     private fun openAlert()

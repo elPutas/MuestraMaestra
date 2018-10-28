@@ -17,12 +17,14 @@ open class BaseActivity : AppCompatActivity()
     companion object {
         val TAG             = "GIO"
         val path                = "http://35.168.2.170/citur_2016/"
+        //val path                = "http://186.29.194.228/citur_2016/"
         val serviceForgotPass   :String = "admin/users/enviaremail"
         val serviceLogin        :String = "admin/users/loginapi"
         val serviceMaps         :String = "api/bibliotecaapi/poligonos/"
         val serviceSaveForm     :String = "api/bibliotecaapi/save/"
         val serviceSavePhoto    :String = "api/bibliotecaapi/savephoto/"
         val servicePSTNoPlace   :String = "api/bibliotecaapi/sinubicacion/"
+        val servicePing         :String = "api/bibliotecaapi/ping"
 
         //user
         var idUser          = ""
@@ -79,8 +81,8 @@ open class BaseActivity : AppCompatActivity()
         var arrNewsAll      :ArrayList<String> = ArrayList()
 
         //percent todoForm
-        var formsDone       :Int = 0
-        var formsLeft       :Int = 0
+        var formsDone       :Double = 0.00
+        var formsLeft       :Double = 0.00
 
         //offline
         var isModeOnline   :Boolean = true

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/padding_btn"
     tools:context=".sections.PSTNoPlaceActivity">
 
     <android.support.constraint.Guideline
@@ -21,13 +22,22 @@
         android:src="@drawable/bt_back"
         android:layout_height="20dp" />
 
+    <TextView
+
+        android:id="@+id/title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Buscar prestadores sin ubicación"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:id="@+id/btn_search"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/bg_search"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/guide"
+        app:layout_constraintTop_toBottomOf="@id/title"
         android:layout_width="230dp"
         android:layout_height="30dp"
         android:orientation="horizontal">

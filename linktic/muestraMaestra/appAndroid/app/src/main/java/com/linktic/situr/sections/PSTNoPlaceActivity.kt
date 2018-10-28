@@ -115,17 +115,17 @@ class PSTNoPlaceActivity : BaseActivity() {
 
         val linearLayoutManager = LinearLayoutManager(this)
 
-        if(json.size > 0)
+        if(json.size > 0 && (json["prestadores"][0] as JsonArray<*>).size > 0)
         {
-            val _arrName    = json["prestadores"]["nombre"].toList()
-            val _arrRnt     = json["prestadores"]["rnt"].toList()
-            val _arrId      = json["prestadores"]["id"].toList()
-            val _arrAddress = json["prestadores"]["direccion"].toList()
-            val _arrCat     = json["prestadores"]["categoria"].toList()
-            val _arrSubcat  = json["prestadores"]["subcategoria"].toList()
-            val _arrCity    = json["prestadores"]["ciudad"].toList()
-            val _arrState   = json["prestadores"]["departamento"].toList()
-            val _arrStatus  = json["prestadores"]["estado"].toList()
+            val _arrName    = ArrayList(json["prestadores"]["nombre"])
+            val _arrRnt     = ArrayList(json["prestadores"]["rnt"])
+            val _arrId      = ArrayList(json["prestadores"]["id"])
+            val _arrAddress = ArrayList(json["prestadores"]["direccion"])
+            val _arrCat     = ArrayList(json["prestadores"]["categoria"])
+            val _arrSubcat  = ArrayList(json["prestadores"]["subcategoria"])
+            val _arrCity    = ArrayList(json["prestadores"]["ciudad"])
+            val _arrState   = ArrayList(json["prestadores"]["departamento"])
+            val _arrStatus  = ArrayList(json["prestadores"]["estado"])
 
             val adapter = RecyclerAdapterBasic(
                     _arrName as ArrayList<String>,

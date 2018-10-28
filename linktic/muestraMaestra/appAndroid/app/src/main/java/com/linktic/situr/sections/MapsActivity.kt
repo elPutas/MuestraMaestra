@@ -69,6 +69,10 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private var numNoPlace          = 0
     private var jsonToShowBlue      :JsonArray<String>? = null
 
+    private var numTotal            = 0
+    private var numDone             = 0
+    private var numLeft             = 0
+
 
 
 
@@ -160,13 +164,13 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         //MODE
         if(isModeOnline)
         {
-            start(path + serviceMaps + idUser) //call map service
             checkNoPlacePST(path + servicePSTNoPlace + idUser) // call no place service
+            start(path + serviceMaps + idUser) //call map service
         }
         else{
-            setMap(AppPreferences.spData)
-            if(AppPreferences.spSptNoPlace == "")
+            if(AppPreferences.spSptNoPlace != "")
                 getNoPlace(AppPreferences.spSptNoPlace)
+            setMap(AppPreferences.spData)
         }
 
     }
@@ -213,7 +217,9 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         val parser = Parser()
         val json = parser.parse(jsonString) as JsonArray<*>
-        numNoPlace = json.size
+        numNoPlace = json["prestadores"].size
+
+        numTotal += numNoPlace
     }
 
 
@@ -310,13 +316,21 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         {
             isCameraFollow = false
 
-            if(gotoWhere == "gotoBlock")
+            if(gotoWhere == "gotoBlock" )
             {
-                cameraPosition = CameraPosition.Builder()
-                        .target(LatLng(arrPlaceLat[0].toDouble(), arrPlaceLon[0].toDouble()))      // Sets the center of the map to location user
-                        //.target(LatLng(myLat, myLon))
-                        .zoom(14f)
-                        .build()
+                if(arrPlaceLat.size > 0)
+                    cameraPosition = CameraPosition.Builder()
+                            .target(LatLng(arrPlaceLat[0].toDouble(), arrPlaceLon[0].toDouble()))      // Sets the center of the map to location user
+                            //.target(LatLng(myLat, myLon))
+                            .zoom(14f)
+                            .build()
+                else
+                    cameraPosition = CameraPosition.Builder()
+                            //.target(LatLng(arrPlaceLat[0].toDouble(), arrPlaceLon[0].toDouble()))      // Sets the center of the map to location user
+                            .target(LatLng(myLat, myLon))
+                            .zoom(16f)
+                            .build()
+
             }else{
                 val gotoPlaceLat = intent.getStringExtra("lat")
                 val gotoPlaceLon = intent.getStringExtra("lon")
@@ -351,7 +365,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         if(AppPreferences.spJsonSaved != "")
         {
             val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
-            val totalToSave = totalString.size
+            val totalToSave = totalString.size-1
 
             val jsonString = StringBuilder("[" + AppPreferences.spJsonSaved.replace("|", ",").substring(0, AppPreferences.spJsonSaved.length-1) + "]")
 
@@ -368,7 +382,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             val _arrLons    = json["longitud"]
             val _arrName    = json["nombre"]
 
-            for (i in 0 until totalToSave-1)
+            for (i in 0 until totalToSave)
             {
 
                 val _lat = _arrLats[i].toString().toDouble()
@@ -396,7 +410,7 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
             val num:Int = _arr[1].toInt()
             var idToString = ""
-            if(arrIdsAll.size > 0)
+            if(arrIdsAll.size > num)
                 idToString = arrIdsAll[num].toString()
 
             var isToUpdate = false
@@ -404,9 +418,10 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
             var jsonSavedToShow: JsonObject? = null
 
-            if(_arr.size ==2)
+            if(_arr.size == 2)
             {
                 val _arrState   = jsonToShowBlue!!["departamento"]
+                val _arrStatus  = jsonToShowBlue!!["estado"]
                 val _arrCity    = jsonToShowBlue!!["ciudad"]
                 val _arrAddress = jsonToShowBlue!!["direccion"]
                 val _arrId      = jsonToShowBlue!!["idanterior"]
@@ -414,15 +429,17 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 val _arrCat     = jsonToShowBlue!!["categoria"]
                 val _arrSubCat  = jsonToShowBlue!!["subcategoria"]
                 val _arrNews    = jsonToShowBlue!!["novedad"]
+                val _arrRnt     = jsonToShowBlue!!["rnt"]
+                val _arrImg     = jsonToShowBlue!!["foto"]
 
-                rntSelected     = ""
+                rntSelected     = _arrRnt[num].toString()
                 stateSelected   = _arrState[num].toString()
                 citySelected    = _arrCity[num].toString()
                 addressSelected = _arrAddress[num].toString()
-                statusSelected  = ""
+                statusSelected  = _arrStatus[num].toString()
                 nameSelected    = _arrName[num].toString()
                 idSelected      = _arrId[num].toString()
-                imgSelected     = ""//arrImgAll[num]
+                imgSelected     = _arrImg[num].toString()
                 updateSelected  = "1"
                 catSelected     = _arrCat[num].toString()
                 subCatSelected  = _arrSubCat[num].toString()
@@ -463,14 +480,14 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                 if(isToUpdate)
                 {
-                    rntSelected     = ""
+                    rntSelected     = jsonSavedToShow!!["rnt"].toString()
                     stateSelected   = jsonSavedToShow!!["departamento"].toString()
                     citySelected    = jsonSavedToShow!!["ciudad"].toString()
                     addressSelected = jsonSavedToShow!!["direccion"].toString()
-                    statusSelected  = ""
+                    statusSelected  = jsonSavedToShow!!["estado"].toString()
                     nameSelected    = jsonSavedToShow!!["nombre"].toString()
                     idSelected      = jsonSavedToShow!!["idanterior"].toString()
-                    imgSelected     = ""//arrImgAll[num]
+                    imgSelected     = jsonSavedToShow!!["foto"].toString()
                     updateSelected  = "1"
                     catSelected     = jsonSavedToShow["categoria"].toString()
                     subCatSelected  = jsonSavedToShow["subcategoria"].toString()
@@ -564,6 +581,8 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun setMap(_str:String)
     {
+
+
         if(_str!="")
         {
             jsonStr = _str
@@ -583,63 +602,90 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             prefsEditor?.commit()
             */
 
-            var _strPoly:String = ((json[numBlock] as JsonObject).map["poligono"] as JsonObject).get("geometry") as String
-            _strPoly = _strPoly.replace("[","")
-            _strPoly = _strPoly.replace("]","")
-
-            arrPoly = _strPoly.split(",") as ArrayList<String>
-
-            arrPlaceLatAll  = json["prestadores"].get("LATITUD").toList() as ArrayList<String>
-            arrPlaceLonAll  = json["prestadores"].get("LONGITUD").toList() as ArrayList<String>
-            arrRntsAll      = json["prestadores"].get("rnt").toList() as ArrayList<String>
-            arrAddresAll    = json["prestadores"].get("direccion").toList() as ArrayList<String>
-            arrCityAll      = json["prestadores"].get("ciudad").toList() as ArrayList<String>
-            arrStateAll     = json["prestadores"].get("departamento").toList() as ArrayList<String>
-            arrStatusAll    = json["prestadores"].get("estado").toList() as ArrayList<String>
-            arrIdsAll       = json["prestadores"].get("id").toList() as ArrayList<Int>
-            arrImgAll       = json["prestadores"].get("foto").toList() as ArrayList<String>
-            arrUpdateAll    = json["prestadores"].get("actualizado").toList() as ArrayList<String>
-            arrCatAll       = json["prestadores"].get("categoria").toList() as ArrayList<String>
-            arrSubCatAll    = json["prestadores"].get("subcategoria").toList() as ArrayList<String>
-            arrNewsAll      = json["prestadores"].get("novedad").toList() as ArrayList<String>
-
-
-
-            val numTotal = json["prestadores"].get("actualizado").toList().size
-            val numDone = json["prestadores"].get("actualizado").filter { s -> s == "1" }.size
-            val numLeft = json["prestadores"].get("actualizado").filter { s -> s == "0" }.size
-
-            if(AppPreferences.spJsonSaved!="")
+            if(json.size > 0)
             {
-                val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
-                val totalToSave = totalString.size
+                var _strPoly:String = ((json[numBlock] as JsonObject).map["poligono"] as JsonObject).get("geometry") as String
+                _strPoly = _strPoly.replace("[","")
+                _strPoly = _strPoly.replace("]","")
 
-                // plus to Sinc forms
-                numDone + totalToSave
+                arrPoly = _strPoly.split(",") as ArrayList<String>
             }
 
-            //plus no place PST
-            numLeft + numNoPlace
 
-            formsDone = ((numDone/numTotal.toDouble()) * 100).toInt()
-            formsLeft = ((numLeft/numTotal.toDouble()) * 100).toInt()
+            if(json["prestadores"].size > 0 && (json["prestadores"][0] as JsonArray<*>).size > 0)
+            {
 
-            val done_percent = findViewById<TextView>(R.id.done_percent)
-            val left_percent = findViewById<TextView>(R.id.left_percent)
+                arrPlaceLatAll  = ArrayList(json["prestadores"].get("LATITUD")) as ArrayList<String>
+                arrPlaceLonAll  = ArrayList(json["prestadores"].get("LONGITUD")) as ArrayList<String>
+                arrRntsAll      = ArrayList(json["prestadores"].get("rnt")) as ArrayList<String>
+                arrAddresAll    = ArrayList(json["prestadores"].get("direccion")) as ArrayList<String>
+                arrCityAll      = ArrayList(json["prestadores"].get("ciudad")) as ArrayList<String>
+                arrStateAll     = ArrayList(json["prestadores"].get("departamento")) as ArrayList<String>
+                arrStatusAll    = ArrayList(json["prestadores"].get("estado")) as ArrayList<String>
+                arrIdsAll       = ArrayList(json["prestadores"].get("id")) as ArrayList<Int>
+                arrImgAll       = ArrayList(json["prestadores"].get("foto")) as ArrayList<String>
+                arrUpdateAll    = ArrayList(json["prestadores"].get("actualizado")) as ArrayList<String>
+                arrCatAll       = ArrayList(json["prestadores"].get("categoria")) as ArrayList<String>
+                arrSubCatAll    = ArrayList(json["prestadores"].get("subcategoria")) as ArrayList<String>
+                arrNewsAll      = ArrayList(json["prestadores"].get("novedad")) as ArrayList<String>
 
-            left_percent.text = formsLeft.toString() + "%"
-            done_percent.text = formsDone.toString() + "%"
 
 
-            arrPlaceLat = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LATITUD").value as ArrayList<String>
-            arrPlaceLon = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LONGITUD").value as ArrayList<String>
+                numDone += json["prestadores"].get("actualizado").filter { s -> s == "1" }.size
+                numTotal += json["prestadores"].get("actualizado").toList().size
+                //numTotal += json["prestadores"].get("actualizado").filter { s -> s == "0" }.size
 
 
-            //array to search by names
-            val _temparr = json["prestadores"]["nombre"]
-            arrNamePlaces = _temparr.toList() as ArrayList<String>
-            arrNamesAll = arrNamePlaces
+
+
+
+                arrPlaceLat = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LATITUD").value as ArrayList<String>
+                arrPlaceLon = ((json[numBlock] as JsonObject).map["prestadores"] as JsonArray<*>).get("LONGITUD").value as ArrayList<String>
+
+
+                //array to search by names
+                val _temparr = json["prestadores"]["nombre"]
+                arrNamePlaces = ArrayList(_temparr) as ArrayList<String>
+                arrNamesAll = arrNamePlaces
+            }
         }
+
+        if(AppPreferences.spJsonSaved!="")
+        {
+
+
+            val totalString = AppPreferences.spJsonSaved.split("|") as ArrayList<String>
+            val totalToSave = totalString.size -1
+
+            val jsonString = StringBuilder(totalString.toString())
+
+            val parser = Parser()
+            val json = parser.parse(jsonString) as JsonArray<*>
+
+            // plus to Sinc forms
+            numDone += totalToSave
+            numTotal += json["idanterior"].filter { s -> s == "" }.size
+            numLeft += json["idanterior"].filter { s -> s == "" }.size
+        }
+
+        //plus no place PST
+        numLeft += numNoPlace
+
+        if( numTotal > 0)
+        {
+            formsDone = ((numDone/numTotal.toDouble()) * 100)
+            formsLeft = (formsDone - 100) *-1
+
+            if(formsLeft == -0.00)
+                formsLeft = 0.00
+        }
+
+        //show percent
+        val done_percent = findViewById<TextView>(R.id.done_percent)
+        val left_percent = findViewById<TextView>(R.id.left_percent)
+
+        left_percent.text = "%.2f".format(formsLeft) + "%"
+        done_percent.text = "%.2f".format(formsDone) + "%"
 
         //map
         val mapFragment = findViewById<MapView>(R.id.map)
@@ -659,11 +705,17 @@ open class MapsActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun openLogout()
     {
+
         AppPreferences.spData = ""
         AppPreferences.spDataLogin = ""
         AppPreferences.isLog = false
         AppPreferences.spJsonSaved = ""
         AppPreferences.spPlaceVisited = ""
+        AppPreferences.spSptNoPlace = ""
+
+        val settings = this.getSharedPreferences("MuestraMaestra", Context.MODE_PRIVATE)
+        settings.edit().clear().commit()
+
 
         //goto log
         val i = Intent(this, LoginActivity::class.java)

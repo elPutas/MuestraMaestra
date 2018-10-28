@@ -137,6 +137,7 @@
                 android:layout_height="20dp" />
 
             <ImageView
+                android:visibility="invisible"
                 android:padding="3dp"
                 android:layout_marginRight="@dimen/padding_btn"
                 android:background="@drawable/bg_circle_white"
@@ -396,7 +397,7 @@
                 android:padding="5dp"
                 android:layout_gravity="right"
                 android:textSize="7sp"
-                android:text="v.1.0.5"
+                android:text="v.2.0.3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </FrameLayout>

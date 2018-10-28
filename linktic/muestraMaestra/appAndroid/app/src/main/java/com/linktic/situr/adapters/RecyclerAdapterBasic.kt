@@ -69,23 +69,24 @@ class RecyclerAdapterBasic(
         holder._citySelected    = _cities.get(position)
         holder._stateSelected   = _states.get(position)
         holder._statusSelected  = _status.get(position)
-
-        holder.name_txt?.text = holder._nameSelected
+        holder._updateSelected  = "0"
+        holder.name_txt?.text   = holder._nameSelected
 
 
         var _visited = false
         for (j in 0 until BaseActivity.visited_places.size)
         {
-            if(idNum.toString()== BaseActivity.visited_places[j])
+            if(idNum.toString()== BaseActivity.visited_places[j].replace(" ", ""))
                 _visited = true
         }
 
+        holder.icon_place?.setImageResource(R.drawable.ic_place_red)
+
         if(_visited)
+        {
             holder.icon_place?.setImageResource(R.drawable.ic_place_blue)
-        else
-            holder.icon_place?.setImageResource(R.drawable.ic_place_red)
-
-
+            holder._updateSelected = "1"
+        }
 
     }
 
@@ -187,6 +188,7 @@ class RecyclerAdapterBasic(
         var _citySelected   :String = ""
         var _stateSelected  :String = ""
         var _statusSelected :String = ""
+        var _updateSelected :String = ""
 
         init {
             v.setOnClickListener(this)
@@ -195,7 +197,7 @@ class RecyclerAdapterBasic(
 
         override fun onClick(_view: View?)
         {
-            BaseActivity.updateSelected     = "0"
+            BaseActivity.updateSelected     = _updateSelected
             BaseActivity.nameSelected       = _nameSelected
             BaseActivity.rntSelected        = _rntSelected
             BaseActivity.idSelected         = _idSelected

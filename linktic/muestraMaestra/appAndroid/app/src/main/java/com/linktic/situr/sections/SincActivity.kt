@@ -225,10 +225,41 @@ class SincActivity : BaseActivity()
             if (data != null)
             {
                 val contentURI = data!!.data
+
+                val wallpaperDirectory = File(
+                        (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+                // have the object build the directory structure, if needed.
+
+                if (!wallpaperDirectory.exists())
+                {
+
+                    wallpaperDirectory.mkdirs()
+                }
+
                 try
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    saveImage(bitmap)
+                    //saveImage(bitmap)
+
+                    val bytes = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+
+                    val _f = File((data!!.data).toString())
+                    val imgToSave = _f.name + ".jpg"
+
+                    val f = File(wallpaperDirectory, imgToSave)
+
+                    f.createNewFile()
+                    val fo = FileOutputStream(f)
+                    fo.write(bytes.toByteArray())
+                    MediaScannerConnection.scanFile(this,
+                            arrayOf(f.getPath()),
+                            arrayOf("image/jpeg"), null)
+                    fo.close()
+
+
+
+                    savePhoto(f, imgToSave)
 
 
 
@@ -248,10 +279,10 @@ class SincActivity : BaseActivity()
 
     private fun savePhoto(_photo:File, _name:String)
     {
-        val MEDIA_TYPE_PNG = MediaType.parse("image/png");
+        val MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
 
         val req =  MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("userid", idUser)
-                .addFormDataPart("file",_name+".png", RequestBody.create(MEDIA_TYPE_PNG, _photo)).build();
+                .addFormDataPart("file",_name, RequestBody.create(MEDIA_TYPE_PNG, _photo)).build();
 
 
         val request = Request.Builder()
