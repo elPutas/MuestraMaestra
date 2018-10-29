@@ -397,7 +397,7 @@
                 android:padding="5dp"
                 android:layout_gravity="right"
                 android:textSize="7sp"
-                android:text="v.2.0.3"
+                android:text="v.2.0.4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </FrameLayout>

@@ -1,5 +1,7 @@
 package com.linktic.situr.sections
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
@@ -25,12 +27,13 @@ import kotlinx.android.synthetic.main.activity_form.*
 
 import kotlinx.android.synthetic.main.activity_sinc.*
 import okhttp3.*
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.ParcelFileDescriptor
+import java.io.*
+
 
 class SincActivity : BaseActivity()
 {
@@ -230,36 +233,19 @@ class SincActivity : BaseActivity()
                         (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
                 // have the object build the directory structure, if needed.
 
-                if (!wallpaperDirectory.exists())
-                {
-
-                    wallpaperDirectory.mkdirs()
-                }
 
                 try
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
                     //saveImage(bitmap)
 
-                    val bytes = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
 
-                    val _f = File((data!!.data).toString())
-                    val imgToSave = _f.name + ".jpg"
-
-                    val f = File(wallpaperDirectory, imgToSave)
-
-                    f.createNewFile()
-                    val fo = FileOutputStream(f)
-                    fo.write(bytes.toByteArray())
-                    MediaScannerConnection.scanFile(this,
-                            arrayOf(f.getPath()),
-                            arrayOf("image/jpeg"), null)
-                    fo.close()
+                    val _f = File(data!!.data.toString())
+                    val imgToSave = _f.name
+                    val f = File(bitmapToFile(bitmap, imgToSave).toString())
 
 
-
-                    savePhoto(f, imgToSave)
+                    savePhoto(f, imgToSave + ".jpg")
 
 
 
@@ -276,6 +262,28 @@ class SincActivity : BaseActivity()
 
     }
 
+    // Method to save an bitmap to a file
+    private fun bitmapToFile(bitmap:Bitmap, _name:String): Uri {
+        // Get the context wrapper
+        val wrapper = ContextWrapper(applicationContext)
+
+        // Initialize a new file instance to save bitmap object
+        var file = wrapper.getDir("Images",Context.MODE_PRIVATE)
+        file = File(file,"${_name}.jpg")
+
+        try{
+            // Compress the bitmap and save in jpg format
+            val stream:OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+            stream.flush()
+            stream.close()
+        }catch (e:IOException){
+            e.printStackTrace()
+        }
+
+        // Return the saved bitmap uri
+        return Uri.parse(file.absolutePath)
+    }
 
     private fun savePhoto(_photo:File, _name:String)
     {

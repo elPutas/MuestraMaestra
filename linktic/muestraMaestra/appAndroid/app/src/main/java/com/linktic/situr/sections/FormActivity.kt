@@ -349,7 +349,7 @@ class FormActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             if(addressAcept)
             {
 
-                if(posCatToSend != "" && posCatToSend != "2")
+                if(posCatToSend != "" && posCatToSend != "0")
                 {
 
                     if (isNew)
