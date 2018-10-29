@@ -3,6 +3,7 @@ package com.linktic.situr.sections
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.os.Bundle
@@ -240,12 +241,32 @@ class SincActivity : BaseActivity()
                     //saveImage(bitmap)
 
 
-                    val _f = File(data!!.data.toString())
-                    val imgToSave = _f.name
-                    val f = File(bitmapToFile(bitmap, imgToSave).toString())
+                    val uri:Uri = Uri.parse(contentURI.toString())
+                    var fileName = ""
+                    if (uri.getScheme().equals("file")) {
+                        fileName = uri.getLastPathSegment()
+                    } else {
+                        var cursor: Cursor? = null
+                        try {
+                            cursor = contentResolver.query(uri, arrayOf(MediaStore.Images.ImageColumns.DISPLAY_NAME), null, null, null)
+
+                            if (cursor != null && cursor!!.moveToFirst()) {
+                                fileName = cursor!!.getString(cursor!!.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME))
+                                Log.d(BaseActivity.TAG, "name is $fileName")
+                            }
+                        } finally {
+
+                            if (cursor != null) {
+                                cursor!!.close()
+                            }
+                        }
+                    }
 
 
-                    savePhoto(f, imgToSave + ".jpg")
+                    val f = File(bitmapToFile(bitmap, fileName).toString())
+
+
+                    savePhoto(f, fileName)
 
 
 
